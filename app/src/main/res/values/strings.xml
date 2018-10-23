@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Green Food Challenge</string>
+
+    <!--Planner Quiz Activity-->
+    <string name="plannerTitle">Reducing Consumption</string>
+    <string name="plannerQuestion">Select a plan that you prefer</string>
+    <string name="meatLoverDescription">Changing diet to eat less high CO2 Food</string>
+    <string name="lowMeatDescription">Reducing amount of food consumed</string>
+    <string name="plantBasedDescription">Eating only plant-based protein (vegetarian)</string>
+
+
 </resources>
