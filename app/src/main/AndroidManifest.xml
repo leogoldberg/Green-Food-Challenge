@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PlannerQuiz" />
-        <activity android:name=".activities.MeatEater"></activity>
+        <activity android:name=".activities.MeatEater" />
+        <activity android:name=".activities.LowMeat"></activity>
     </application>
 
 </manifest>

@@ -8,5 +8,18 @@
     <string name="lowMeatDescription">Reducing amount of food consumed</string>
     <string name="plantBasedDescription">Eating only plant-based protein (vegetarian)</string>
 
+    <!--Meat Eater Activity-->
+    <string name="meatTitle">Meat-Eater Plan</string>
+    <string name="meatQuestion">Select a low CO2 protein that you prefer</string>
+    <string name="Pork">Pork (Pulled Pork, Roasted Pork,...)</string>
+    <string name="chicken">Chicken (Stir Fry, Fried, ...)</string>
+    <string name="Fish">Fish (Sushi, Fish and Chips,...)</string>
+    <string name="Egg">Egg (Quiche, Hardboiled, Fried,...)</string>
+    <string name="Bean">Beans (Falafel, Hummus, Tofu,...) </string>
+
+    <!--Low Meat Activity-->
+    <string name="lowMeatTitle">Low Meat Plan</string>
+    <string name="lowMeatQuestion">What is the amount of protein consumed you wan to decrease per meal?</string>
+
 
 </resources>

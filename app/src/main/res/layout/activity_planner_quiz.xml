@@ -45,8 +45,9 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
+                android:cropToPadding="false"
                 android:scaleType="fitXY"
-                android:src="@drawable/meatlover" />
+                android:src="@drawable/meateater" />
 
             <TextView
                 android:layout_width="150dp"

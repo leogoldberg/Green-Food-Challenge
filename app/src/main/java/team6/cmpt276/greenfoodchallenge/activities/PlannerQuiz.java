@@ -17,7 +17,6 @@ public class PlannerQuiz extends AppCompatActivity {
 
         // Set up Meat Lover Option
         LinearLayout meatLover = (LinearLayout)findViewById(R.id.meatLover);
-
         meatLover.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
@@ -27,9 +26,22 @@ public class PlannerQuiz extends AppCompatActivity {
 
         // Set up Low Meat Option
         LinearLayout lowMeat = (LinearLayout) findViewById(R.id.lowMeat);
+        lowMeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PlannerQuiz.this, LowMeat.class));
+            }
+        });
 
+
+        // Set up Plant Based Option
         LinearLayout plantBased = (LinearLayout)findViewById(R.id.plantBased);
-
+        plantBased.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PlannerQuiz.this, MeatEater.class));
+            }
+        });
 
 
 
