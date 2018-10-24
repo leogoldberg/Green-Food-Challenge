@@ -72,14 +72,14 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/fish" />
+                android:src="@drawable/pork" />
 
             <TextView
                 android:id="@+id/text2"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="@string/Fish"/>
+                android:text="@string/pork"/>
 
         </LinearLayout>
 
@@ -100,14 +100,14 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/egg"/>
+            android:src="@drawable/bean"/>
 
         <TextView
             android:id="@+id/text3"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/Egg"/>
+            android:text="@string/bean"/>
 
     </LinearLayout>
 </LinearLayout>
