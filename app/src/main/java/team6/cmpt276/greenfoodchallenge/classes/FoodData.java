@@ -3,17 +3,18 @@ package team6.cmpt276.greenfoodchallenge.classes;
 public class FoodData {
     private int frequency;
     private double co2PerGrams;
-    private boolean isProtein;
+    private double gramsPerMeal;
 
-    public FoodData(int frequency, double co2PerGrams) {
+    public FoodData(int frequency, double co2PerGrams, double gramsPerMeal) {
         this.frequency = frequency;
         this.co2PerGrams = co2PerGrams;
+        this.gramsPerMeal=gramsPerMeal;
     }
 
-    public FoodData(int frequency, double co2PerGrams, int gramsPerMeal, boolean isProtein) { //constructor for non protein sources
-        this.frequency = frequency;
+    public FoodData(double co2PerGrams, double gramsPerMeal) { //constructor for non protein sources
         this.co2PerGrams = co2PerGrams;
-        this.isProtein=isProtein;
+        this.gramsPerMeal=gramsPerMeal;
+
     }
 
     public double getCo2PerGrams() {

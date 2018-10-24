@@ -46,6 +46,13 @@ public class UserData {
         return frequency;
     }
 
+    public void setFoodFrequency(String foodName, int frequency){
+        int index=foodNames.indexOf(foodName);
+        FoodData temp= userFoodData.get(index); //question: is this temp variable necessary? can i modify the actual element?
+        temp.setFrequency(frequency);
+        userFoodData.set(index, temp);
+    }
+
     public boolean foodExists(String foodName){ //checks if a food item is in the user data object
         return !(foodNames.indexOf(foodName)==-1);
     }
@@ -59,32 +66,28 @@ public class UserData {
     public void add(String foodName, FoodData foodObject) {
         userFoodData.add(foodObject);
         foodNames.add(foodName);
-
     }
 
     //get,set, constructor
+
+    public UserData(int proteinPerMeal, int vegPerMeal){  //hardcoded constructor as requested
+        this.userFoodData=new ArrayList<>();
+        this.proteinPerMeal=proteinPerMeal;
+        this.vegPerMeal=vegPerMeal;
+        add("beef", new FoodData(27, proteinPerMeal));
+        add("pork", new FoodData(12.1, proteinPerMeal));
+        add("chicken", new FoodData(6.9, proteinPerMeal));
+        add("fish", new FoodData(6.1, proteinPerMeal));
+        add("eggs",  new FoodData(4.8, proteinPerMeal));
+        add("beans", new FoodData(2, proteinPerMeal));
+        add("vegetables", new FoodData(2, vegPerMeal));
+    }
 
     public UserData(List<FoodData> userFoodData, List<String> foodNames, int proteinPerMeal, int vegPerMeal) {
         this.userFoodData = userFoodData;
         this.foodNames = foodNames;
         this.proteinPerMeal=proteinPerMeal;
         this.vegPerMeal=vegPerMeal;
-    }
-
-    public UserData(String name1, FoodData food1, String name2, FoodData food2, String name3, FoodData food3,
-                    String name4, FoodData food4, String name5, FoodData food5, String name6, FoodData food6,
-                    String name7, FoodData food7, int proteinPerMeal, int vegPerMeal){
-
-        this.vegPerMeal=vegPerMeal;
-        this.proteinPerMeal=proteinPerMeal;
-        add(name1, food1);
-        add(name2, food2);
-        add(name3, food3);
-        add(name4, food4);
-        add(name5, food5);
-        add(name6, food6);
-        add(name7, food7);
-
     }
 
     public FoodData getFoodObject(String foodName) {
