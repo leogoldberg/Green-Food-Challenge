@@ -71,6 +71,21 @@ public class UserData {
         this.vegPerMeal=vegPerMeal;
     }
 
+    public UserData(String name1, FoodData food1, String name2, FoodData food2, String name3, FoodData food3,
+                    String name4, FoodData food4, String name5, FoodData food5, String name6, FoodData food6,
+                    String name7, FoodData food7, int proteinPerMeal, int vegPerMeal){
+
+        this.vegPerMeal=vegPerMeal;
+        this.proteinPerMeal=proteinPerMeal;
+        add(name1, food1);
+        add(name2, food2);
+        add(name3, food3);
+        add(name4, food4);
+        add(name5, food5);
+        add(name6, food6);
+        add(name7, food7);
+
+    }
 
     public FoodData getFoodObject(String foodName) {
         int index=foodNames.indexOf(foodName);
