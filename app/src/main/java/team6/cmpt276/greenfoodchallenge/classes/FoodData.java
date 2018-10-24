@@ -10,6 +10,12 @@ public class FoodData {
         this.co2PerGrams = co2PerGrams;
     }
 
+    public FoodData(int frequency, double co2PerGrams, int gramsPerMeal) { //constructor for non protein sources
+        this.frequency = frequency;
+        this.co2PerGrams = co2PerGrams;
+        this.gramsPerMeal=gramsPerMeal;
+    }
+
     public double getCo2PerGrams() {
         return co2PerGrams;
     }
@@ -26,10 +32,11 @@ public class FoodData {
         this.frequency = frequency;
     }
 
-    public double getco2(){ //returns weekly co2e due to this food item
+    public double getco2(int gramsPerMeal){ //returns weekly co2e due to this food item
         double co2permeal=gramsPerMeal*co2PerGrams;
         double co2=frequency*co2permeal;
         return co2;
     }
+
 
 }
