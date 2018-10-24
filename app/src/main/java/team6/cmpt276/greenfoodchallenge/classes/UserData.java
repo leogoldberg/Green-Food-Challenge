@@ -6,8 +6,6 @@ import java.util.*;
 public class UserData {
     private List<FoodData> userFoodData;
     private List<String> foodNames;
-    private int proteinPerMeal;
-    private int vegPerMeal;
 
     //important methods
     public double getTotalco2(){ //calculates total weekly co2
@@ -15,14 +13,19 @@ public class UserData {
         double total=0;
         for(int i=0; i<userFoodData.size(); i++){
             food=userFoodData.get(i);
-            if(food.isProtein()) {
-                total += food.getco2(proteinPerMeal);
-            }
-            else{
-                total += food.getco2(vegPerMeal);
-            }
+            total += food.getco2();
         }
         return total;
+    }
+
+    public double getFoodco2(String foodName){ //get co2 due to that food item
+        int index=foodNames.indexOf(foodName);
+        FoodData food=userFoodData.get(index);
+        return food.getco2();
+    }
+
+    public double getTotalco2perYear(){
+        return getTotalco2()*52;
     }
 
     public double getProportion(String foodName){ //calculates proportion of weekly co2 due to foodName
@@ -30,12 +33,7 @@ public class UserData {
         double totalco2= getTotalco2();
         double co2;
         FoodData food=userFoodData.get(index);
-        if(food.isProtein()) {
-            co2= food.getco2(proteinPerMeal);
-        }
-        else{
-            co2= food.getco2(vegPerMeal);
-        }
+        co2= food.getco2();
         double proportion=co2/totalco2;
         return proportion;
     }
@@ -53,15 +51,6 @@ public class UserData {
         userFoodData.set(index, temp);
     }
 
-    public boolean foodExists(String foodName){ //checks if a food item is in the user data object
-        return !(foodNames.indexOf(foodName)==-1);
-    }
-
-    public void printFoods(){ //just for programmer to check what food items are present
-        for(int i=0; i<foodNames.size(); i++){
-            System.out.println(foodNames.get(i));
-        }
-    }
     //adders
     public void add(String foodName, FoodData foodObject) {
         userFoodData.add(foodObject);
@@ -72,8 +61,6 @@ public class UserData {
 
     public UserData(int proteinPerMeal, int vegPerMeal){  //hardcoded constructor as requested
         this.userFoodData=new ArrayList<>();
-        this.proteinPerMeal=proteinPerMeal;
-        this.vegPerMeal=vegPerMeal;
         add("beef", new FoodData(27, proteinPerMeal));
         add("pork", new FoodData(12.1, proteinPerMeal));
         add("chicken", new FoodData(6.9, proteinPerMeal));
@@ -86,8 +73,6 @@ public class UserData {
     public UserData(List<FoodData> userFoodData, List<String> foodNames, int proteinPerMeal, int vegPerMeal) {
         this.userFoodData = userFoodData;
         this.foodNames = foodNames;
-        this.proteinPerMeal=proteinPerMeal;
-        this.vegPerMeal=vegPerMeal;
     }
 
     public FoodData getFoodObject(String foodName) {
@@ -107,5 +92,22 @@ public class UserData {
         this.foodNames = foodNames;
     }
 
+    public void setProteinPerMeal(double proteinPerMeal) {
+        FoodData food;
+        for(int i=0; i<userFoodData.size(); i++){
+            if(foodNames.get(i)!="vegetables"){
+                food=userFoodData.get(i);
+                food.setGramsPerMeal(proteinPerMeal);
+                userFoodData.set(i, food);
+            }
+        }
+    }
+
+    public void setVegPerMeal(double vegPerMeal){
+        FoodData food;
+        int index=foodNames.indexOf("vegetables");
+        food=userFoodData.get(index);
+        food.setGramsPerMeal(vegPerMeal);
+    }
 
 }
