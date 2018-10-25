@@ -16,13 +16,7 @@ public class PlannerQuiz extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final UserData currentConsumption = new UserData(250,250);
-        currentConsumption.setFoodFrequency("Beef",0);
-        currentConsumption.setFoodFrequency("Pork",0);
-        currentConsumption.setFoodFrequency("Chicken",5);
-        currentConsumption.setFoodFrequency("Fish",3);
-        currentConsumption.setFoodFrequency("Eggs",0);
-        currentConsumption.setFoodFrequency("Beans",5);
+        final UserData currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
 
         final PlanPicker planPicker = new PlanPicker(currentConsumption);
 

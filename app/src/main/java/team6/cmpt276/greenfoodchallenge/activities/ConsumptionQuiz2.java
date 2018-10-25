@@ -7,57 +7,55 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
 
 import java.util.HashMap;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ConsumptionQuiz2 extends AppCompatActivity {
 
-    private static final int NUM_OF_ITEMS = 7;
-    private int protein_per_meal;
+    UserData currentConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumption_quiz2);
 
+        currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Calculate Consumption");
 
-        Intent intent = getIntent();
-        protein_per_meal = intent.getIntExtra("protein_per_meal", -1);
 
-        Button startButton = findViewById(R.id.nextButton2);
+        // Set up SeekBars
+        for(int count = 0; count < 7; count++) {
+            SeekBar bar = findViewById(R.id.seekBar1 + count);
+            final TextView value = findViewById(R.id.seekBarValue1 + count);
+            bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    value.setText(String.valueOf(progress)+" days");
+                }
+                public void onStartTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) { }
+            });
+
+            currentConsumption.setFoodFrequency(returnKey(count),bar.getProgress());
+        }
+
+
+        Button startButton = findViewById(R.id.submitQuiz);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                passIntents();
+                Intent  intent = new Intent(ConsumptionQuiz2.this, ResultActivity.class);
+                intent.putExtra("currentConsumption",currentConsumption);
+                startActivity(intent);
             }
         });
-
-    }
-
-    private void passIntents() {
-        HashMap<String, Integer> times_per_week = new HashMap<String, Integer>();
-        int total_amount_per_week = 0;
-
-        for(int count = 0; count < NUM_OF_ITEMS; count++) {
-            SeekBar bar = findViewById(R.id.seekBar1 + count);
-            String key = returnKey(count);
-            int input = bar.getProgress();
-
-            times_per_week.put(key, input);
-            total_amount_per_week += input;
-        }
-
-        Intent intent = new Intent(ConsumptionQuiz2.this, ResultActivity.class);
-        intent.putExtra("times_per_week", times_per_week);
-        intent.putExtra("protein_per_meal", protein_per_meal);
-        intent.putExtra("total_amount_per_week", total_amount_per_week);
-
-        startActivity(intent);
     }
 
     private String returnKey(int count) {
@@ -65,10 +63,10 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
 
         switch(count) {
             case 0 :
-                result = "Pork";
+                result = "Beef";
                 break;
             case 1 :
-                result = "Beef";
+                result = "Pork";
                 break;
             case 2 :
                 result = "Chicken";

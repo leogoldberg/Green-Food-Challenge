@@ -19,7 +19,7 @@ public class AboutActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("About");
+        getSupportActionBar().setTitle("About Us");
 
         learnMore = findViewById(R.id.learn_more);
         learnMore.setOnClickListener(new View.OnClickListener() {

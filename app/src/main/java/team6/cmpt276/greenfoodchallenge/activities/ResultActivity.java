@@ -30,36 +30,38 @@ import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity {
 
+    UserData currentConsumption;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Consumption Result");
 
-        // gets the intent variables
-        Intent intent = getIntent();
-        int protein_per_meal = intent.getIntExtra("protein_per_meal", -1);
-        int total_amount_per_week = intent.getIntExtra("total_amount_per_week", -1);
-        HashMap<String, Integer> times_per_week = (HashMap<String, Integer>)intent.getSerializableExtra("times_per_week");
+//        // gets the intent variables
+//        Intent intent = getIntent();
+//        int protein_per_meal = intent.getIntExtra("protein_per_meal", -1);
+//        int total_amount_per_week = intent.getIntExtra("total_amount_per_week", -1);
+//        HashMap<String, Integer> times_per_week = (HashMap<String, Integer>)intent.getSerializableExtra("times_per_week");
+        currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
 
-        // sets up the pie charts
-        PieChart chart = initializePieChart(R.id.chart);
+//        // sets up the pie charts
+//        PieChart chart = initializePieChart(R.id.chart);
+//
+//        List<PieEntry> entries = addEntries(times_per_week, total_amount_per_week);
+//        PieDataSet dataSet = setPieDataSet(entries);
+//
+//        PieData pieData = setPieData(dataSet);
+//
+//        chart.setData(pieData);
+//        chart.invalidate();
 
-        List<PieEntry> entries = addEntries(times_per_week, total_amount_per_week);
-        PieDataSet dataSet = setPieDataSet(entries);
 
-        PieData pieData = setPieData(dataSet);
-
-        chart.setData(pieData);
-        chart.invalidate();
-
-        // set the frequency
-        UserData userData = new UserData(protein_per_meal,0);
-        userData = setProteinFrequency(userData, times_per_week);
 
         // set total text
-        double total = userData.getTotalco2();
+        double total = currentConsumption.getTotalco2();
         TextView tv1 = findViewById(R.id.consumed_co2e);
         tv1.setText(Double.toString(total) + " CO2e");
 
@@ -68,6 +70,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ResultActivity.this, PlannerQuiz.class);
+                intent.putExtra("currentConsumption", currentConsumption);
                 startActivity(intent);
             }
         });

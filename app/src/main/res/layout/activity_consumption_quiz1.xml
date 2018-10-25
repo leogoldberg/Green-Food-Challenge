@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="team6.cmpt276.greenfoodchallenge.activities.ConsumptionQuiz1">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activities.ConsumptionQuiz1">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Question 1:"
+        android:textAlignment="center"
+        android:textColor="@color/headerText"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_gravity="center"
+        android:text="How much protein do you eat in a meal?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <SeekBar
+            android:id="@+id/proteinSeekerBar"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:progressTint="@color/headerText"
+            android:thumbTint="@color/headerText"
+            android:max="500"
+            android:paddingTop="20dp"
+            android:progress="250"  />
+
+        <TextView
+            android:id="@+id/proteinGramsCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="250g"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,60 +62,54 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView23"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Question 1:"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
-            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView24"
             android:layout_width="wrap_content"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="25dp"
-            android:text="How much protein do you eat in a meal?"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+            android:text="How much vegetable do you eat in a meal?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:textAlignment="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <SeekBar
-                android:id="@+id/seekBar"
-                android:layout_width="296dp"
+                android:id="@+id/vegSeekerBar"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_weight="1" />
+                android:layout_marginLeft="50dp"
+                android:progressTint="@color/headerText"
+                android:thumbTint="@color/headerText"
+                android:max="500"
+                android:paddingTop="10dp"
+                android:progress="250"  />
 
             <TextView
-                android:id="@+id/gramsCounter"
-                android:layout_width="77dp"
+                android:id="@+id/vegGramsCounter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="300g"
+                android:text="250g"
                 android:textColor="@android:color/black" />
         </LinearLayout>
 
         <Button
             android:id="@+id/nextButton"
-            android:layout_width="102dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:padding="5dp"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/headerText"
             android:text="NEXT"
+            android:textStyle="bold"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

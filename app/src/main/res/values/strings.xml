@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Green Food Challenge</string>
 
+    <!--Home Screen-->
+    <string name="welcome">What is your carbon footprint? Do this quiz to find out how you can help fix climate change.</string>
+
     <!--Planner Quiz Activity-->
     <string name="plannerTitle">Reducing Consumption</string>
     <string name="plannerQuestion">Select a plan that you prefer</string>
