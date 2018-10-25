@@ -1,5 +1,26 @@
 <resources>
     <string name="app_name">Green Food Challenge</string>
+
+    <!--Planner Quiz Activity-->
+    <string name="plannerTitle">Reducing Consumption</string>
+    <string name="plannerQuestion">Select a plan that you prefer</string>
+    <string name="meatLoverDescription">Changing diet to eat less high CO2 Food</string>
+    <string name="lowMeatDescription">Reducing amount of food consumed</string>
+    <string name="plantBasedDescription">Eating only plant-based protein (vegetarian)</string>
+
+    <!--Meat Eater Activity-->
+    <string name="meatTitle">Meat-Eater Plan</string>
+    <string name="meatQuestion">Select a low CO2 protein that you prefer</string>
+    <string name="pork">Pork (Pulled Pork, Roasted Pork,...)</string>
+    <string name="chicken">Chicken (Stir Fry, Fried, ...)</string>
+    <string name="fish">Fish (Sushi, Fish and Chips,...)</string>
+    <string name="egg">Egg (Quiche, Hardboiled, Fried,...)</string>
+    <string name="bean">Beans (Falafel, Hummus, Tofu,...) </string>
+
+    <!--Low Meat Activity-->
+    <string name="lowMeatTitle">Low Meat Plan</string>
+    <string name="lowMeatQuestion">What is the amount of protein consumed you wan to decrease per meal?</string>
+
     <string name="title_home">Food Quiz</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
