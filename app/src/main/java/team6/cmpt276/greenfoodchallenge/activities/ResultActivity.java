@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -89,7 +90,12 @@ public class ResultActivity extends AppCompatActivity {
         chart.setData(pieData);
         chart.invalidate();
 
-        //Log.i("ResultsActivity", "protein_per_meal: " + protein_per_meal);
+        UserData userData = new UserData(protein_per_meal,0);
+        userData = setProteinFrequency(userData, times_per_week);
+
+        double total = userData.getTotalco2();
+
+        Log.i("ResultsActivity", "protein_per_meal: " + protein_per_meal);
 
         /*Consumption myConsumption = new Consumption();
         for(int i = 0; i < NUM_OF_ITEMS; i++){
@@ -113,9 +119,10 @@ public class ResultActivity extends AppCompatActivity {
             Map.Entry pair = (Map.Entry)it.next();
 
             String key = (String) pair.getKey();
-            float value = getPercentage((int) pair.getValue(), total_amount_per_week);
+            int value = (int) pair.getValue();
+            float percentage = getPercentage(value, total_amount_per_week);
 
-            entries.add(new PieEntry(value, key));
+            entries.add(new PieEntry(percentage, key));
             it.remove();
         }
 
@@ -124,5 +131,21 @@ public class ResultActivity extends AppCompatActivity {
 
     public float getPercentage(int count, int total) {
         return ((float) count / total) * 100;
+    }
+
+    public UserData setProteinFrequency(UserData userData, HashMap<String, Integer> times_per_week) {
+        Iterator it = times_per_week.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+
+            String key = (String) pair.getKey();
+            int value = (int) pair.getValue();
+
+            userData.setFoodFrequency(key, value);
+
+            it.remove();
+        }
+
+        return userData;
     }
 }

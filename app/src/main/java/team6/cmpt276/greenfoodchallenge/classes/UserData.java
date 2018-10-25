@@ -60,6 +60,7 @@ public class UserData {
     //get,set, constructor
     public UserData(int proteinPerMeal, int vegPerMeal){  //hardcoded constructor as requested
         this.userFoodData = new ArrayList<>();
+        this.foodNames = new ArrayList<>();
 
         add("Beef", new FoodData(27, proteinPerMeal));
         add("Pork", new FoodData(12.1, proteinPerMeal));
