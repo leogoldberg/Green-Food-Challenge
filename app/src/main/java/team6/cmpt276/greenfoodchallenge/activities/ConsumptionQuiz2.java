@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.SeekBar;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
