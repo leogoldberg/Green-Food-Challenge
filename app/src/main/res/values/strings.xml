@@ -22,7 +22,7 @@
 
     <!--Low Meat Activity-->
     <string name="lowMeatTitle">Low Meat Plan</string>
-    <string name="lowMeatQuestion">What is the amount of protein consumed you wan to decrease per meal?</string>
+    <string name="lowMeatQuestion">What is the amount of protein consumed you want to decrease per meal?</string>
 
     <string name="title_home">Food Quiz</string>
     <string name="title_dashboard">Dashboard</string>
