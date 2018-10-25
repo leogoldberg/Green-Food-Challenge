@@ -50,7 +50,7 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
         });
 
 
-        Button startButton = (Button) findViewById(R.id.nextButton);
+        Button startButton = findViewById(R.id.nextButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

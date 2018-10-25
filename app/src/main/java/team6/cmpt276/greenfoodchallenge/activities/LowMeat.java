@@ -9,10 +9,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class LowMeat extends AppCompatActivity {
@@ -33,13 +30,13 @@ public class LowMeat extends AppCompatActivity {
         currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
         suggestedConsumption = new UserData(currentConsumption);
 
-        double consumptionValue = suggestedConsumption.getProteinPerMeal()*50/100;
+        double consumptionValue = suggestedConsumption.getProteinPerMeal() * 50 / 100;
         TextView consumptionDescription = (TextView) findViewById(R.id.consumptionDescription);
         consumptionDescription.setText(consumptionValue + "g per meal");
 
         // Set up Seeker Bar
         final SeekBar consumption = (SeekBar)findViewById(R.id.consumptionSeekBar);
-        consumption.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+        consumption.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int seekBarValue = 50;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -52,12 +49,9 @@ public class LowMeat extends AppCompatActivity {
                 consumptionDescription.setText(consumptionValue + "g per meal");
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar){
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
-            public void onStopTrackingTouch (SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch (SeekBar seekBar) { }
         });
 
         Button button = findViewById(R.id.submit);
