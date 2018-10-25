@@ -1,11 +1,14 @@
 package team6.cmpt276.greenfoodchallenge.classes;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class UserData {
+public class UserData implements Serializable {
     private List<FoodData> userFoodData;
     private List<String> foodNames;
+    private double proteinPerMeal;
+    private double vegPerMeal;
 
     //important methods
     public double getTotalco2(){ //calculates total weekly co2
@@ -61,6 +64,7 @@ public class UserData {
     public UserData(int proteinPerMeal, int vegPerMeal){  //hardcoded constructor as requested
         this.userFoodData = new ArrayList<>();
         this.foodNames = new ArrayList<>();
+        this.vegPerMeal=vegPerMeal;
 
         add("Beef", new FoodData(27, proteinPerMeal));
         add("Pork", new FoodData(12.1, proteinPerMeal));
@@ -74,6 +78,8 @@ public class UserData {
     public UserData(List<FoodData> userFoodData, List<String> foodNames, int proteinPerMeal, int vegPerMeal) {
         this.userFoodData = userFoodData;
         this.foodNames = foodNames;
+        this.vegPerMeal=vegPerMeal;
+        this.proteinPerMeal=proteinPerMeal;
     }
 
     public FoodData getFoodObject(String foodName) {
@@ -109,6 +115,14 @@ public class UserData {
         int index=foodNames.indexOf("vegetables");
         food=userFoodData.get(index);
         food.setGramsPerMeal(vegPerMeal);
+    }
+
+    public double getProteinPerMeal() {
+        return proteinPerMeal;
+    }
+
+    public double getVegPerMeal() {
+        return vegPerMeal;
     }
 
 }
