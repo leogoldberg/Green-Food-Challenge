@@ -15,7 +15,7 @@ public class UserData implements Serializable {
         this.userFoodData = new ArrayList<>();
         this.foodNames = new ArrayList<>();
         this.proteinPerMeal = proteinPerMeal;
-        this.vegPerMeal=vegPerMeal;
+        this.vegPerMeal = vegPerMeal;
 
         add("Beef", new FoodData(27, proteinPerMeal));
         add("Pork", new FoodData(12.1, proteinPerMeal));
@@ -28,7 +28,6 @@ public class UserData implements Serializable {
 
     //Copy constructor
     public UserData(UserData userData) {
-        //userFoodData = userData.getUserFoodData();
         userFoodData = copyFoodData(userData.userFoodData);
         foodNames = userData.getFoodNames();
         vegPerMeal = userData.getVegPerMeal();
@@ -38,8 +37,8 @@ public class UserData implements Serializable {
     //calculates total weekly co2
     public double getTotalco2(){
         FoodData food;
-        double total=0;
-        for(int i=0; i<userFoodData.size(); i++){
+        double total = 0;
+        for(int i = 0; i < userFoodData.size(); i++){
             food = userFoodData.get(i);
             total += food.getco2();
         }
@@ -48,8 +47,8 @@ public class UserData implements Serializable {
 
     //get co2 due to that food item
     public double getFoodco2(String foodName){
-        int index=foodNames.indexOf(foodName);
-        FoodData food=userFoodData.get(index);
+        int index = foodNames.indexOf(foodName);
+        FoodData food = userFoodData.get(index);
         return food.getco2();
     }
 
@@ -59,23 +58,24 @@ public class UserData implements Serializable {
 
     //calculates proportion of weekly co2 due to foodName
     public double getProportion(String foodName){
-        int index=foodNames.indexOf(foodName);
-        double totalco2= getTotalco2();
-        double co2;
-        FoodData food=userFoodData.get(index);
-        co2= food.getco2();
-        double proportion=co2/totalco2;
+        int index = foodNames.indexOf(foodName);
+        double totalco2 = getTotalco2();
+
+        FoodData food = userFoodData.get(index);
+        double co2 = food.getco2();
+        double proportion = co2 / totalco2;
+
         return proportion;
     }
 
     public int getUserFrequency(String foodName){
-        int index=foodNames.indexOf(foodName);
-        int frequency=userFoodData.get(index).getFrequency();
+        int index = foodNames.indexOf(foodName);
+        int frequency = userFoodData.get(index).getFrequency();
         return frequency;
     }
 
     public void setFoodFrequency(String foodName, int frequency){
-        int index=foodNames.indexOf(foodName);
+        int index = foodNames.indexOf(foodName);
         userFoodData.get(index).setFrequency(frequency);
     }
 
@@ -115,9 +115,8 @@ public class UserData implements Serializable {
     }
 
     public void setVegPerMeal(double vegPerMeal){
-        FoodData food;
-        int index=foodNames.indexOf("Vegetables");
-        food=userFoodData.get(index);
+        int index = foodNames.indexOf("Vegetables");
+        FoodData food = userFoodData.get(index);
         food.setGramsPerMeal(vegPerMeal);
     }
 

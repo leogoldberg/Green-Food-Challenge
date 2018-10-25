@@ -23,8 +23,8 @@ import team6.cmpt276.greenfoodchallenge.classes.FoodData;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ResultActivity2 extends AppCompatActivity {
-    UserData suggestedConsumption;
-    UserData currentConsumption;
+    private UserData suggestedConsumption;
+    private UserData currentConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class ResultActivity2 extends AppCompatActivity {
         chart.setData(pieData);
         chart.invalidate();
 
-        Button redoQuiz = (Button) findViewById(R.id.redoQuiz);
+        Button redoQuiz = findViewById(R.id.redoQuiz);
         redoQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class ResultActivity2 extends AppCompatActivity {
             }
         });
 
-        Button about = (Button) findViewById(R.id.about);
+        Button about =findViewById(R.id.about);
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

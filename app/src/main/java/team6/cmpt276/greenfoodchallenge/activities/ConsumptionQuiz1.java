@@ -13,22 +13,21 @@ import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ConsumptionQuiz1 extends AppCompatActivity {
-    private int protein_per_meal;
-    UserData currentConsumption;
+    private UserData currentConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumption_quiz1);
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Calculate Consumption");
+
         final TextView proteinGramsCounter = findViewById(R.id.proteinGramsCounter);
         final TextView vegGramsCounter = findViewById(R.id.vegGramsCounter);
 
-        final SeekBar proteinBar =  findViewById(R.id.proteinSeekerBar);
+        final SeekBar proteinBar = findViewById(R.id.proteinSeekerBar);
         proteinBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int seekBarValue = 250;
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

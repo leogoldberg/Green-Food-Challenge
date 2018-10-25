@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 
-    UserData currentConsumption;
+    private UserData currentConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
