@@ -10,6 +10,30 @@ public class UserData implements Serializable {
     private double proteinPerMeal;
     private double vegPerMeal;
 
+    //Normal Constructor
+    public UserData(int proteinPerMeal, int vegPerMeal){
+        this.userFoodData = new ArrayList<>();
+        this.foodNames = new ArrayList<>();
+        this.proteinPerMeal = proteinPerMeal;
+        this.vegPerMeal=vegPerMeal;
+
+        add("Beef", new FoodData(27, proteinPerMeal));
+        add("Pork", new FoodData(12.1, proteinPerMeal));
+        add("Chicken", new FoodData(6.9, proteinPerMeal));
+        add("Fish", new FoodData(6.1, proteinPerMeal));
+        add("Eggs",  new FoodData(4.8, proteinPerMeal));
+        add("Beans", new FoodData(2, proteinPerMeal));
+        add("Vegetables", new FoodData(2, vegPerMeal));
+    }
+
+    //Copy constructor
+    public UserData(UserData userData) {
+        userFoodData = userData.getUserFoodData();
+        foodNames = userData.getFoodNames();
+        vegPerMeal = userData.getVegPerMeal();
+        proteinPerMeal = userData.getProteinPerMeal();
+    }
+
     //important methods
     public double getTotalco2(){ //calculates total weekly co2
         FoodData food;
@@ -60,28 +84,6 @@ public class UserData implements Serializable {
         foodNames.add(foodName);
     }
 
-    //get,set, constructor
-    public UserData(int proteinPerMeal, int vegPerMeal){  //hardcoded constructor as requested
-        this.userFoodData = new ArrayList<>();
-        this.foodNames = new ArrayList<>();
-        this.vegPerMeal=vegPerMeal;
-
-        add("Beef", new FoodData(27, proteinPerMeal));
-        add("Pork", new FoodData(12.1, proteinPerMeal));
-        add("Chicken", new FoodData(6.9, proteinPerMeal));
-        add("Fish", new FoodData(6.1, proteinPerMeal));
-        add("Eggs",  new FoodData(4.8, proteinPerMeal));
-        add("Beans", new FoodData(2, proteinPerMeal));
-        add("Vegetables", new FoodData(2, vegPerMeal));
-    }
-
-    public UserData(List<FoodData> userFoodData, List<String> foodNames, int proteinPerMeal, int vegPerMeal) {
-        this.userFoodData = userFoodData;
-        this.foodNames = foodNames;
-        this.vegPerMeal=vegPerMeal;
-        this.proteinPerMeal=proteinPerMeal;
-    }
-
     public FoodData getFoodObject(String foodName) {
         int index = foodNames.indexOf(foodName);
         return userFoodData.get(index);
@@ -94,6 +96,7 @@ public class UserData implements Serializable {
     public List<String> getFoodNames() {
         return foodNames;
     }
+    public List<FoodData> getUserFoodData(){return userFoodData;}
 
     public void setFoodNames(List<String> foodNames) {
         this.foodNames = foodNames;

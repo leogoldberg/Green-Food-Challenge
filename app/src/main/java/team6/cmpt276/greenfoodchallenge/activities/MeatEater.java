@@ -11,71 +11,91 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.ConsumptionClass;
 import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
+import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class MeatEater extends AppCompatActivity {
 
-    PlanPicker planPicker = new PlanPicker();
+    UserData currentConsumption;
+    UserData suggestedConsumption;
+    PlanPicker planPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meat_eater);
 
-        ConsumptionClass currentConsumption = (ConsumptionClass)getIntent().getSerializableExtra("serialize_data");
+        currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
+        suggestedConsumption = new UserData(currentConsumption);
 
-        setupDisplay();
+        planPicker = new PlanPicker(currentConsumption);
+
+        ArrayList<Integer> displayOptionList = planPicker.getResource();
 
         //Set up onClickListener for the option 1
         LinearLayout option1 = (LinearLayout)findViewById(R.id.option1);
 
+        final int option1Value = displayOptionList.get(0);
+        ImageView image1 = (ImageView) findViewById(R.id.image1);
+        image1.setImageResource(displayOptionList.get(1));
+        TextView text1 = (TextView) findViewById(R.id.text1);
+        text1.setText(displayOptionList.get(2));
+
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                planPicker.meatEater(suggestedConsumption,option1Value);
+                Intent intent = new Intent(MeatEater.this, ResultActivity2.class);
+                intent.putExtra("currentConsumption",currentConsumption);
+                intent.putExtra("suggestedConsumption", suggestedConsumption);
+                startActivity(intent);
             }
         });
 
         // Set up onClickListener for the option 2
+        final int option2Value = displayOptionList.get(3);
         LinearLayout option2 = (LinearLayout) findViewById(R.id.option2);
+        ImageView image2 = (ImageView) findViewById(R.id.image2);
+        image2.setImageResource(displayOptionList.get(4));
+        TextView text2 = (TextView) findViewById(R.id.text2);
+        text2.setText(displayOptionList.get(5));
+
         option2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                planPicker.meatEater(suggestedConsumption,option2Value);
+                Intent intent = new Intent(MeatEater.this, ResultActivity2.class);
+                intent.putExtra("currentConsumption",currentConsumption);
+                intent.putExtra("suggestedConsumption", suggestedConsumption);
+                startActivity(intent);
 
             }
         });
 
         //Set up onClickListener for the option 3
         LinearLayout option3 = (LinearLayout)findViewById(R.id.option3);
-        option3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (displayOptionList.size() == 9) {
+            final int option3Value = displayOptionList.get(6);
+            ImageView image3 = (ImageView) findViewById(R.id.image3);
+            image3.setImageResource(displayOptionList.get(7));
+            TextView text3 = (TextView) findViewById(R.id.text3);
+            text3.setText(displayOptionList.get(8));
 
-            }
-        });
+            option3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    planPicker.meatEater(suggestedConsumption,option3Value);
+                    Intent intent = new Intent(MeatEater.this, ResultActivity2.class);
+                    intent.putExtra("currentConsumption",currentConsumption);
+                    intent.putExtra("suggestedConsumption", suggestedConsumption);
+                    startActivity(intent);
+                }
+            });
+        }
+        else {
+            option3.setVisibility(View.INVISIBLE);
+        }
+
     }
 
-    // Set up the Option List according to user info
-    private void setupDisplay() {
-        ArrayList<Integer> displayOptionList = planPicker.getResource();
-
-        ImageView image1 = (ImageView) findViewById(R.id.image1);
-        image1.setImageResource(displayOptionList.get(0));
-
-        TextView text1 = (TextView) findViewById(R.id.text1);
-        text1.setText(displayOptionList.get(1));
-
-        ImageView image2 = (ImageView) findViewById(R.id.image2);
-        image2.setImageResource(displayOptionList.get(2));
-
-        TextView text2 = (TextView) findViewById(R.id.text2);
-        text2.setText(displayOptionList.get(3));
-
-        ImageView image3 = (ImageView) findViewById(R.id.image3);
-        image3.setImageResource(displayOptionList.get(4));
-
-        TextView text3 = (TextView) findViewById(R.id.text3);
-        text3.setText(displayOptionList.get(5));
-    }
 }

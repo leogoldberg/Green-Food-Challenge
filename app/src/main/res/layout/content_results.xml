@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
@@ -19,8 +20,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:text="You Consumed"
-            android:textSize="24sp" />
+            android:text="You consume"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
         <TextView
             android:id="@+id/consumed_co2e"
@@ -29,6 +30,8 @@
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:text="{number of tons}"
+            android:textStyle="bold"
+            android:textColor="@color/headerText"
             android:textSize="24sp" />
 
         <TextView
@@ -38,12 +41,12 @@
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:text="Per Year"
-            android:textSize="24sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="200dp">
         </com.github.mikephil.charting.charts.PieChart>
 
         <TextView
@@ -51,27 +54,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="5dp"
+            android:padding="5dp"
             android:text="The Average footprint for canadian is 15 metric tons"
-            android:textSize="18sp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="5dp"
+            android:padding="5dp"
             android:text="The Average worldwide footprint is 15 metric tons"
-            android:textSize="18sp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="5dp"
+            android:padding="5dp"
             android:text="The worldwide target to combat climate change is 2 metric tons"
-            android:textSize="18sp" />
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/reduceConsumption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:backgroundTint="@color/headerText"
+            android:textColor="@android:color/white"
+            android:text="REDUCE CONSUMPTION"/>
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@
     tools:context=".activities.PlannerQuiz">
 
 
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"

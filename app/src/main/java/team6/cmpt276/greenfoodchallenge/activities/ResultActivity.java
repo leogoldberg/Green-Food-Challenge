@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -34,15 +36,6 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         // gets the intent variables
         Intent intent = getIntent();
@@ -69,7 +62,16 @@ public class ResultActivity extends AppCompatActivity {
         double total = userData.getTotalco2();
         TextView tv1 = findViewById(R.id.consumed_co2e);
         tv1.setText(Double.toString(total) + " CO2e");
-    }
+
+        Button next = (Button) findViewById(R.id.reduceConsumption);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultActivity.this, PlannerQuiz.class);
+                startActivity(intent);
+            }
+        });
+    };
 
     private List<PieEntry> addEntries(HashMap<String, Integer> times_per_week,
                                      int total_amount_per_week) {

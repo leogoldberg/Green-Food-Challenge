@@ -23,6 +23,7 @@ public class FoodData implements Serializable {
     }
 
     public FoodData(double co2PerGrams, double gramsPerMeal) { //constructor for non protein sources
+        this.frequency = 0;
         this.co2PerGrams = co2PerGrams;
         this.gramsPerMeal=gramsPerMeal;
 
