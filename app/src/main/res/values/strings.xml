@@ -21,5 +21,23 @@
     <string name="lowMeatTitle">Low Meat Plan</string>
     <string name="lowMeatQuestion">What is the amount of protein consumed you wan to decrease per meal?</string>
 
-
+    <string name="title_home">Food Quiz</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="max_times_per_week">10</string>
+    <string name="min_times_per_week">0</string>
+    <string name="title_activity_results">ResultsActivity</string>
+    <string name="moreInfo">
+        What is Carbon Footprint?\n\n
+        Carbon footprint is the impact of human activities measured
+        in terms of the area of biologically productive land and water
+        required to produce the goods consumed and to assimilate the
+        carbon wastes generated. Carbon wastes, in other words, Greenhouse gases are
+        measured in CO2e. They directly contribute to climate change.\n\n
+        There are many different CO2e contributors, such as
+        cars, and heating systems in buildings. But did you know, that food is
+        also a source of CO2e? Our GreenFoodChallenge app measures how much CO2e
+        your diet produces and helps discover how much you can save by making
+        dietary adjustments! Find out what you can do to save Earth!
+    </string>
 </resources>
