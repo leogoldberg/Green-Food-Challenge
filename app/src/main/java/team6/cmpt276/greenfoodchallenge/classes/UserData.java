@@ -61,19 +61,18 @@ public class UserData implements Serializable {
     }
 
     //get,set, constructor
-
     public UserData(int proteinPerMeal, int vegPerMeal){  //hardcoded constructor as requested
-        this.userFoodData=new ArrayList<>();
-        this.proteinPerMeal=proteinPerMeal;
+        this.userFoodData = new ArrayList<>();
+        this.foodNames = new ArrayList<>();
         this.vegPerMeal=vegPerMeal;
 
-        add("beef", new FoodData(27, proteinPerMeal));
-        add("pork", new FoodData(12.1, proteinPerMeal));
-        add("chicken", new FoodData(6.9, proteinPerMeal));
-        add("fish", new FoodData(6.1, proteinPerMeal));
-        add("eggs",  new FoodData(4.8, proteinPerMeal));
-        add("beans", new FoodData(2, proteinPerMeal));
-        add("vegetables", new FoodData(2, vegPerMeal));
+        add("Beef", new FoodData(27, proteinPerMeal));
+        add("Pork", new FoodData(12.1, proteinPerMeal));
+        add("Chicken", new FoodData(6.9, proteinPerMeal));
+        add("Fish", new FoodData(6.1, proteinPerMeal));
+        add("Eggs",  new FoodData(4.8, proteinPerMeal));
+        add("Beans", new FoodData(2, proteinPerMeal));
+        add("Vegetables", new FoodData(2, vegPerMeal));
     }
 
     public UserData(List<FoodData> userFoodData, List<String> foodNames, int proteinPerMeal, int vegPerMeal) {
@@ -84,7 +83,7 @@ public class UserData implements Serializable {
     }
 
     public FoodData getFoodObject(String foodName) {
-        int index=foodNames.indexOf(foodName);
+        int index = foodNames.indexOf(foodName);
         return userFoodData.get(index);
     }
 

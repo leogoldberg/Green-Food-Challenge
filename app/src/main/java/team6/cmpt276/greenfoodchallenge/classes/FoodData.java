@@ -1,6 +1,8 @@
 package team6.cmpt276.greenfoodchallenge.classes;
 
-public class FoodData {
+import java.io.Serializable;
+
+public class FoodData implements Serializable {
     private int frequency;
     private double co2PerGrams;
 
