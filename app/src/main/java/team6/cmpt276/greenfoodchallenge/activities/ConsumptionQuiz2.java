@@ -55,9 +55,9 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent = new Intent(ConsumptionQuiz2.this, ResultActivity.class);
-                intent.putExtra("currentConsumption",currentConsumption);
-                startActivity(intent);
+            Intent  intent = new Intent(ConsumptionQuiz2.this, ResultActivity.class);
+            intent.putExtra("currentConsumption",currentConsumption);
+            startActivity(intent);
             }
         });
     }

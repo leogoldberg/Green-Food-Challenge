@@ -19,6 +19,15 @@ public class FoodData implements Serializable {
         this.gramsPerMeal=gramsPerMeal;
     }
 
+    // clone
+    public FoodData clone() {
+        FoodData newObj = new FoodData(this.getFrequency(), this.getCo2PerGrams(),
+                                        this.getGramsPerMeal());
+
+
+        return newObj;
+    }
+
     public double getGramsPerMeal() {
         return gramsPerMeal;
     }

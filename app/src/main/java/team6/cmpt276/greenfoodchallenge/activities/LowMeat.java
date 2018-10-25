@@ -35,8 +35,6 @@ public class LowMeat extends AppCompatActivity {
 
         PlanPicker quiz = new PlanPicker(currentConsumption);
 
-
-
         double consumptionValue = suggestedConsumption.getProteinPerMeal()*50/100;
         TextView consumptionDescription = (TextView) findViewById(R.id.consumptionDescription);
         consumptionDescription.setText(consumptionValue + "g per meal");

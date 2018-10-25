@@ -67,7 +67,7 @@ public class PlanPicker {
     }
 
     // Set all animal-based protein's frequency to 0 and put it to bean's frequency
-    public void plantBased(UserData suggestedConsumption) {
+    public UserData plantBased(UserData suggestedConsumption) {
         int totalProteinConsumption = 0;
         for (int index = 0; index < proteinFrequency.size(); index++) {
             totalProteinConsumption += proteinFrequency.get(index);
@@ -79,16 +79,21 @@ public class PlanPicker {
         suggestedConsumption.setFoodFrequency("Fish", 0);
         suggestedConsumption.setFoodFrequency("Eggs", 0);
 
+        return suggestedConsumption;
+
     }
 
-    public void meatEater(UserData suggestedConsumption, int proteinChoice) {
-        int index = 0;
+    public UserData meatEater(UserData suggestedConsumption, int proteinChoice) {
         int frequencyCount = 0;
-        for(index = 0; index < proteinChoice; index++) {
+
+        for(int index = 0; index < proteinChoice; index++) {
             frequencyCount += proteinFrequency.get(index);
             suggestedConsumption.setFoodFrequency(proteinList.get(index),0);
         }
+
         suggestedConsumption.setFoodFrequency(proteinList.get(proteinChoice),frequencyCount + proteinFrequency.get(proteinChoice));
+
+        return suggestedConsumption;
     }
 
 

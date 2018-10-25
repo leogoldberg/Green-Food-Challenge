@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.FoodData;
 import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
@@ -23,9 +24,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class ResultActivity extends AppCompatActivity {
@@ -40,32 +39,25 @@ public class ResultActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Consumption Result");
 
-//        // gets the intent variables
-//        Intent intent = getIntent();
-//        int protein_per_meal = intent.getIntExtra("protein_per_meal", -1);
-//        int total_amount_per_week = intent.getIntExtra("total_amount_per_week", -1);
-//        HashMap<String, Integer> times_per_week = (HashMap<String, Integer>)intent.getSerializableExtra("times_per_week");
         currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
+        int total_amount_per_week = currentConsumption.getTotalFrequency();
 
-//        // sets up the pie charts
-//        PieChart chart = initializePieChart(R.id.chart);
-//
-//        List<PieEntry> entries = addEntries(times_per_week, total_amount_per_week);
-//        PieDataSet dataSet = setPieDataSet(entries);
-//
-//        PieData pieData = setPieData(dataSet);
-//
-//        chart.setData(pieData);
-//        chart.invalidate();
+        // sets up the pie charts
+        PieChart chart = initializePieChart(R.id.chart);
+        List<PieEntry> entries = addEntries(currentConsumption, total_amount_per_week);
+        PieDataSet dataSet = setPieDataSet(entries);
 
+        PieData pieData = setPieData(dataSet);
 
+        chart.setData(pieData);
+        chart.invalidate();
 
         // set total text
         double total = currentConsumption.getTotalco2perYear();
         TextView tv1 = findViewById(R.id.consumed_co2e);
-        tv1.setText(total + " CO2e " + currentConsumption.getProteinPerMeal());
+        tv1.setText(Math.round(total) + " CO2e ");
 
-        Button next = (Button) findViewById(R.id.reduceConsumption);
+        Button next = findViewById(R.id.reduceConsumption);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,34 +68,30 @@ public class ResultActivity extends AppCompatActivity {
         });
     };
 
-    private List<PieEntry> addEntries(HashMap<String, Integer> times_per_week,
+    private List<PieEntry> addEntries(UserData currentConsumption,
                                      int total_amount_per_week) {
         List<PieEntry> entries = new ArrayList<>();
 
-        for (Map.Entry<String, Integer> entry : times_per_week.entrySet()) {
-            String key = entry.getKey();
-            int value = entry.getValue();
-            float percentage = getPercentage(value, total_amount_per_week);
+        List<String> foodNames = currentConsumption.getFoodNames();
+        List<FoodData> userFoodData = currentConsumption.getUserFoodData();
 
-            entries.add(new PieEntry(percentage, key));
+        for(int i = 0; i < foodNames.size(); i++) {
+            String curFoodName = foodNames.get(i);
+            FoodData curUserData = userFoodData.get(i);
+
+            float percentage = getPercentage(curUserData.getFrequency(), total_amount_per_week);
+
+            if(percentage > 0) {
+                entries.add(new PieEntry(percentage, curFoodName));
+            }
         }
+
 
         return entries;
     }
 
     private float getPercentage(int count, int total) {
         return ((float) count / total) * 100;
-    }
-
-    private UserData setProteinFrequency(UserData userData, HashMap<String, Integer> times_per_week) {
-        for (Map.Entry<String, Integer> entry : times_per_week.entrySet()) {
-            String key = entry.getKey();
-            int value = entry.getValue();
-
-            userData.setFoodFrequency(key, value);
-        }
-
-        return userData;
     }
 
     private PieDataSet setPieDataSet(List<PieEntry> entries) {

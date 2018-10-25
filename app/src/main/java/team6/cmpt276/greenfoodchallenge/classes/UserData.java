@@ -28,7 +28,8 @@ public class UserData implements Serializable {
 
     //Copy constructor
     public UserData(UserData userData) {
-        userFoodData = userData.getUserFoodData();
+        //userFoodData = userData.getUserFoodData();
+        userFoodData = copyFoodData(userData.userFoodData);
         foodNames = userData.getFoodNames();
         vegPerMeal = userData.getVegPerMeal();
         proteinPerMeal = userData.getProteinPerMeal();
@@ -103,17 +104,19 @@ public class UserData implements Serializable {
     }
 
     public void setProteinPerMeal(double proteinPerMeal) {
-        FoodData food;
-        for(int i=0; i<userFoodData.size(); i++){
-            if(foodNames.get(i)!="vegetables"){
-                userFoodData.get(i).setGramsPerMeal(proteinPerMeal);
+        for(int i = 0; i < userFoodData.size(); i++){
+            FoodData food = userFoodData.get(i);
+            String curFoodName = foodNames.get(i);
+
+            if(curFoodName != "Vegetables") {
+                food.setGramsPerMeal(proteinPerMeal);
             }
         }
     }
 
     public void setVegPerMeal(double vegPerMeal){
         FoodData food;
-        int index=foodNames.indexOf("vegetables");
+        int index=foodNames.indexOf("Vegetables");
         food=userFoodData.get(index);
         food.setGramsPerMeal(vegPerMeal);
     }
@@ -124,6 +127,28 @@ public class UserData implements Serializable {
 
     public double getVegPerMeal() {
         return vegPerMeal;
+    }
+
+    public int getTotalFrequency() {
+        int total = 0;
+
+        for(int i = 0; i < this.userFoodData.size(); i++) {
+            FoodData curFoodData = userFoodData.get(i);
+
+            total += curFoodData.getFrequency();
+        }
+
+        return total;
+    }
+
+    public List<FoodData> copyFoodData(List<FoodData> copyUserData) {
+        List<FoodData> returnFoodData = new ArrayList<>();
+
+        for (FoodData item : copyUserData) {
+            returnFoodData.add(item.clone());
+        }
+
+        return returnFoodData;
     }
 
 }
