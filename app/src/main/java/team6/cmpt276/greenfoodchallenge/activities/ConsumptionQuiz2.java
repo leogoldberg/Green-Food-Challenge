@@ -9,15 +9,12 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-
-import java.util.HashMap;
-
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ConsumptionQuiz2 extends AppCompatActivity {
 
-    UserData currentConsumption;
+    private UserData currentConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +26,6 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Calculate Consumption");
-
 
         // Set up SeekBars
         for(int count = 0; count < 7; count++) {
@@ -46,8 +42,6 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
                     currentConsumption.setFoodFrequency(returnKey(finalCount),bar.getProgress());
                 }
             });
-
-
         }
 
 
@@ -55,9 +49,9 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent = new Intent(ConsumptionQuiz2.this, ResultActivity.class);
-                intent.putExtra("currentConsumption",currentConsumption);
-                startActivity(intent);
+            Intent  intent = new Intent(ConsumptionQuiz2.this, ResultActivity.class);
+            intent.putExtra("currentConsumption",currentConsumption);
+            startActivity(intent);
             }
         });
     }

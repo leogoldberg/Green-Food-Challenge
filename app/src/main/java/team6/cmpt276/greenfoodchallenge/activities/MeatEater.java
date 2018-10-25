@@ -17,16 +17,16 @@ import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class MeatEater extends AppCompatActivity {
 
-    UserData currentConsumption;
-    UserData suggestedConsumption;
-    PlanPicker planPicker;
+    private UserData currentConsumption;
+    private UserData suggestedConsumption;
+    private PlanPicker planPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meat_eater);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Plan Picker");
 
@@ -38,12 +38,12 @@ public class MeatEater extends AppCompatActivity {
         ArrayList<Integer> displayOptionList = planPicker.getResource();
 
         //Set up onClickListener for the option 1
-        LinearLayout option1 = (LinearLayout)findViewById(R.id.option1);
+        LinearLayout option1 = findViewById(R.id.option1);
 
         final int option1Value = displayOptionList.get(0);
-        ImageView image1 = (ImageView) findViewById(R.id.image1);
+        ImageView image1 = findViewById(R.id.image1);
         image1.setImageResource(displayOptionList.get(1));
-        TextView text1 = (TextView) findViewById(R.id.text1);
+        TextView text1 = findViewById(R.id.text1);
         text1.setText(displayOptionList.get(2));
 
         option1.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +59,10 @@ public class MeatEater extends AppCompatActivity {
 
         // Set up onClickListener for the option 2
         final int option2Value = displayOptionList.get(3);
-        LinearLayout option2 = (LinearLayout) findViewById(R.id.option2);
-        ImageView image2 = (ImageView) findViewById(R.id.image2);
+        LinearLayout option2 = findViewById(R.id.option2);
+        ImageView image2 = findViewById(R.id.image2);
         image2.setImageResource(displayOptionList.get(4));
-        TextView text2 = (TextView) findViewById(R.id.text2);
+        TextView text2 = findViewById(R.id.text2);
         text2.setText(displayOptionList.get(5));
 
         option2.setOnClickListener(new View.OnClickListener() {
@@ -78,12 +78,12 @@ public class MeatEater extends AppCompatActivity {
         });
 
         //Set up onClickListener for the option 3
-        LinearLayout option3 = (LinearLayout)findViewById(R.id.option3);
+        LinearLayout option3 = findViewById(R.id.option3);
         if (displayOptionList.size() == 9) {
             final int option3Value = displayOptionList.get(6);
-            ImageView image3 = (ImageView) findViewById(R.id.image3);
+            ImageView image3 = findViewById(R.id.image3);
             image3.setImageResource(displayOptionList.get(7));
-            TextView text3 = (TextView) findViewById(R.id.text3);
+            TextView text3 = findViewById(R.id.text3);
             text3.setText(displayOptionList.get(8));
 
             option3.setOnClickListener(new View.OnClickListener() {
@@ -96,8 +96,7 @@ public class MeatEater extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-        }
-        else {
+        } else {
             option3.setVisibility(View.INVISIBLE);
         }
 

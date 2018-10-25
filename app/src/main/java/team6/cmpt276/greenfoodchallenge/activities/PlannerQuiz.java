@@ -14,7 +14,6 @@ import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class PlannerQuiz extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,15 +21,14 @@ public class PlannerQuiz extends AppCompatActivity {
         final UserData currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
         final PlanPicker planPicker = new PlanPicker(currentConsumption);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Plan Picker");
 
-        LinearLayout meatEater = (LinearLayout) findViewById(R.id.meatLover);
+        LinearLayout meatEater = findViewById(R.id.meatLover);
         if (planPicker.isVegetarian()){
             meatEater.setVisibility(View.INVISIBLE);
-        }
-        else {
+        } else {
             meatEater.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -42,7 +40,7 @@ public class PlannerQuiz extends AppCompatActivity {
         }
 
         // Set up Low Meat Option
-        LinearLayout lowMeat = (LinearLayout) findViewById(R.id.lowMeat);
+        LinearLayout lowMeat = findViewById(R.id.lowMeat);
         lowMeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,17 +52,17 @@ public class PlannerQuiz extends AppCompatActivity {
 
 
         // Set up Plant Based Option
-        LinearLayout plantBased = (LinearLayout)findViewById(R.id.plantBased);
+        LinearLayout plantBased = findViewById(R.id.plantBased);
         plantBased.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserData suggestedConsumption = new UserData(currentConsumption);
-                planPicker.plantBased(suggestedConsumption);
+                suggestedConsumption = planPicker.plantBased(suggestedConsumption);
+
                 Intent intent = new Intent(PlannerQuiz.this, ResultActivity2.class);
                 intent.putExtra("currentConsumption",currentConsumption);
                 intent.putExtra("suggestedConsumption", suggestedConsumption);
                 startActivity(intent);
-
             }
         });
 

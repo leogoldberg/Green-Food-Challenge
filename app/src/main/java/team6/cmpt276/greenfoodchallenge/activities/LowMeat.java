@@ -17,15 +17,15 @@ import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class LowMeat extends AppCompatActivity {
 
-    UserData currentConsumption;
-    UserData suggestedConsumption;
+    private UserData currentConsumption;
+    private UserData suggestedConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_low_meat);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Plan Picker");
 
@@ -33,14 +33,9 @@ public class LowMeat extends AppCompatActivity {
         currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
         suggestedConsumption = new UserData(currentConsumption);
 
-        PlanPicker quiz = new PlanPicker(currentConsumption);
-
-
-
         double consumptionValue = suggestedConsumption.getProteinPerMeal()*50/100;
         TextView consumptionDescription = (TextView) findViewById(R.id.consumptionDescription);
         consumptionDescription.setText(consumptionValue + "g per meal");
-
 
         // Set up Seeker Bar
         final SeekBar consumption = (SeekBar)findViewById(R.id.consumptionSeekBar);
@@ -65,14 +60,13 @@ public class LowMeat extends AppCompatActivity {
             }
         });
 
-        Button button = (Button) findViewById(R.id.submit);
+        Button button = findViewById(R.id.submit);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 double newProteinPerMeal = suggestedConsumption.getProteinPerMeal() * consumption.getProgress() / 100;
                 suggestedConsumption.setProteinPerMeal(newProteinPerMeal);
-                TextView consumptionDescription = (TextView) findViewById(R.id.consumptionDescription);
                 Intent intent = new Intent(LowMeat.this, ResultActivity2.class);
                 intent.putExtra("currentConsumption",currentConsumption);
                 intent.putExtra("suggestedConsumption", suggestedConsumption);

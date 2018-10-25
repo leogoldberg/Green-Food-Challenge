@@ -29,20 +29,20 @@ public class PlanPicker {
 
     public boolean isVegetarian() {
         int indexFirstProtein = findFirstNonZeroProtein();
+
         if (indexFirstProtein >= 4) {
             return true;
-        }
-        else{
+        } else{
             return false;
         }
     }
 
     public boolean isVegan() {
         int indexFirstProtein = findFirstNonZeroProtein();
+
         if (indexFirstProtein > 4) {
             return true;
-        }
-        else{
+        } else{
             return false;
         }
     }
@@ -57,8 +57,7 @@ public class PlanPicker {
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 1));
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 2));
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 3));
-        }
-        else {
+        } else {
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 1));
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 2));
         }
@@ -67,11 +66,13 @@ public class PlanPicker {
     }
 
     // Set all animal-based protein's frequency to 0 and put it to bean's frequency
-    public void plantBased(UserData suggestedConsumption) {
+    public UserData plantBased(UserData suggestedConsumption) {
         int totalProteinConsumption = 0;
+
         for (int index = 0; index < proteinFrequency.size(); index++) {
             totalProteinConsumption += proteinFrequency.get(index);
         }
+
         suggestedConsumption.setFoodFrequency("Beans", totalProteinConsumption);
         suggestedConsumption.setFoodFrequency("Beef", 0);
         suggestedConsumption.setFoodFrequency("Pork", 0);
@@ -79,23 +80,28 @@ public class PlanPicker {
         suggestedConsumption.setFoodFrequency("Fish", 0);
         suggestedConsumption.setFoodFrequency("Eggs", 0);
 
+        return suggestedConsumption;
+
     }
 
-    public void meatEater(UserData suggestedConsumption, int proteinChoice) {
-        int index = 0;
+    public UserData meatEater(UserData suggestedConsumption, int proteinChoice) {
         int frequencyCount = 0;
-        for(index = 0; index < proteinChoice; index++) {
+
+        for(int index = 0; index < proteinChoice; index++) {
             frequencyCount += proteinFrequency.get(index);
             suggestedConsumption.setFoodFrequency(proteinList.get(index),0);
         }
+
         suggestedConsumption.setFoodFrequency(proteinList.get(proteinChoice),frequencyCount + proteinFrequency.get(proteinChoice));
+
+        return suggestedConsumption;
     }
 
 
     public int findFirstNonZeroProtein () {
         int index = 0;
-        while  (index < proteinFrequency.size() && proteinFrequency.get(index) == 0){
-            index ++;
+        while (index < proteinFrequency.size() && proteinFrequency.get(index) == 0) {
+            index++;
         }
         return index;
     }
@@ -105,23 +111,19 @@ public class PlanPicker {
             displayOptionList.add(2);
             displayOptionList.add(R.drawable.chicken);
             displayOptionList.add(R.string.chicken);
-        }
-        else if (protein == "Pork") {
+        } else if (protein == "Pork") {
             displayOptionList.add(1);
             displayOptionList.add(R.drawable.pork);
             displayOptionList.add(R.string.pork);
-        }
-        else if (protein == "Fish") {
+        } else if (protein == "Fish") {
             displayOptionList.add(3);
             displayOptionList.add(R.drawable.fish);
             displayOptionList.add(R.string.fish);
-        }
-        else if (protein == "Eggs") {
+        } else if (protein == "Eggs") {
             displayOptionList.add(4);
             displayOptionList.add(R.drawable.egg);
             displayOptionList.add(R.string.egg);
-        }
-        else {
+        } else {
             displayOptionList.add(5);
             displayOptionList.add(R.drawable.bean);
             displayOptionList.add(R.string.bean);

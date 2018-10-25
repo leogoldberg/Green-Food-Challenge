@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.MeatEater">
@@ -19,18 +19,17 @@
         android:layout_height="wrap_content"
         android:text="@string/meatTitle"
         android:textColor="@color/headerText"
-        android:textStyle="bold"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:textAlignment="center"
         android:text="@string/meatQuestion"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
-
 
 
     <LinearLayout
@@ -58,10 +57,11 @@
                 android:id="@+id/text1"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/chicken"/>
+                android:text="@string/chicken"
+                android:textAlignment="center" />
 
-        </LinearLayout>'
+        </LinearLayout>
+        '
 
         <LinearLayout
             android:id="@+id/option2"
@@ -82,8 +82,8 @@
                 android:id="@+id/text2"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/pork"/>
+                android:text="@string/pork"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -104,14 +104,14 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/bean"/>
+            android:src="@drawable/bean" />
 
         <TextView
             android:id="@+id/text3"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/bean"/>
+            android:text="@string/bean"
+            android:textAlignment="center" />
 
     </LinearLayout>
 </LinearLayout>

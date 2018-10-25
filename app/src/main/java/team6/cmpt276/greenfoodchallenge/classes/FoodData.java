@@ -10,13 +10,23 @@ public class FoodData implements Serializable {
     public FoodData(int frequency, double co2PerGrams, double gramsPerMeal) {
         this.frequency = frequency;
         this.co2PerGrams = co2PerGrams;
-        this.gramsPerMeal=gramsPerMeal;
+        this.gramsPerMeal = gramsPerMeal;
     }
 
-    public FoodData(double co2PerGrams, double gramsPerMeal) { //constructor for non protein sources
+    //constructor for non protein sources
+    public FoodData(double co2PerGrams, double gramsPerMeal) {
         this.frequency = 0;
         this.co2PerGrams = co2PerGrams;
-        this.gramsPerMeal=gramsPerMeal;
+        this.gramsPerMeal = gramsPerMeal;
+    }
+
+    // clone
+    public FoodData clone() {
+        FoodData newObj = new FoodData(this.getFrequency(), this.getCo2PerGrams(),
+                                        this.getGramsPerMeal());
+
+
+        return newObj;
     }
 
     public double getGramsPerMeal() {
@@ -46,7 +56,7 @@ public class FoodData implements Serializable {
     //returns weekly co2e due to this food item
     public double getco2(){
         double co2permeal = gramsPerMeal*co2PerGrams;
-        double co2=frequency*co2permeal*2; //assuming 2 meals a day
+        double co2 = frequency * co2permeal*2; //assuming 2 meals a day
         return co2;
     }
 

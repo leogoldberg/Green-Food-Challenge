@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.PlannerQuiz">
@@ -18,8 +18,8 @@
         android:layout_height="wrap_content"
         android:text="@string/plannerTitle"
         android:textColor="@color/headerText"
-        android:textStyle="bold"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/question"
@@ -28,7 +28,6 @@
         android:layout_margin="15dp"
         android:text="@string/plannerQuestion"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
-
 
 
     <LinearLayout
@@ -54,10 +53,10 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/lowMeatDescription"/>
+                android:text="@string/lowMeatDescription"
+                android:textAlignment="center" />
 
-         </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/plantBased"
@@ -76,17 +75,17 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/plantBasedDescription"/>
+                android:text="@string/plantBasedDescription"
+                android:textAlignment="center" />
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-    android:id="@+id/meatLover"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+        android:id="@+id/meatLover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="120dp"
@@ -101,8 +100,9 @@
             android:id="@+id/text"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/meatLoverDescription"/>
-    </LinearLayout>'
+            android:text="@string/meatLoverDescription"
+            android:textAlignment="center" />
+    </LinearLayout>
+    '
 
 </LinearLayout>

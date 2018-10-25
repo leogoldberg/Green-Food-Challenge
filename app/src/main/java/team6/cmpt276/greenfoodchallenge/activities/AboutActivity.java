@@ -10,14 +10,14 @@ import android.widget.Button;
 import team6.cmpt276.greenfoodchallenge.R;
 
 public class AboutActivity extends AppCompatActivity {
-    Button learnMore;
+    private Button learnMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("About Us");
 
