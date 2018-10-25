@@ -5,15 +5,6 @@ import java.io.Serializable;
 public class FoodData implements Serializable {
     private int frequency;
     private double co2PerGrams;
-
-    public double getGramsPerMeal() {
-        return gramsPerMeal;
-    }
-
-    public void setGramsPerMeal(double gramsPerMeal) {
-        this.gramsPerMeal = gramsPerMeal;
-    }
-
     private double gramsPerMeal;
 
     public FoodData(int frequency, double co2PerGrams, double gramsPerMeal) {
@@ -23,9 +14,17 @@ public class FoodData implements Serializable {
     }
 
     public FoodData(double co2PerGrams, double gramsPerMeal) { //constructor for non protein sources
+        this.frequency = 0;
         this.co2PerGrams = co2PerGrams;
         this.gramsPerMeal=gramsPerMeal;
+    }
 
+    public double getGramsPerMeal() {
+        return gramsPerMeal;
+    }
+
+    public void setGramsPerMeal(double gramsPerMeal) {
+        this.gramsPerMeal = gramsPerMeal;
     }
 
     public double getCo2PerGrams() {
@@ -44,9 +43,10 @@ public class FoodData implements Serializable {
         this.frequency = frequency;
     }
 
-    public double getco2(){ //returns weekly co2e due to this food item
-        double co2permeal=gramsPerMeal*co2PerGrams;
-        double co2=frequency*co2permeal;
+    //returns weekly co2e due to this food item
+    public double getco2(){
+        double co2permeal = gramsPerMeal*co2PerGrams;
+        double co2=frequency*co2permeal*2; //assuming 2 meals a day
         return co2;
     }
 

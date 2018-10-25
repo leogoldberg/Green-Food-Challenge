@@ -3,35 +3,43 @@ package team6.cmpt276.greenfoodchallenge.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.ConsumptionClass;
+import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
+import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class PlannerQuiz extends AppCompatActivity {
-
-    ConsumptionClass currentConsumption = new ConsumptionClass();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_quiz);
-        currentConsumption.setProteinPerMeal(245);
+        final UserData currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
+        final PlanPicker planPicker = new PlanPicker(currentConsumption);
 
-        // Set up Meat Lover Option
-        LinearLayout meatLover = (LinearLayout)findViewById(R.id.meatLover);
-        meatLover.setOnClickListener(new View.OnClickListener() {
-            @Override
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Plan Picker");
+
+        LinearLayout meatEater = (LinearLayout) findViewById(R.id.meatLover);
+        if (planPicker.isVegetarian()){
+            meatEater.setVisibility(View.INVISIBLE);
+        }
+        else {
+            meatEater.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
-                Intent  intent = new Intent(PlannerQuiz.this, MeatEater.class);
-                intent.putExtra("serliazing-data",currentConsumption);
-                startActivity(intent);
+                    Intent  intent = new Intent(PlannerQuiz.this, MeatEater.class);
+                    intent.putExtra("currentConsumption",currentConsumption);
+                    startActivity(intent);
                 }
-        });
+            });
+        }
 
         // Set up Low Meat Option
         LinearLayout lowMeat = (LinearLayout) findViewById(R.id.lowMeat);
@@ -39,7 +47,7 @@ public class PlannerQuiz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent  intent = new Intent(PlannerQuiz.this, LowMeat.class);
-                intent.putExtra("serializing-data",currentConsumption);
+                intent.putExtra("currentConsumption",currentConsumption);
                 startActivity(intent);
             }
         });
@@ -50,11 +58,15 @@ public class PlannerQuiz extends AppCompatActivity {
         plantBased.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserData suggestedConsumption = new UserData(currentConsumption);
+                planPicker.plantBased(suggestedConsumption);
+                Intent intent = new Intent(PlannerQuiz.this, ResultActivity2.class);
+                intent.putExtra("currentConsumption",currentConsumption);
+                intent.putExtra("suggestedConsumption", suggestedConsumption);
+                startActivity(intent);
 
             }
         });
-
-
 
     }
 }

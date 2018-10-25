@@ -10,69 +10,54 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="328dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/mainTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
+            android:layout_margin="10dp"
             android:gravity="center"
             android:text="Green Food Challenge"
+            android:textStyle="bold"
+            android:textColor="@color/headerText"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="30dp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="317dp"
-            android:layout_height="89dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="15dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac bibendum metus. Aliquam viverra, velit ut interdum porttitor, magna ex auctor lacus, quis porta nulla dui et magna. Aenean fringilla, nulla quis rhoncus mollis, dui est egestas enim, at venenatis nibh erat at nunc. Suspendisse venenatis luctus libero, ut luctus felis rhoncus in. Proin at odio vitae odio porttitor laoreet sit amet non enim. Sed efficitur urna et velit fringilla molestie. Nullam non risus mauris. Proin consectetur, nunc sit amet scelerisque laoreet, urna ipsum feugiat ante, lobortis ornare mauris leo quis massa. Morbi quis malesuada lectus, ut bibendum lectus. Pellentesque vel malesuada purus. Sed bibendum nibh a ornare luctus. Ut tempus odio sed pharetra posuere. Pellentesque at dolor enim. Integer dolor velit, gravida ac imperdiet ut, tempus in sapien."
-            android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="234dp"
             android:layout_height="175dp"
+            android:layout_margin="20dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/start_page_image" />
 
         <TextView
-            android:id="@+id/textView15"
             android:layout_width="318dp"
             android:layout_height="69dp"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac bibendum metus. Aliquam viverra, velit ut interdum porttitor, magna ex auctor lacus, quis porta nulla dui et magna. Aenean fringilla, nulla quis rhoncus mollis, dui est egestas enim, at venenatis nibh erat at nunc. Suspendisse venenatis luctus libero, ut luctus felis rhoncus in. Proin at odio vitae odio porttitor laoreet sit amet non enim. Sed efficitur urna et velit fringilla molestie. Nullam non risus mauris. Proin consectetur, nunc sit amet scelerisque laoreet, urna ipsum feugiat ante, lobortis ornare mauris leo quis massa. Morbi quis malesuada lectus, ut bibendum lectus. Pellentesque vel malesuada purus. Sed bibendum nibh a ornare luctus. Ut tempus odio sed pharetra posuere. Pellentesque at dolor enim. Integer dolor velit, gravida ac imperdiet ut, tempus in sapien."
-            android:textSize="18sp" />
+            android:textAlignment="center"
+            android:text="@string/welcome"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
 
         <Button
             android:id="@+id/startButton"
-            android:layout_width="113dp"
-            android:layout_height="53dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@color/colorPrimary"
-            android:text="Start"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:layout_margin="20dp"
+            android:background="@color/headerText"
+            android:text="START"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -28,48 +30,51 @@ import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity {
 
+    UserData currentConsumption;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Consumption Result");
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        // gets the intent variables
+//        Intent intent = getIntent();
+//        int protein_per_meal = intent.getIntExtra("protein_per_meal", -1);
+//        int total_amount_per_week = intent.getIntExtra("total_amount_per_week", -1);
+//        HashMap<String, Integer> times_per_week = (HashMap<String, Integer>)intent.getSerializableExtra("times_per_week");
+        currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
 
-        // gets the intent variables
-        Intent intent = getIntent();
-        int protein_per_meal = intent.getIntExtra("protein_per_meal", -1);
-        int total_amount_per_week = intent.getIntExtra("total_amount_per_week", -1);
-        HashMap<String, Integer> times_per_week = (HashMap<String, Integer>)intent.getSerializableExtra("times_per_week");
+//        // sets up the pie charts
+//        PieChart chart = initializePieChart(R.id.chart);
+//
+//        List<PieEntry> entries = addEntries(times_per_week, total_amount_per_week);
+//        PieDataSet dataSet = setPieDataSet(entries);
+//
+//        PieData pieData = setPieData(dataSet);
+//
+//        chart.setData(pieData);
+//        chart.invalidate();
 
-        // sets up the pie charts
-        PieChart chart = initializePieChart(R.id.chart);
 
-        List<PieEntry> entries = addEntries(times_per_week, total_amount_per_week);
-        PieDataSet dataSet = setPieDataSet(entries);
-
-        PieData pieData = setPieData(dataSet);
-
-        chart.setData(pieData);
-        chart.invalidate();
-
-        // set the frequency
-        UserData userData = new UserData(protein_per_meal,0);
-        userData = setProteinFrequency(userData, times_per_week);
 
         // set total text
-        double total = userData.getTotalco2();
+        double total = currentConsumption.getTotalco2perYear();
         TextView tv1 = findViewById(R.id.consumed_co2e);
-        tv1.setText(Double.toString(total) + " CO2e");
-    }
+        tv1.setText(total + " CO2e " + currentConsumption.getProteinPerMeal());
+
+        Button next = (Button) findViewById(R.id.reduceConsumption);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultActivity.this, PlannerQuiz.class);
+                intent.putExtra("currentConsumption", currentConsumption);
+                startActivity(intent);
+            }
+        });
+    };
 
     private List<PieEntry> addEntries(HashMap<String, Integer> times_per_week,
                                      int total_amount_per_week) {

@@ -10,9 +10,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ConsumptionQuiz1 extends AppCompatActivity {
     private int protein_per_meal;
+    UserData currentConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,34 +25,42 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Calculate Consumption");
-        final TextView gramsCounter = findViewById(R.id.gramsCounter);
+        final TextView proteinGramsCounter = findViewById(R.id.proteinGramsCounter);
+        final TextView vegGramsCounter = findViewById(R.id.vegGramsCounter);
 
-        SeekBar proteinBar =  findViewById(R.id.seekBar);
+        final SeekBar proteinBar =  findViewById(R.id.proteinSeekerBar);
         proteinBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
+            int seekBarValue = 250;
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                gramsCounter.setText(String.valueOf(progress)+"g");
+                seekBarValue = progress;
+                proteinGramsCounter.setText(seekBarValue + "g");
             }
-            @Override
             public void onStartTrackingTouch(SeekBar seekBar) { }
-            @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
+
+        final SeekBar vegBar =  findViewById(R.id.vegSeekerBar);
+        vegBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int seekBarValue = 250;
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarValue = progress;
+                vegGramsCounter.setText(seekBarValue + "g");
+            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+
+
         Button startButton = (Button) findViewById(R.id.nextButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextPage();
+                currentConsumption = new UserData(proteinBar.getProgress(),vegBar.getProgress());
+                Intent intent = new Intent(ConsumptionQuiz1.this, ConsumptionQuiz2.class);
+                intent.putExtra("currentConsumption", currentConsumption);
+                startActivity(intent);
             }
         });
     }
 
-    void nextPage()
-    {
-        SeekBar proteinBar =  findViewById(R.id.seekBar);
-        protein_per_meal = proteinBar.getProgress();
-        Intent intent = new Intent(ConsumptionQuiz1.this, ConsumptionQuiz2.class);
-        intent.putExtra("protein_per_meal", protein_per_meal);
-        startActivity(intent);
-    }
 }

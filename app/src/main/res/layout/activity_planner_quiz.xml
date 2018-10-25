@@ -8,6 +8,9 @@
     android:orientation="vertical"
     tools:context=".activities.PlannerQuiz">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/title"
@@ -35,30 +38,6 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/meatLover"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:cropToPadding="false"
-                android:scaleType="fitXY"
-                android:src="@drawable/meateater" />
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/meatLoverDescription"/>
-
-        </LinearLayout>'
-
-        <LinearLayout
             android:id="@+id/lowMeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,29 +59,50 @@
 
          </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/plantBased"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/plantbased" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/plantBasedDescription"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
-    android:id="@+id/plantBased"
+    android:id="@+id/meatLover"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/plantbased" />
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="fitXY"
+            android:src="@drawable/meateater" />
 
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/plantBasedDescription"/>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/meatLoverDescription"/>
+    </LinearLayout>'
 
-    </LinearLayout>
 </LinearLayout>
