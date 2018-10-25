@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.ConsumptionClass;
 import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
 
 public class MeatEater extends AppCompatActivity {
@@ -21,6 +22,8 @@ public class MeatEater extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meat_eater);
+
+        ConsumptionClass currentConsumption = (ConsumptionClass)getIntent().getSerializableExtra("serialize_data");
 
         setupDisplay();
 
@@ -34,10 +37,23 @@ public class MeatEater extends AppCompatActivity {
             }
         });
 
-        // Set up Low Meat Option
+        // Set up onClickListener for the option 2
         LinearLayout option2 = (LinearLayout) findViewById(R.id.option2);
+        option2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+
+        //Set up onClickListener for the option 3
         LinearLayout option3 = (LinearLayout)findViewById(R.id.option3);
+        option3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     // Set up the Option List according to user info

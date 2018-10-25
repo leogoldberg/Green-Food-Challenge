@@ -5,22 +5,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.ConsumptionClass;
 
 public class PlannerQuiz extends AppCompatActivity {
+
+    ConsumptionClass currentConsumption = new ConsumptionClass();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_quiz);
+        currentConsumption.setProteinPerMeal(245);
 
         // Set up Meat Lover Option
         LinearLayout meatLover = (LinearLayout)findViewById(R.id.meatLover);
         meatLover.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
-                startActivity(new Intent(PlannerQuiz.this, MeatEater.class));
+                Intent  intent = new Intent(PlannerQuiz.this, MeatEater.class);
+                intent.putExtra("serliazing-data",currentConsumption);
+                startActivity(intent);
                 }
         });
 
@@ -29,7 +38,9 @@ public class PlannerQuiz extends AppCompatActivity {
         lowMeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PlannerQuiz.this, LowMeat.class));
+                Intent  intent = new Intent(PlannerQuiz.this, LowMeat.class);
+                intent.putExtra("serializing-data",currentConsumption);
+                startActivity(intent);
             }
         });
 
@@ -39,7 +50,7 @@ public class PlannerQuiz extends AppCompatActivity {
         plantBased.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PlannerQuiz.this, MeatEater.class));
+
             }
         });
 

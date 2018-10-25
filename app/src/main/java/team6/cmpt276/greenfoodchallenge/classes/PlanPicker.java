@@ -24,7 +24,9 @@ public class PlanPicker {
 
     }
 
-    public void lowMeat() {
+    public void lowMeat(ConsumptionClass suggestedConsumption, int userInput) {
+        float newConsumption = suggestedConsumption.getProteinPerMeal() * userInput /100;
+        suggestedConsumption.setProteinPerMeal(newConsumption);
 
     }
 
@@ -49,9 +51,6 @@ public class PlanPicker {
             displayOptionList.add(R.drawable.bean);
             displayOptionList.add(R.string.bean);
         }
-
     }
-
-
 
 }

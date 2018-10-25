@@ -47,6 +47,16 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
 
+    <TextView
+        android:id="@+id/consumptionDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/headerText"
+        android:text="50g per meal"
+        android:layout_margin="15dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"/>
+
     <Button
         android:id="@+id/submit"
         android:layout_marginTop="30dp"
