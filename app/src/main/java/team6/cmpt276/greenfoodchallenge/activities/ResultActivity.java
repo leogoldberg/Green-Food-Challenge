@@ -61,9 +61,9 @@ public class ResultActivity extends AppCompatActivity {
 
 
         // set total text
-        double total = currentConsumption.getTotalco2();
+        double total = currentConsumption.getTotalco2perYear();
         TextView tv1 = findViewById(R.id.consumed_co2e);
-        tv1.setText(Double.toString(total) + " CO2e");
+        tv1.setText(total + " CO2e " + currentConsumption.getProteinPerMeal());
 
         Button next = (Button) findViewById(R.id.reduceConsumption);
         next.setOnClickListener(new View.OnClickListener() {

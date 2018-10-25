@@ -3,6 +3,7 @@ package team6.cmpt276.greenfoodchallenge.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,12 +17,14 @@ public class PlannerQuiz extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final UserData currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
-
-        final PlanPicker planPicker = new PlanPicker(currentConsumption);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner_quiz);
+        final UserData currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
+        final PlanPicker planPicker = new PlanPicker(currentConsumption);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Plan Picker");
 
         LinearLayout meatEater = (LinearLayout) findViewById(R.id.meatLover);
         if (planPicker.isVegetarian()){
@@ -64,8 +67,6 @@ public class PlannerQuiz extends AppCompatActivity {
 
             }
         });
-
-
 
     }
 }

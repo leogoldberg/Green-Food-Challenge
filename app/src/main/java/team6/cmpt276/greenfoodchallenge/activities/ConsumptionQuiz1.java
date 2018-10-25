@@ -14,6 +14,7 @@ import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ConsumptionQuiz1 extends AppCompatActivity {
     private int protein_per_meal;
+    UserData currentConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,29 +28,34 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
         final TextView proteinGramsCounter = findViewById(R.id.proteinGramsCounter);
         final TextView vegGramsCounter = findViewById(R.id.vegGramsCounter);
 
-        SeekBar proteinBar =  findViewById(R.id.proteinSeekerBar);
+        final SeekBar proteinBar =  findViewById(R.id.proteinSeekerBar);
         proteinBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int seekBarValue = 250;
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                proteinGramsCounter.setText(String.valueOf(progress)+"g");
+                seekBarValue = progress;
+                proteinGramsCounter.setText(seekBarValue + "g");
             }
             public void onStartTrackingTouch(SeekBar seekBar) { }
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
-        SeekBar vegBar =  findViewById(R.id.vegSeekerBar);
+        final SeekBar vegBar =  findViewById(R.id.vegSeekerBar);
         vegBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int seekBarValue = 250;
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                vegGramsCounter.setText(String.valueOf(progress)+"g");
+                seekBarValue = progress;
+                vegGramsCounter.setText(seekBarValue + "g");
             }
             public void onStartTrackingTouch(SeekBar seekBar) { }
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
-        final UserData currentConsumption = new UserData(proteinBar.getProgress(),vegBar.getProgress());
+
         Button startButton = (Button) findViewById(R.id.nextButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentConsumption = new UserData(proteinBar.getProgress(),vegBar.getProgress());
                 Intent intent = new Intent(ConsumptionQuiz1.this, ConsumptionQuiz2.class);
                 intent.putExtra("currentConsumption", currentConsumption);
                 startActivity(intent);

@@ -8,6 +8,9 @@
     android:orientation="vertical"
     tools:context=".activities.PlannerQuiz">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/title"

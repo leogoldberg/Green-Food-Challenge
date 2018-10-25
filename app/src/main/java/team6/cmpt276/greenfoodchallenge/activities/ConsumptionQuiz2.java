@@ -33,17 +33,21 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
 
         // Set up SeekBars
         for(int count = 0; count < 7; count++) {
-            SeekBar bar = findViewById(R.id.seekBar1 + count);
+            final SeekBar bar = findViewById(R.id.seekBar1 + count);
             final TextView value = findViewById(R.id.seekBarValue1 + count);
+            final int finalCount = count;
+            currentConsumption.setFoodFrequency(returnKey(finalCount),bar.getProgress());
             bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     value.setText(String.valueOf(progress)+" days");
                 }
                 public void onStartTrackingTouch(SeekBar seekBar) { }
-                public void onStopTrackingTouch(SeekBar seekBar) { }
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    currentConsumption.setFoodFrequency(returnKey(finalCount),bar.getProgress());
+                }
             });
 
-            currentConsumption.setFoodFrequency(returnKey(count),bar.getProgress());
+
         }
 
 

@@ -34,18 +34,19 @@ public class UserData implements Serializable {
         proteinPerMeal = userData.getProteinPerMeal();
     }
 
-    //important methods
-    public double getTotalco2(){ //calculates total weekly co2
+    //calculates total weekly co2
+    public double getTotalco2(){
         FoodData food;
         double total=0;
         for(int i=0; i<userFoodData.size(); i++){
-            food=userFoodData.get(i);
+            food = userFoodData.get(i);
             total += food.getco2();
         }
         return total;
     }
 
-    public double getFoodco2(String foodName){ //get co2 due to that food item
+    //get co2 due to that food item
+    public double getFoodco2(String foodName){
         int index=foodNames.indexOf(foodName);
         FoodData food=userFoodData.get(index);
         return food.getco2();
@@ -55,7 +56,8 @@ public class UserData implements Serializable {
         return getTotalco2()*52;
     }
 
-    public double getProportion(String foodName){ //calculates proportion of weekly co2 due to foodName
+    //calculates proportion of weekly co2 due to foodName
+    public double getProportion(String foodName){
         int index=foodNames.indexOf(foodName);
         double totalco2= getTotalco2();
         double co2;
@@ -73,9 +75,7 @@ public class UserData implements Serializable {
 
     public void setFoodFrequency(String foodName, int frequency){
         int index=foodNames.indexOf(foodName);
-        FoodData temp= userFoodData.get(index); //question: is this temp variable necessary? can i modify the actual element?
-        temp.setFrequency(frequency);
-        userFoodData.set(index, temp);
+        userFoodData.get(index).setFrequency(frequency);
     }
 
     //adders
@@ -106,9 +106,7 @@ public class UserData implements Serializable {
         FoodData food;
         for(int i=0; i<userFoodData.size(); i++){
             if(foodNames.get(i)!="vegetables"){
-                food=userFoodData.get(i);
-                food.setGramsPerMeal(proteinPerMeal);
-                userFoodData.set(i, food);
+                userFoodData.get(i).setGramsPerMeal(proteinPerMeal);
             }
         }
     }

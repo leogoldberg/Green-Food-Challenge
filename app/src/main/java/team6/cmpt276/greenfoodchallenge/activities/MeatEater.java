@@ -28,7 +28,7 @@ public class MeatEater extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Green Food Challenge");
+        getSupportActionBar().setTitle("Plan Picker");
 
         currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
         suggestedConsumption = new UserData(currentConsumption);
