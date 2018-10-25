@@ -9,25 +9,25 @@ import android.widget.Button;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
-public class HomeScreen extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity {
+    Button learnMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_about);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Green Food Challenge");
+        getSupportActionBar().setTitle("About");
 
-        Button startButton = (Button) findViewById(R.id.startButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        learnMore = findViewById(R.id.learn_more);
+        learnMore.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, ConsumptionQuiz1.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                startActivity(new Intent(AboutActivity.this, PopupActivity.class));
             }
         });
-
     }
 }
