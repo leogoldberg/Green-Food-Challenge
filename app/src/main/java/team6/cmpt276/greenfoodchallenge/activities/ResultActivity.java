@@ -6,9 +6,28 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import team6.cmpt276.greenfoodchallenge.R;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -49,9 +68,28 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int protein_per_meal = intent.getIntExtra("protein_per_meal", -1);
-        int[] times_per_week = intent.getIntArrayExtra("times_per_week");
+        int total_amount_per_week = intent.getIntExtra("total_amount_per_week", -1);
+
+        HashMap<String, Integer> times_per_week = (HashMap<String, Integer>)intent.getSerializableExtra("times_per_week");
+
+        PieChart chart = findViewById(R.id.chart);
+
+        List<PieEntry> entries = addEntries(times_per_week, total_amount_per_week);
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataSet.setValueFormatter(new PercentFormatter());
+
+        chart.getLegend().setEnabled(false);
+        chart.getDescription().setEnabled(false);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setValueTextSize(10f);
+        chart.animateY(1500);
+        chart.setData(pieData);
+        chart.invalidate();
+
         //Log.i("ResultsActivity", "protein_per_meal: " + protein_per_meal);
-        //Log.i("ResultsActivity", "times_per_week[0]: " + times_per_week[0]);
 
         /*Consumption myConsumption = new Consumption();
         for(int i = 0; i < NUM_OF_ITEMS; i++){
@@ -62,7 +100,29 @@ public class ResultActivity extends AppCompatActivity {
         double pork_co2e = myConsumption.getItemCO2e(PORK);
         double totalco2e = myConsumption.getTotalCO2e();
         Log.i("ResultsActivity", "pork_co2e: " + pork_co2e);
-        Log.i("ResultsActivity", "totalco2e: " + totalco2e);*/
+        Log.i("ResultsActivity", "totalco2e: " + totalco2e);
+        */
     }
 
+    public List<PieEntry> addEntries(HashMap<String, Integer> times_per_week,
+                                     int total_amount_per_week) {
+        List<PieEntry> entries = new ArrayList<>();
+
+        Iterator it = times_per_week.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+
+            String key = (String) pair.getKey();
+            float value = getPercentage((int) pair.getValue(), total_amount_per_week);
+
+            entries.add(new PieEntry(value, key));
+            it.remove();
+        }
+
+        return entries;
+    }
+
+    public float getPercentage(int count, int total) {
+        return ((float) count / total) * 100;
+    }
 }
