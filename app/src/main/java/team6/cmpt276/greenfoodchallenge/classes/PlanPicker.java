@@ -98,7 +98,7 @@ public class PlanPicker {
     }
 
 
-    public int findFirstNonZeroProtein () {
+    private int findFirstNonZeroProtein () {
         int index = 0;
         while (index < proteinFrequency.size() && proteinFrequency.get(index) == 0) {
             index++;
