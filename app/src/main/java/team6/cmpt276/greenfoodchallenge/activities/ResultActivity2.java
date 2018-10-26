@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -45,6 +46,10 @@ public class ResultActivity2 extends AppCompatActivity {
         double totalSuggestedConsumption = suggestedConsumption.getTotalco2perYear();
         double saved = totalCurrentConsumption - totalSuggestedConsumption;
 
+        if(saved < 0) {
+            saved = 0;
+        }
+        
         // change text
         TextView amountSaved = findViewById(R.id.amount_saved);
         amountSaved.setText(Math.round(saved) + " CO2e ");
@@ -54,7 +59,6 @@ public class ResultActivity2 extends AppCompatActivity {
 
         TextView vancouverSaved = findViewById(R.id.vancouverSaved);
         vancouverSaved.setText(calculateVancouverSaved(saved) + " tons C02e");
-
 
         // sets up the pie charts
         PieChart chart = initializePieChart(R.id.chart);
