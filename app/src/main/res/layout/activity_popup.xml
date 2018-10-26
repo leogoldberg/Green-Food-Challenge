@@ -31,7 +31,8 @@
             android:layout_margin="15dp"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:textColor="@color/headerText"
+            android:textStyle="bold"
+            android:textColor="@color/titleBar"
             android:text="What is Carbon Footprint?" />
 
             <TextView
@@ -40,10 +41,6 @@
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
                 android:text="@string/moreInfo" />
-
-
-
-
 
         </LinearLayout>
     </ScrollView>
