@@ -68,6 +68,12 @@ public class ResultActivity extends AppCompatActivity {
         });
     };
 
+    /**
+     * Add entries based on the user input
+     * @param currentConsumption        an object that holds all the user inputs
+     * @param total_amount_per_week     the total frequency they eat protein products
+     * @return the list of entries to show on the pie chart
+     */
     private List<PieEntry> addEntries(UserData currentConsumption,
                                      int total_amount_per_week) {
         List<PieEntry> entries = new ArrayList<>();
@@ -90,10 +96,21 @@ public class ResultActivity extends AppCompatActivity {
         return entries;
     }
 
+    /**
+     * Gets the percentage based on the user input
+     * @param count     the frequeuncy of the user eats protein products
+     * @param total     the total amount of protein products
+     * @return          the percentage based on the count
+     */
     private float getPercentage(int count, int total) {
         return ((float) count / total) * 100;
     }
 
+    /**
+     * Set the piedata and set the colors and how they display the content
+     * @param entries   the list of entries
+     * @return          returns the dataset
+     */
     private PieDataSet setPieDataSet(List<PieEntry> entries) {
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -102,6 +119,11 @@ public class ResultActivity extends AppCompatActivity {
         return dataSet;
     }
 
+    /**
+     * Creates the Piechart
+     * @param id    the id of the element
+     * @return      returns the piechart
+     */
     private PieChart initializePieChart(int id) {
         PieChart chart = findViewById(id);
         chart.getLegend().setEnabled(false);
@@ -111,6 +133,11 @@ public class ResultActivity extends AppCompatActivity {
         return chart;
     }
 
+    /**
+     * Set the the pie data
+     * @param dataSet       the data in the pie chart
+     * @return              the pie data 
+     */
     private PieData setPieData(PieDataSet dataSet) {
         PieData pieData = new PieData(dataSet);
         pieData.setValueTextSize(10f);
