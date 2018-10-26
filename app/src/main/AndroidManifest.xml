@@ -28,7 +28,8 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".activities.AboutActivity" />
-        <activity android:name=".activities.PopupActivity" />
+        <activity android:name=".activities.PopupActivity"
+                  android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".activities.ResultActivity2"></activity>
     </application>
 
