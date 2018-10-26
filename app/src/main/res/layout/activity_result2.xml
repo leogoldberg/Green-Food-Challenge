@@ -27,6 +27,7 @@
 
 
         <LinearLayout
+            android:id="@+id/individual_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -38,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:text="You Will Save"
+                android:text="@string/results2Header1"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -47,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="{amount_saved}"
+                android:text=""
                 android:textColor="@color/headerText"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:paddingBottom="10dp"
-                android:text="{amount_tree_saved}"
+                android:text=""
                 android:textColor="@color/headerText"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -67,6 +68,7 @@
 
 
         <LinearLayout
+            android:id="@+id/vancouver_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -81,7 +83,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center_horizontal"
-                android:text="If everyone in Vancouver, choose your plan, we will save"
+                android:text="@string/results2Vancouver"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -90,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="{vancouver_saved}"
+                android:text=""
                 android:textColor="@color/headerText"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -100,7 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Per Year"
+                android:paddingBottom="10dp"
+                android:text="@string/results2PerYear"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -111,7 +114,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/headerText"
             android:textColor="@android:color/white"
-            android:text="Redo the Quiz" />
+            android:text="@string/results2Redo" />
 
 
         <Button
@@ -120,7 +123,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/headerText"
             android:textColor="@android:color/white"
-            android:text="About Us" />
+            android:text="@string/results2About" />
+
+
 
 
     </LinearLayout>

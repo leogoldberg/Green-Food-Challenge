@@ -43,4 +43,19 @@
         your diet produces and helps discover how much you can save by making
         dietary adjustments! Find out what you can do to save Earth!
     </string>
+
+    <!-- Results Activity -->
+    <string name="resultsHeader1">You consume</string>
+    <string name="resultsHeader2">Per year</string>
+    <string name="averageCanadian">The average footprint for canadians is 8 metric tons</string>
+    <string name="averageWorldwide">The Average worldwide footprint is 4 metric tons</string>
+    <string name="targetWorldwide">The worldwide target to combat climate change is 2 metric tons</string>
+    <string name="reduceConsumption">Reduce Consumption</string>
+
+    <!-- Results Activity 2 -->
+    <string name="results2Header1">You Will Save</string>
+    <string name="results2Vancouver">If everyone in Vancouver, choose your plan, we will save</string>
+    <string name="results2PerYear">Per Year</string>
+    <string name="results2Redo">Redo Quiz</string>
+    <string name="results2About">About</string>
 </resources>
