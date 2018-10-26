@@ -2,11 +2,17 @@ package team6.cmpt276.greenfoodchallenge.classes;
 
 import java.io.Serializable;
 
+/*
+   stores data about frequency, emissions of co2 per gram,
+   and amount of grams eaten per meal for each type of
+   food item
+ */
 public class FoodData implements Serializable {
     private int frequency;
     private double co2PerGrams;
     private double gramsPerMeal;
 
+    //basic constructor
     public FoodData(int frequency, double co2PerGrams, double gramsPerMeal) {
         this.frequency = frequency;
         this.co2PerGrams = co2PerGrams;
@@ -20,29 +26,25 @@ public class FoodData implements Serializable {
         this.gramsPerMeal = gramsPerMeal;
     }
 
-    // clone
+    //cloning a food object
     public FoodData clone() {
         FoodData newObj = new FoodData(this.getFrequency(), this.getCo2PerGrams(),
                                         this.getGramsPerMeal());
-
-
         return newObj;
     }
 
+    //grams of food item eaten per meal
     public double getGramsPerMeal() {
         return gramsPerMeal;
     }
 
+    //set the amount of grams a user eats per meal of food item
     public void setGramsPerMeal(double gramsPerMeal) {
         this.gramsPerMeal = gramsPerMeal;
     }
 
     public double getCo2PerGrams() {
         return co2PerGrams;
-    }
-
-    public void setCo2PerGrams(double co2PerGrams) {
-        this.co2PerGrams = co2PerGrams;
     }
 
     public int getFrequency() {
@@ -56,12 +58,8 @@ public class FoodData implements Serializable {
     //returns weekly co2e due to this food item
     public double getco2(){
         double co2permeal = gramsPerMeal*co2PerGrams;
-        double co2 = frequency * co2permeal*2; //assuming 2 meals a day
+        double co2 = frequency * co2permeal*2;
         return co2;
-    }
-
-    public double getco2PerYear(){
-        return getco2()*52;
     }
 
 }

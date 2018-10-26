@@ -3,6 +3,14 @@ package team6.cmpt276.greenfoodchallenge.classes;
 import java.io.Serializable;
 import java.util.*;
 
+/*
+    Class is a collection of food data objects which records the
+    frequency that the user eats each food item and the amount
+    of protein/veg the user eats per meal
+
+    Calculates the total co2 the user emits due to food consumption
+    based off food objects list
+ */
 
 public class UserData implements Serializable {
     private List<FoodData> userFoodData;
@@ -10,8 +18,16 @@ public class UserData implements Serializable {
     private double proteinPerMeal;
     private double vegPerMeal;
 
-    //Normal Constructor
-    public UserData(int proteinPerMeal, int vegPerMeal){
+    //Empty constructor
+    public UserData() {
+        userFoodData = new ArrayList<>();
+        foodNames = new ArrayList<>();
+        vegPerMeal =0;
+        proteinPerMeal =0;
+    }
+
+    //HardCoded Constructor
+    public UserData(double proteinPerMeal, double vegPerMeal) {
         this.userFoodData = new ArrayList<>();
         this.foodNames = new ArrayList<>();
         this.proteinPerMeal = proteinPerMeal;
@@ -34,8 +50,9 @@ public class UserData implements Serializable {
         proteinPerMeal = userData.getProteinPerMeal();
     }
 
+
     //calculates total weekly co2
-    public double getTotalco2(){
+    private double getTotalco2(){
         FoodData food;
         double total = 0;
         for(int i = 0; i < userFoodData.size(); i++){
@@ -45,18 +62,12 @@ public class UserData implements Serializable {
         return total;
     }
 
-    //get co2 due to that food item
-    public double getFoodco2(String foodName){
-        int index = foodNames.indexOf(foodName);
-        FoodData food = userFoodData.get(index);
-        return food.getco2();
-    }
-
+    //yearly co2
     public double getTotalco2perYear(){
         return getTotalco2()*52;
     }
 
-    //calculates proportion of weekly co2 due to foodName
+    //calculates proportion of weekly co2 due to food item
     public double getProportion(String foodName){
         int index = foodNames.indexOf(foodName);
         double totalco2 = getTotalco2();
@@ -67,6 +78,7 @@ public class UserData implements Serializable {
 
         return proportion;
     }
+
 
     public int getUserFrequency(String foodName){
         int index = foodNames.indexOf(foodName);
@@ -85,25 +97,13 @@ public class UserData implements Serializable {
         foodNames.add(foodName);
     }
 
-    public FoodData getFoodObject(String foodName) {
-        int index = foodNames.indexOf(foodName);
-        return userFoodData.get(index);
-    }
-
-    public void setUserFoodData(List<FoodData> userFoodData) {
-        this.userFoodData = userFoodData;
-    }
-
     public List<String> getFoodNames() {
         return foodNames;
     }
     public List<FoodData> getUserFoodData(){return userFoodData;}
 
-    public void setFoodNames(List<String> foodNames) {
-        this.foodNames = foodNames;
-    }
-
     public void setProteinPerMeal(double proteinPerMeal) {
+        this.proteinPerMeal=proteinPerMeal;
         for(int i = 0; i < userFoodData.size(); i++){
             FoodData food = userFoodData.get(i);
             String curFoodName = foodNames.get(i);
@@ -113,13 +113,6 @@ public class UserData implements Serializable {
             }
         }
     }
-
-    public void setVegPerMeal(double vegPerMeal){
-        int index = foodNames.indexOf("Vegetables");
-        FoodData food = userFoodData.get(index);
-        food.setGramsPerMeal(vegPerMeal);
-    }
-
     public double getProteinPerMeal() {
         return proteinPerMeal;
     }
