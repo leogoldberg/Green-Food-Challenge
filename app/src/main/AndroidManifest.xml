@@ -11,26 +11,36 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.HomeScreen"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PlannerQuiz" />
-        <activity android:name=".activities.MeatEater" />
-        <activity android:name=".activities.LowMeat"></activity>
-        <activity android:name=".activities.ConsumptionQuiz1" />
-        <activity android:name=".activities.ConsumptionQuiz2" />
-        <activity android:name=".activities.ResultActivity">
-            android:label="@string/title_activity_results"
-            android:theme="@style/AppTheme">
+        <activity android:name=".activities.PlannerQuiz"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activities.MeatEater"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activities.LowMeat"
+                  android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.ConsumptionQuiz1"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ConsumptionQuiz2"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ResultActivity"
+                  android:screenOrientation="portrait">
+                  android:label="@string/title_activity_results"
+                  android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.AboutActivity"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".activities.PopupActivity"
-                  android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".activities.ResultActivity2"></activity>
+                  android:theme="@style/AppTheme.CustomTheme"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ResultActivity2"
+                  android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
