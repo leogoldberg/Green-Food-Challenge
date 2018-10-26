@@ -12,6 +12,7 @@ import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
+//This activity will let user select their preferred meal plan
 public class PlannerQuiz extends AppCompatActivity {
 
     @Override
@@ -21,10 +22,13 @@ public class PlannerQuiz extends AppCompatActivity {
         final UserData currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
         final PlanPicker planPicker = new PlanPicker(currentConsumption);
 
+        //Set up the toolbar with custom Title
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Plan Picker");
 
+
+        // Set up OnClickListener for Low Meat option and handle passing intents to Low Meat
         LinearLayout meatEater = findViewById(R.id.meatLover);
         if (planPicker.isVegetarian()){
             meatEater.setVisibility(View.INVISIBLE);
@@ -39,7 +43,7 @@ public class PlannerQuiz extends AppCompatActivity {
             });
         }
 
-        // Set up Low Meat Option
+        // Set up OnClickListener for Low Meat option and handle passing intents to Low Meat
         LinearLayout lowMeat = findViewById(R.id.lowMeat);
         lowMeat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +55,7 @@ public class PlannerQuiz extends AppCompatActivity {
         });
 
 
-        // Set up Plant Based Option
+        // Set up OnClickListener for plant based option, calculate the suggested consumption and handle passing intents to Result Activity
         LinearLayout plantBased = findViewById(R.id.plantBased);
         plantBased.setOnClickListener(new View.OnClickListener() {
             @Override

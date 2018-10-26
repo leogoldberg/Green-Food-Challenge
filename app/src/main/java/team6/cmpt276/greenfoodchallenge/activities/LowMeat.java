@@ -12,6 +12,7 @@ import android.widget.TextView;
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
+// This is the
 public class LowMeat extends AppCompatActivity {
 
     private UserData currentConsumption;
