@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -35,6 +38,7 @@ public class ResultActivity2 extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Suggested Diet");
+
 
         Intent intent = getIntent();
 
@@ -79,15 +83,28 @@ public class ResultActivity2 extends AppCompatActivity {
             }
         });
 
-        Button about =findViewById(R.id.about);
-        about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu1:
                 Intent intent = new Intent(ResultActivity2.this, AboutActivity.class);
                 startActivity(intent);
-            }
-        });
+                return true;
 
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**

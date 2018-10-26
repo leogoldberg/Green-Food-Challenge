@@ -117,16 +117,5 @@
             android:text="@string/results2Redo" />
 
 
-        <Button
-            android:id="@+id/about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/headerText"
-            android:textColor="@android:color/white"
-            android:text="@string/results2About" />
-
-
-
-
     </LinearLayout>
 </LinearLayout>
