@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="5dp"
-            android:text="The Average footprint for canadian is 15 metric tons"
+            android:text="The average footprint for canadians is 8 metric tons"
             android:textSize="15dp" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="5dp"
-            android:text="The Average worldwide footprint is 15 metric tons"
+            android:text="The Average worldwide footprint is 4 metric tons"
             android:textSize="15dp" />
 
         <TextView
