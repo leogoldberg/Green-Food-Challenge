@@ -4,11 +4,19 @@ import java.util.ArrayList;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
+/**
+ * This class will give dynamic resources to populate the front end based on previous user input
+ * It will also calculate the new diet based and return the new suggested consumption for user
+ */
 public class PlanPicker {
 
     private ArrayList<String> proteinList;
     private ArrayList<Integer> proteinFrequency;
 
+    /**
+     * Default constructor for PlanPicker Class, take in the frequency of proteins in the current diet
+     * @param currentConsumption object that holds users' parameters for the current diet
+     */
     public PlanPicker(UserData currentConsumption){
         proteinList = new ArrayList<>();
         proteinList.add("Beef");
@@ -27,6 +35,11 @@ public class PlanPicker {
         proteinFrequency.add(currentConsumption.getUserFrequency("Beans"));
     };
 
+
+    /**
+     * Check if the user is vegetarian
+     * @return boolean, true if user only eat eggs and beans
+     */
     public boolean isVegetarian() {
         int indexFirstProtein = findFirstNonZeroProtein();
 
@@ -37,16 +50,10 @@ public class PlanPicker {
         }
     }
 
-    public boolean isVegan() {
-        int indexFirstProtein = findFirstNonZeroProtein();
-
-        if (indexFirstProtein > 4) {
-            return true;
-        } else{
-            return false;
-        }
-    }
-
+    /**
+     * Get the resources id (image, text and option name)
+     * @return an ArrayList of integer that contains the resources id of the options based on user's previous input
+     */
     public ArrayList<Integer> getResource() {
         int indexFirstProtein = findFirstNonZeroProtein();
 
@@ -57,7 +64,9 @@ public class PlanPicker {
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 1));
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 2));
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 3));
-        } else {
+        }
+        // If not, only show two relevance ones
+        else {
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 1));
             addResource(displayOptionList, proteinList.get(indexFirstProtein + 2));
         }
@@ -65,7 +74,11 @@ public class PlanPicker {
         return displayOptionList;
     }
 
-    // Set all animal-based protein's frequency to 0 and put it to bean's frequency
+    /**
+     * Calculate the new consumption based on the plant based diet (set all the protein to only beans)
+     * @param suggestedConsumption object that holds users' parameters for the diet
+     * @return a userdata object that contains all the information about the new diet
+     */
     public UserData plantBased(UserData suggestedConsumption) {
         int totalProteinConsumption = 0;
 
@@ -84,6 +97,11 @@ public class PlanPicker {
 
     }
 
+    /**
+     * Calculate the new consumption based on the meat eater diet (distribute the frequency of higher CO2 food to user's chosen protein)
+     * @param suggestedConsumption object that holds users' parameters for the diet
+     * @return a userdata object that contains all the information about the new diet
+     */
     public UserData meatEater(UserData suggestedConsumption, int proteinChoice) {
         int frequencyCount = 0;
 
@@ -97,7 +115,10 @@ public class PlanPicker {
         return suggestedConsumption;
     }
 
-
+    /**
+     * Sort from the highest CO2 protein to lowest and find the first protein that is non-zero in frequency
+     * @return index of the first non-zero protein
+     */
     private int findFirstNonZeroProtein () {
         int index = 0;
         while (index < proteinFrequency.size() && proteinFrequency.get(index) == 0) {
@@ -106,6 +127,11 @@ public class PlanPicker {
         return index;
     }
 
+    /**
+     * Add the resources to the list of displays.
+     * @param displayOptionList object that holds resources id and option name of the chosen protein
+     * @param protein the name of the protein that would be added to the list
+     */
     private void addResource (ArrayList<Integer> displayOptionList, String protein){
         if (protein == "Chicken"){
             displayOptionList.add(2);

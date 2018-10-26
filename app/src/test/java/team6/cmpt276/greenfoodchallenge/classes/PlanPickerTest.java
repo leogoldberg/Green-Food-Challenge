@@ -35,24 +35,6 @@ public class PlanPickerTest {
     }
 
     @Test
-    public void isVegan() {
-        UserData testData = new UserData(250,250);
-        testData.setFoodFrequency("Beef",0);
-        testData.setFoodFrequency("Chicken",0);
-        testData.setFoodFrequency("Pork",0);
-        testData.setFoodFrequency("Fish",0);
-        testData.setFoodFrequency("Eggs",0);
-        testData.setFoodFrequency("Beans",5);
-
-        PlanPicker testPlan= new PlanPicker(testData);
-        assertTrue("Test is not vegan when data is",testPlan.isVegetarian());
-
-        testData.setFoodFrequency("Eggs", 5);
-        testPlan = new PlanPicker(testData);
-        assertFalse("Test is not vegan when data is",testPlan.isVegetarian());
-    }
-
-    @Test
     public void getResource() {
         UserData testData = new UserData(250,250);
         testData.setFoodFrequency("Beef",0);
