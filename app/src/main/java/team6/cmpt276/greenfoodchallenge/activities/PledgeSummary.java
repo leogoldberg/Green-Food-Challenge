@@ -1,8 +1,10 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -74,6 +76,11 @@ public class PledgeSummary extends AppCompatActivity {
         entries.add(new BarEntry(3f, 50f));
 
         return entries;
+    }
+
+    public void seePledgeSummary(View v) {
+        Intent myIntent = new Intent(PledgeSummary.this, ViewAllPledges.class);
+        startActivity(myIntent);
     }
 
 }
