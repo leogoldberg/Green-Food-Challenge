@@ -30,4 +30,9 @@ public class HomeScreen extends AppCompatActivity {
         });
 
     }
+
+    public void seePledgeSummary(View v) {
+        Intent myIntent = new Intent(HomeScreen.this, PledgeSummary.class);
+        startActivity(myIntent);
+    }
 }
