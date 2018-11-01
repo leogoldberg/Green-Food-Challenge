@@ -5,17 +5,20 @@ import java.util.*;
 
 
 public class UserData implements Serializable {
+    private String uID;
     private List<FoodData> userFoodData;
     private List<String> foodNames;
     private double proteinPerMeal;
     private double vegPerMeal;
+    private boolean isCurrent;
 
     //Normal Constructor
-    public UserData(int proteinPerMeal, int vegPerMeal){
+    public UserData(String uID, int proteinPerMeal, int vegPerMeal, boolean isCurrent){
         this.userFoodData = new ArrayList<>();
         this.foodNames = new ArrayList<>();
         this.proteinPerMeal = proteinPerMeal;
         this.vegPerMeal = vegPerMeal;
+        this.isCurrent = isCurrent;
 
         add("Beef", new FoodData(27, proteinPerMeal));
         add("Pork", new FoodData(12.1, proteinPerMeal));
@@ -27,11 +30,13 @@ public class UserData implements Serializable {
     }
 
     //Copy constructor
-    public UserData(UserData userData) {
+    public UserData(UserData userData, boolean isCurrent) {
         userFoodData = copyFoodData(userData.userFoodData);
+        uID = userData.getuID();
         foodNames = userData.getFoodNames();
         vegPerMeal = userData.getVegPerMeal();
         proteinPerMeal = userData.getProteinPerMeal();
+        this.isCurrent = isCurrent;
     }
 
     //calculates total weekly co2
@@ -97,7 +102,9 @@ public class UserData implements Serializable {
     public List<String> getFoodNames() {
         return foodNames;
     }
-    public List<FoodData> getUserFoodData(){return userFoodData;}
+    public List<FoodData> getUserFoodData(){
+        return userFoodData;
+    }
 
     public void setFoodNames(List<String> foodNames) {
         this.foodNames = foodNames;
@@ -150,4 +157,11 @@ public class UserData implements Serializable {
         return returnFoodData;
     }
 
+    public String getuID() {
+        return uID;
+    }
+
+    public void setuID(String uID) {
+        this.uID = uID;
+    }
 }

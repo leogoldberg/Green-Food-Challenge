@@ -31,7 +31,7 @@ public class MeatEater extends AppCompatActivity {
         getSupportActionBar().setTitle("Plan Picker");
 
         currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
-        suggestedConsumption = new UserData(currentConsumption);
+        suggestedConsumption = new UserData(currentConsumption, false);
 
         planPicker = new PlanPicker(currentConsumption);
 
