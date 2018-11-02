@@ -9,12 +9,16 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ConsumptionQuiz2 extends AppCompatActivity {
 
     private UserData currentConsumption;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,11 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
             startActivity(intent);
             }
         });
+    }
+
+    private void writeNewConsumption (UserData currentConsumption){
+        String key = database.child("UserData").push().getKey();
+        database.child("UserData").child(key).setValue(currentConsumption);
     }
 
     private String returnKey(int count) {

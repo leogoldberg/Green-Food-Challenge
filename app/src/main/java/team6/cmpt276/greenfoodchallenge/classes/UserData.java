@@ -13,25 +13,20 @@ import java.util.*;
  */
 
 public class UserData implements Serializable {
+    private String uID;
     private List<FoodData> userFoodData;
     private List<String> foodNames;
     private double proteinPerMeal;
     private double vegPerMeal;
+    private boolean isCurrent;
 
-    //Empty constructor
-    public UserData() {
-        userFoodData = new ArrayList<>();
-        foodNames = new ArrayList<>();
-        vegPerMeal =0;
-        proteinPerMeal =0;
-    }
-
-    //HardCoded Constructor
-    public UserData(double proteinPerMeal, double vegPerMeal) {
+    //Normal Constructor
+    public UserData(String uID, int proteinPerMeal, int vegPerMeal, boolean isCurrent){
         this.userFoodData = new ArrayList<>();
         this.foodNames = new ArrayList<>();
         this.proteinPerMeal = proteinPerMeal;
         this.vegPerMeal = vegPerMeal;
+        this.isCurrent = isCurrent;
 
         add("Beef", new FoodData(27, proteinPerMeal));
         add("Pork", new FoodData(12.1, proteinPerMeal));
@@ -43,13 +38,14 @@ public class UserData implements Serializable {
     }
 
     //Copy constructor
-    public UserData(UserData userData) {
+    public UserData(UserData userData, boolean isCurrent) {
         userFoodData = copyFoodData(userData.userFoodData);
+        uID = userData.getuID();
         foodNames = userData.getFoodNames();
         vegPerMeal = userData.getVegPerMeal();
         proteinPerMeal = userData.getProteinPerMeal();
+        this.isCurrent = isCurrent;
     }
-
 
     //calculates total weekly co2
     private double getTotalco2(){
@@ -100,7 +96,9 @@ public class UserData implements Serializable {
     public List<String> getFoodNames() {
         return foodNames;
     }
-    public List<FoodData> getUserFoodData(){return userFoodData;}
+    public List<FoodData> getUserFoodData(){
+        return userFoodData;
+    }
 
     public void setProteinPerMeal(double proteinPerMeal) {
         this.proteinPerMeal=proteinPerMeal;
@@ -143,4 +141,11 @@ public class UserData implements Serializable {
         return returnFoodData;
     }
 
+    public String getuID() {
+        return uID;
+    }
+
+    public void setuID(String uID) {
+        this.uID = uID;
+    }
 }
