@@ -41,9 +41,12 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //log out for testing
+        //FirebaseAuth.getInstance().signOut();
 
         /* Authentication stuff */
         mAuth = FirebaseAuth.getInstance();
+
     }
 
         @Override
@@ -53,6 +56,7 @@ public class HomeScreen extends AppCompatActivity {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){ // User is signed in
                 //TODO: Go to dashboard
+                Log.d(TAG, "user is signed in");
                 // Intent intent = new Intent(HomeScreen.this, Dashboard.class);
                 //startActivity(intent);
             }
