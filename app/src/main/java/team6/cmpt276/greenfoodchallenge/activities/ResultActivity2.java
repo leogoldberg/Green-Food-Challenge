@@ -18,6 +18,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +85,9 @@ public class ResultActivity2 extends AppCompatActivity {
             }
         });
 
-
+        // On login sidebar or make a pledge button click: Start activity UserLogin
+        // Intent intent = new Intent(UserLogin.this, Dashboard.class);
+        //startActivity(intent);
 
     }
 

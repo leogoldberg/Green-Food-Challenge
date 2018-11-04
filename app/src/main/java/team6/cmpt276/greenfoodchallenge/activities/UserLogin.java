@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -42,6 +43,7 @@ public class UserLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         signIn();
 
     }
@@ -61,7 +63,32 @@ public class UserLogin extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+
+                //Convert anonymous to permanent user
+                String userToken = account.getIdToken();
+                AuthCredential credential = GoogleAuthProvider.getCredential(userToken, null);
+
+                mAuth.getCurrentUser().linkWithCredential(credential)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "linkWithCredential:success");
+                                    FirebaseUser user = task.getResult().getUser();
+                                    //gotoNextPage(user);
+                                } else {
+                                    Log.w(TAG, "linkWithCredential:failure", task.getException());
+                                    Toast.makeText(UserLogin.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    //gotoNextPage(null);
+                                }
+
+                                // ...
+                            }
+                        });
+
+
+                //firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -94,10 +121,11 @@ public class UserLogin extends AppCompatActivity {
 
                     }
                 });
+
     }
 
-    public boolean isUserLoggedIn(){
+    /*public boolean isUserLoggedIn(){
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return (currentUser!=null);
-    }
+    }*/
 }
