@@ -29,7 +29,7 @@ public class LowMeat extends AppCompatActivity {
 
         //Import current consumption from previous activity
         currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
-        suggestedConsumption = new UserData(currentConsumption, false);
+        suggestedConsumption = new UserData(currentConsumption);
 
         double consumptionValue = suggestedConsumption.getProteinPerMeal() * 50 / 100;
         TextView consumptionDescription = (TextView) findViewById(R.id.consumptionDescription);

@@ -1,19 +1,14 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.FoodData;
-import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -78,14 +73,14 @@ public class ResultActivity extends AppCompatActivity {
                                      int total_amount_per_week) {
         List<PieEntry> entries = new ArrayList<>();
 
-        List<String> foodNames = currentConsumption.getFoodNames();
-        List<FoodData> userFoodData = currentConsumption.getUserFoodData();
+        ArrayList<String> foodNames = currentConsumption.getFoodNames();
+        ArrayList<Integer> userFoodData = currentConsumption.getUserFoodData();
 
         for(int i = 0; i < foodNames.size(); i++) {
             String curFoodName = foodNames.get(i);
-            FoodData curUserData = userFoodData.get(i);
+            int curUserData = userFoodData.get(i);
 
-            float percentage = getPercentage(curUserData.getFrequency(), total_amount_per_week);
+            float percentage = getPercentage(curUserData, total_amount_per_week);
 
             if(percentage > 0) {
                 entries.add(new PieEntry(percentage, curFoodName));

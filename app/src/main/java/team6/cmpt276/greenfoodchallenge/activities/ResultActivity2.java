@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.FoodData;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ResultActivity2 extends AppCompatActivity {
@@ -117,14 +115,14 @@ public class ResultActivity2 extends AppCompatActivity {
                                       int total_amount_per_week) {
         List<PieEntry> entries = new ArrayList<>();
 
-        List<String> foodNames = suggestedConsumption.getFoodNames();
-        List<FoodData> userFoodData = suggestedConsumption.getUserFoodData();
+        ArrayList<String> foodNames = suggestedConsumption.getFoodNames();
+        ArrayList<Integer> userFoodData = suggestedConsumption.getUserFoodData();
 
         for(int i = 0; i < foodNames.size(); i++) {
             String curFoodName = foodNames.get(i);
-            FoodData curUserData = userFoodData.get(i);
+            int curUserData = userFoodData.get(i);
 
-            float percentage = getPercentage(curUserData.getFrequency(), total_amount_per_week);
+            float percentage = getPercentage(curUserData, total_amount_per_week);
 
             if(percentage > 0) {
                 entries.add(new PieEntry(percentage, curFoodName));

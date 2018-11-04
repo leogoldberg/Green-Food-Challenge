@@ -60,7 +60,7 @@ public class PlannerQuiz extends AppCompatActivity {
         plantBased.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserData suggestedConsumption = new UserData(currentConsumption, false);
+                UserData suggestedConsumption = new UserData(currentConsumption);
                 suggestedConsumption = planPicker.plantBased(suggestedConsumption);
 
                 Intent intent = new Intent(PlannerQuiz.this, ResultActivity2.class);

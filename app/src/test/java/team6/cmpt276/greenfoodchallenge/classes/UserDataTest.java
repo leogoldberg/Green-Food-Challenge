@@ -11,100 +11,74 @@ public class UserDataTest {
 
     @Test
     public void getTotalco2perYear() {
-        UserData userTest=new UserData(3,  5);
+        UserData userTest = new UserData("123");
+        userTest.setVegPerMeal(250);
+        userTest.setProteinPerMeal(250);
         assertEquals(0,userTest.getTotalco2perYear(), 0.000001);
         userTest.setFoodFrequency("Chicken", 5);
-
-        userTest.setFoodFrequency("Pork", 7);
+        assertEquals(897000,userTest.getTotalco2perYear(), 0.000001);
     }
 
-    @Test
-    public void getProportion() {
-        UserData userTest=new UserData(3,  5);
-        userTest.setFoodFrequency("Pork", 2);
-        assertEquals(1.0, userTest.getProportion("Pork"),0.000001);
-        userTest.setFoodFrequency("Chicken", 2);
-        assertEquals(0.63684210, userTest.getProportion("Pork"),0.000001);
-    }
-
-    @Test
-    public void getUserFrequency() {
-        UserData userTest=new UserData(3,  5);
-        assertEquals(0,userTest.getUserFrequency("Chicken"));
-        userTest.setFoodFrequency("Pork", 2);
-        assertEquals(2,userTest.getUserFrequency("Pork"));
-        userTest.setFoodFrequency("Chicken", 3);
-        assertEquals(3,userTest.getUserFrequency("Chicken"));
-    }
 
     @Test
     public void setFoodFrequency() {
-        UserData userTest=new UserData(3,  5);
-        assertEquals(0,userTest.getUserFrequency("Pork"));
+        UserData userTest=new UserData("123");
+        assertEquals(0,userTest.getBeefFrequency());
+        assertEquals(0,userTest.getPorkFrequency());
+        assertEquals(0,userTest.getChickenFrenquency());
+        assertEquals(0,userTest.getFishFrequency());
+        assertEquals(0,userTest.getEggFrequency());
         userTest.setFoodFrequency("Pork", 2);
-        assertEquals(2,userTest.getUserFrequency("Pork"));
+        assertEquals("Beef got set to 2",0,userTest.getBeefFrequency());
+        assertEquals(2,userTest.getPorkFrequency());
+        assertEquals(0,userTest.getChickenFrenquency());
+        assertEquals(0,userTest.getFishFrequency());
+        assertEquals(0,userTest.getEggFrequency());
+        userTest.setFoodFrequency("Eggs", 5);
+        assertEquals(5,userTest.getEggFrequency());
     }
 
-    @Test
-    public void add() {
-        UserData userTest=new UserData();
-        userTest.add("Chicken", new FoodData(3, 5));
-        List<FoodData> foodDataList= userTest.getUserFoodData();
-        assertEquals(3,foodDataList.get(0).getCo2PerGrams(), 0.00001);
-        assertEquals("Chicken", userTest.getFoodNames().get(0));
-    }
 
     @Test
     public void getFoodNames() {
-        UserData userTest=new UserData();
-        userTest.add("Chicken", new FoodData(3, 5));
-        assertEquals("Chicken", userTest.getFoodNames().get(0));
+        UserData userTest=new UserData("123");
+        assertEquals("Beef", userTest.getFoodNames().get(0));
     }
 
 
     @Test
     public void getUserFoodData() {
-        UserData userTest=new UserData();
-        userTest.add("Chicken", new FoodData(3, 5));
-        List<FoodData> foodDataList= userTest.getUserFoodData();
-        assertEquals(3,foodDataList.get(0).getCo2PerGrams(), 0.00001);
+        UserData userTest=new UserData("123");
+
+        List<Integer> foodDataList= userTest.getUserFoodData();
+        assertEquals(0,foodDataList.get(0), 0.00001);
+
+        userTest.setBeanFrequency(3);
+        foodDataList= userTest.getUserFoodData();
+        assertEquals(3,foodDataList.get(5), 0.00001);
     }
 
     @Test
     public void setProteinPerMeal() {
-        UserData userTest=new UserData();
+        UserData userTest=new UserData("123");
         userTest.setProteinPerMeal(30.5);
         assertEquals(30.5, userTest.getProteinPerMeal(),0.000001);
     }
 
     @Test
     public void getProteinPerMeal() {
-        UserData userTest=new UserData();
+        UserData userTest=new UserData("123");
         userTest.setProteinPerMeal(11.353);
         assertEquals(11.353, userTest.getProteinPerMeal(),0.000001);
     }
 
     @Test
-    public void getVegPerMeal() {
-        UserData userTest=new UserData(11.3, 15);
+    public void setVegPerMeal() {
+        UserData userTest=new UserData("123");
+        userTest.setVegPerMeal(15);
         assertEquals(15, userTest.getVegPerMeal(),0.000001);
     }
 
-    @Test
-    public void getTotalFrequency() {
-        UserData userTest=new UserData(11.3, 15);
-        userTest.setFoodFrequency("Pork", 2);
-        userTest.setFoodFrequency("Chicken", 3);
-        assertEquals(5, userTest.getTotalFrequency());
-    }
 
-    @Test
-    public void copyFoodData() {
-        List<FoodData> testFood=new ArrayList<>();
-        testFood.add(new FoodData(3,4));
-        testFood.add(new FoodData(3,4));
-        UserData userTest=new UserData();
-        List<FoodData> listFood=userTest.copyFoodData(testFood);
-        assertEquals(testFood.get(0).getCo2PerGrams(), listFood.get(0).getCo2PerGrams(),0.0001);
-    }
+
 }

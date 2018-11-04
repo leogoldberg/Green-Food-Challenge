@@ -68,8 +68,8 @@
         android:id="@+id/submit"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/headerText"
         android:text="Submit"
         android:textColor="@android:color/white" />

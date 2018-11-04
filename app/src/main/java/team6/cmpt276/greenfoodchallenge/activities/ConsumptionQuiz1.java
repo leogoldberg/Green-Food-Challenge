@@ -55,7 +55,9 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String uID = ""; //Attach userID
-                currentConsumption = new UserData(uID,proteinBar.getProgress(),vegBar.getProgress(),true);
+                currentConsumption = new UserData(uID);
+                currentConsumption.setProteinPerMeal(proteinBar.getProgress());
+                currentConsumption.setVegPerMeal(vegBar.getProgress());
                 Intent intent = new Intent(ConsumptionQuiz1.this, ConsumptionQuiz2.class);
                 intent.putExtra("currentConsumption", currentConsumption);
                 startActivity(intent);

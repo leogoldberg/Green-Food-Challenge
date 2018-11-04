@@ -88,7 +88,7 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
                 result = "Beans";
                 break;
             case 6 :
-                result = "Vegetables";
+                result = "Vegetable";
                 break;
         }
 
