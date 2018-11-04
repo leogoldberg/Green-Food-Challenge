@@ -76,14 +76,14 @@ public class UserLogin extends AppCompatActivity {
                                     Log.d(TAG, "linkWithCredential:success");
                                     FirebaseUser user = task.getResult().getUser();
                                     //gotoNextPage(user);
+                                    Intent intent = new Intent(UserLogin.this, ConsumptionQuiz1.class);
+                                    startActivity(intent);
                                 } else {
                                     Log.w(TAG, "linkWithCredential:failure", task.getException());
                                     Toast.makeText(UserLogin.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                     //gotoNextPage(null);
                                 }
-
-                                // ...
                             }
                         });
 
