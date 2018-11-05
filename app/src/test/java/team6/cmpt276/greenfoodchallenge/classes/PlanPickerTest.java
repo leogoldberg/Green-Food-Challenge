@@ -12,22 +12,21 @@ import static org.junit.Assert.*;
 public class PlanPickerTest {
 
 
+
     @Test
     public void isVegetarian() {
-        UserData testData = new UserData(250,250);
-        testData.setFoodFrequency("Beef",0);
-        testData.setFoodFrequency("Chicken",0);
-        testData.setFoodFrequency("Pork",0);
-        testData.setFoodFrequency("Fish",0);
-        testData.setFoodFrequency("Eggs",0);
+        UserData testData = new UserData();
+        testData.setProteinPerMeal(250);
+        testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beans",5);
 
         PlanPicker testPlan= new PlanPicker(testData);
-        assertTrue("Test is not vegetarian when data is",testPlan.isVegetarian());
+        assertTrue("Test is not vegetarian when data is (1)",testPlan.isVegetarian());
+
 
         testData.setFoodFrequency("Eggs", 5);
         testPlan = new PlanPicker(testData);
-        assertTrue("Test is not vegetarian when data is",testPlan.isVegetarian());
+        assertTrue("Test is not vegetarian when data is (2)",testPlan.isVegetarian());
 
         testData.setFoodFrequency("Chicken", 5);
         testPlan = new PlanPicker(testData);
@@ -36,7 +35,9 @@ public class PlanPickerTest {
 
     @Test
     public void getResource() {
-        UserData testData = new UserData(250,250);
+        UserData testData = new UserData();
+        testData.setProteinPerMeal(250);
+        testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beef",0);
         testData.setFoodFrequency("Pork",0);
         testData.setFoodFrequency("Chicken",3);
@@ -80,7 +81,9 @@ public class PlanPickerTest {
 
     @Test
     public void plantBased() {
-        UserData testData = new UserData(250,250);
+        UserData testData = new UserData();
+        testData.setProteinPerMeal(250);
+        testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beef",8);
         testData.setFoodFrequency("Pork",7);
         testData.setFoodFrequency("Chicken",3);
@@ -90,18 +93,20 @@ public class PlanPickerTest {
 
         PlanPicker testPlan= new PlanPicker(testData);
         testPlan.plantBased(testData);
-        assertEquals("Beef frequency wrong", 0,testData.getUserFrequency("Beef"));
-        assertEquals("Pork frequency wrong", 0,testData.getUserFrequency("Pork"));
-        assertEquals("Chicken frequency wrong", 0,testData.getUserFrequency("Chicken"));
-        assertEquals("Fish frequency wrong", 0,testData.getUserFrequency("Fish"));
-        assertEquals("Egg frequency wrong", 0,testData.getUserFrequency("Eggs"));
-        assertEquals("Beans frequency wrong", 23,testData.getUserFrequency("Beans"));
+        assertEquals("Beef frequency wrong", 0,testData.getBeefFrequency());
+        assertEquals("Pork frequency wrong", 0,testData.getPorkFrequency());
+        assertEquals("Chicken frequency wrong", 0,testData.getChickenFrenquency());
+        assertEquals("Fish frequency wrong", 0,testData.getFishFrequency());
+        assertEquals("Egg frequency wrong", 0,testData.getEggFrequency());
+        assertEquals("Beans frequency wrong", 23,testData.getBeanFrequency());
 
     }
 
     @Test
     public void meatEater() {
-        UserData testData = new UserData(250,250);
+        UserData testData = new UserData();
+        testData.setProteinPerMeal(250);
+        testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beef",1);
         testData.setFoodFrequency("Pork",2);
         testData.setFoodFrequency("Chicken",3);
@@ -111,11 +116,11 @@ public class PlanPickerTest {
 
         PlanPicker testPlan= new PlanPicker(testData);
         testPlan.meatEater(testData,2);
-        assertEquals("Beef frequency wrong", 0,testData.getUserFrequency("Beef"));
-        assertEquals("Pork frequency wrong", 0,testData.getUserFrequency("Pork"));
-        assertEquals("Chicken frequency wrong", 6, testData.getUserFrequency("Chicken"));
-        assertEquals("Fish frequency wrong", 0,testData.getUserFrequency("Fish"));
-        assertEquals("Egg frequency wrong", 0,testData.getUserFrequency("Eggs"));
-        assertEquals("Beans frequency wrong", 5,testData.getUserFrequency("Beans"));
+        assertEquals("Beef frequency wrong", 0,testData.getBeefFrequency());
+        assertEquals("Pork frequency wrong", 0,testData.getPorkFrequency());
+        assertEquals("Chicken frequency wrong", 6, testData.getChickenFrenquency());
+        assertEquals("Fish frequency wrong", 0,testData.getFishFrequency());
+        assertEquals("Egg frequency wrong", 0,testData.getEggFrequency());
+        assertEquals("Beans frequency wrong", 5,testData.getBeanFrequency());
     }
 }

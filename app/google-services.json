@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "65095117690",
+    "firebase_url": "https://greenfoodchallenge-9ec3c.firebaseio.com",
+    "project_id": "greenfoodchallenge-9ec3c",
+    "storage_bucket": "greenfoodchallenge-9ec3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65095117690:android:b556b9cc6c1db4f0",
+        "android_client_info": {
+          "package_name": "team6.cmpt276.greenfoodchallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65095117690-5psuv0c3ja5n295k3550o1pfib6oqmqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team6.cmpt276.greenfoodchallenge",
+            "certificate_hash": "a1d28e4f0126e19b72125730e8fcbadb24f6df9f"
+          }
+        },
+        {
+          "client_id": "379450996115-ktm0qr42vuhvptivm74iudtmi7ukr1mb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team6.cmpt276.greenfoodchallenge",
+            "certificate_hash": "5acdcf88cb28273fb812e877a73d1d07c31bf327"
+          }
+        },
+        {
+          "client_id": "65095117690-qogt0dvuevvdfd6ileubsibri23rkn3s.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "379450996115-l6i4p0n4ne3m32qlm18u1rhhc6vil7ao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwEaOUxgeNSSKrLHzI7sxpgPINsLVNEjA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65095117690-qogt0dvuevvdfd6ileubsibri23rkn3s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "379450996115-l6i4p0n4ne3m32qlm18u1rhhc6vil7ao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

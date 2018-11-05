@@ -1,6 +1,7 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,19 +10,31 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseUser;
+
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ConsumptionQuiz2 extends AppCompatActivity {
 
     private UserData currentConsumption;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String userID = user.getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumption_quiz2);
 
-        currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
+        currentConsumption = new UserData();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,12 +62,25 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            database.child("current_consumptions").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserData consumptionDB = dataSnapshot.getValue(UserData.class);
+                    currentConsumption.setProteinPerMeal(consumptionDB.getProteinPerMeal());
+                    currentConsumption.setVegPerMeal(consumptionDB.getVegPerMeal());
+                    database.child("current_consumptions").child(userID).setValue(currentConsumption);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
             Intent  intent = new Intent(ConsumptionQuiz2.this, ResultActivity.class);
-            intent.putExtra("currentConsumption",currentConsumption);
             startActivity(intent);
             }
         });
     }
+
+
 
     private String returnKey(int count) {
         String result = "";
@@ -79,7 +105,7 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
                 result = "Beans";
                 break;
             case 6 :
-                result = "Vegetables";
+                result = "Vegetable";
                 break;
         }
 
