@@ -11,7 +11,7 @@ public class UserDataTest {
 
     @Test
     public void getTotalco2perYear() {
-        UserData userTest = new UserData("123");
+        UserData userTest = new UserData();
         userTest.setVegPerMeal(250);
         userTest.setProteinPerMeal(250);
         assertEquals(0,userTest.getTotalco2perYear(), 0.000001);
@@ -22,7 +22,7 @@ public class UserDataTest {
 
     @Test
     public void setFoodFrequency() {
-        UserData userTest=new UserData("123");
+        UserData userTest=new UserData();
         assertEquals(0,userTest.getBeefFrequency());
         assertEquals(0,userTest.getPorkFrequency());
         assertEquals(0,userTest.getChickenFrenquency());
@@ -41,14 +41,14 @@ public class UserDataTest {
 
     @Test
     public void getFoodNames() {
-        UserData userTest=new UserData("123");
+        UserData userTest=new UserData();
         assertEquals("Beef", userTest.getFoodNames().get(0));
     }
 
 
     @Test
     public void getUserFoodData() {
-        UserData userTest=new UserData("123");
+        UserData userTest=new UserData();
 
         List<Integer> foodDataList= userTest.getUserFoodData();
         assertEquals(0,foodDataList.get(0), 0.00001);
@@ -60,21 +60,21 @@ public class UserDataTest {
 
     @Test
     public void setProteinPerMeal() {
-        UserData userTest=new UserData("123");
+        UserData userTest=new UserData();
         userTest.setProteinPerMeal(30.5);
         assertEquals(30.5, userTest.getProteinPerMeal(),0.000001);
     }
 
     @Test
     public void getProteinPerMeal() {
-        UserData userTest=new UserData("123");
+        UserData userTest=new UserData();
         userTest.setProteinPerMeal(11.353);
         assertEquals(11.353, userTest.getProteinPerMeal(),0.000001);
     }
 
     @Test
     public void setVegPerMeal() {
-        UserData userTest=new UserData("123");
+        UserData userTest=new UserData();
         userTest.setVegPerMeal(15);
         assertEquals(15, userTest.getVegPerMeal(),0.000001);
     }

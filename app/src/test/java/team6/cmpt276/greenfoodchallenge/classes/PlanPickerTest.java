@@ -15,7 +15,7 @@ public class PlanPickerTest {
 
     @Test
     public void isVegetarian() {
-        UserData testData = new UserData("123");
+        UserData testData = new UserData();
         testData.setProteinPerMeal(250);
         testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beans",5);
@@ -35,7 +35,7 @@ public class PlanPickerTest {
 
     @Test
     public void getResource() {
-        UserData testData = new UserData("123");
+        UserData testData = new UserData();
         testData.setProteinPerMeal(250);
         testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beef",0);
@@ -81,7 +81,7 @@ public class PlanPickerTest {
 
     @Test
     public void plantBased() {
-        UserData testData = new UserData("123");
+        UserData testData = new UserData();
         testData.setProteinPerMeal(250);
         testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beef",8);
@@ -104,7 +104,7 @@ public class PlanPickerTest {
 
     @Test
     public void meatEater() {
-        UserData testData = new UserData("123");
+        UserData testData = new UserData();
         testData.setProteinPerMeal(250);
         testData.setVegPerMeal(250);
         testData.setFoodFrequency("Beef",1);

@@ -1,6 +1,7 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -18,17 +20,32 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.PlanPicker;
+import team6.cmpt276.greenfoodchallenge.classes.Pledge;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class ResultActivity2 extends AppCompatActivity {
     private UserData suggestedConsumption;
     private UserData currentConsumption;
+    private double saved;
+    private String dietOption;
+
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String userID = user.getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,53 +56,74 @@ public class ResultActivity2 extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Suggested Diet");
 
-
         Intent intent = getIntent();
+        dietOption = intent.getStringExtra("dietOption");
 
-        suggestedConsumption = (UserData) intent.getSerializableExtra("suggestedConsumption");
-        currentConsumption = (UserData) intent.getSerializableExtra("currentConsumption");
-        int total_amount_per_week = suggestedConsumption.getTotalFrequency();
-
-        double totalCurrentConsumption = currentConsumption.getTotalco2perYear();
-        double totalSuggestedConsumption = suggestedConsumption.getTotalco2perYear();
-        double saved = totalCurrentConsumption - totalSuggestedConsumption;
-
-        if(saved < 0) {
-            saved = 0;
-        }
-        
-        // change text
-        TextView amountSaved = findViewById(R.id.amount_saved);
-        amountSaved.setText(Math.round(saved) + " CO2e ");
-
-        TextView calculateTreesSaved = findViewById(R.id.amount_tree_saved);
-        calculateTreesSaved.setText("Or " + calculateTreesSaved(saved) + " trees per year");
-
-        TextView vancouverSaved = findViewById(R.id.vancouverSaved);
-        vancouverSaved.setText(calculateVancouverSaved(saved) + " tons C02e");
-
-        // sets up the pie charts
-        PieChart chart = initializePieChart(R.id.chart);
-        List<PieEntry> entries = addEntries(suggestedConsumption, total_amount_per_week);
-        PieDataSet dataSet = setPieDataSet(entries);
-
-        PieData pieData = setPieData(dataSet);
-
-        chart.setData(pieData);
-        chart.invalidate();
-
-        Button redoQuiz = findViewById(R.id.redoQuiz);
-        redoQuiz.setOnClickListener(new View.OnClickListener() {
+        database.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ResultActivity2.this, ConsumptionQuiz1.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                currentConsumption = dataSnapshot.child("current_consumptions").child(userID).getValue(UserData.class);
+                suggestedConsumption = dataSnapshot.child("suggested_consumptions").child(userID).getValue(UserData.class);
+                int total_amount_per_week = suggestedConsumption.getTotalFrequency();
+
+                double totalCurrentConsumption = currentConsumption.getTotalco2perYear();
+                double totalSuggestedConsumption = suggestedConsumption.getTotalco2perYear();
+                saved = totalCurrentConsumption - totalSuggestedConsumption;
+
+                if(saved < 0) {
+                    saved = 0;
+                }
+
+                // change text
+                TextView amountSaved = findViewById(R.id.amount_saved);
+                amountSaved.setText(Math.round(saved) + " CO2e ");
+
+                TextView calculateTreesSaved = findViewById(R.id.amount_tree_saved);
+                calculateTreesSaved.setText("Or " + calculateTreesSaved(saved) + " trees per year");
+
+                TextView vancouverSaved = findViewById(R.id.vancouverSaved);
+                vancouverSaved.setText(calculateVancouverSaved(saved) + " tons C02e");
+
+                // sets up the pie charts
+                PieChart chart = initializePieChart(R.id.chart);
+                List<PieEntry> entries = addEntries(suggestedConsumption, total_amount_per_week);
+                PieDataSet dataSet = setPieDataSet(entries);
+
+                PieData pieData = setPieData(dataSet);
+
+                chart.setData(pieData);
+                chart.invalidate();
+
+                Button redoQuiz = findViewById(R.id.redoQuiz);
+                redoQuiz.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ResultActivity2.this, ConsumptionQuiz1.class);
+                        startActivity(intent);
+                    }
+                });
+
+                Button pledgeButton = findViewById(R.id.pledgeButton);
+                pledgeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Pledge userPledge = new Pledge(Math.round(saved),dietOption);
+                        database.child("pledges").child(userID).setValue(userPledge);
+//                        Add the new activities here
+//                        Intent intent = new Intent(ResultActivity2.this, ConsumptionQuiz1.class);
+//                        startActivity(intent);
+                    }
+                });
+
+                // On login sidebar or make a pledge button click: Start activity UserLogin
+                // Intent intent = new Intent(UserLogin.this, Dashboard.class);
+                //startActivity(intent);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-        // On login sidebar or make a pledge button click: Start activity UserLogin
-        // Intent intent = new Intent(UserLogin.this, Dashboard.class);
-        //startActivity(intent);
 
     }
 

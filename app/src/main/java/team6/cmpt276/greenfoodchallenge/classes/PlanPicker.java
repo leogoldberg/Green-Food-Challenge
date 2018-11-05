@@ -136,10 +136,13 @@ public class PlanPicker {
             displayOptionList.add(4);
             displayOptionList.add(R.drawable.egg);
             displayOptionList.add(R.string.egg);
-        } else {
+        } else if (protein == "Beans"){
             displayOptionList.add(5);
             displayOptionList.add(R.drawable.bean);
             displayOptionList.add(R.string.bean);
+        }
+        else {
+
         }
     }
 

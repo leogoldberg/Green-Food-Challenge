@@ -1,6 +1,7 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,13 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +32,9 @@ import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private UserData currentConsumption;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String userID = user.getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +44,37 @@ public class ResultActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Consumption Result");
 
-        currentConsumption = (UserData) getIntent().getSerializableExtra("currentConsumption");
-        int total_amount_per_week = currentConsumption.getTotalFrequency();
+        database.child("current_consumptions").child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserData currentConsumption = dataSnapshot.getValue(UserData.class);
+                int total_amount_per_week = dataSnapshot.child("totalFrequency").getValue(Integer.class);
 
-        // sets up the pie charts
-        PieChart chart = initializePieChart(R.id.chart);
-        List<PieEntry> entries = addEntries(currentConsumption, total_amount_per_week);
-        PieDataSet dataSet = setPieDataSet(entries);
+                // sets up the pie charts
+                PieChart chart = initializePieChart(R.id.chart);
+                List<PieEntry> entries = addEntries(dataSnapshot.getValue(UserData.class), total_amount_per_week);
+                PieDataSet dataSet = setPieDataSet(entries);
 
-        PieData pieData = setPieData(dataSet);
+                PieData pieData = setPieData(dataSet);
 
-        chart.setData(pieData);
-        chart.invalidate();
+                chart.setData(pieData);
+                chart.invalidate();
 
-        // set total text
-        double total = currentConsumption.getTotalco2perYear();
-        TextView tv1 = findViewById(R.id.consumed_co2e);
-        tv1.setText(Math.round(total) + " CO2e ");
+                // set total text
+                double total = dataSnapshot.child("totalco2perYear").getValue(Double.class);
+                TextView tv1 = findViewById(R.id.consumed_co2e);
+                tv1.setText(Math.round(total) + " CO2e ");
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
         Button next = findViewById(R.id.reduceConsumption);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ResultActivity.this, PlannerQuiz.class);
-                intent.putExtra("currentConsumption", currentConsumption);
                 startActivity(intent);
             }
         });

@@ -17,8 +17,7 @@ import team6.cmpt276.greenfoodchallenge.R;
     based off food objects list
  */
 
-public class UserData implements Serializable {
-    private String uID;
+public class UserData {
     private double proteinPerMeal = 0;
     private double vegPerMeal = 0;
     private int beefFrequency = 0;
@@ -31,13 +30,12 @@ public class UserData implements Serializable {
 
 
     //Normal Constructor
-    public UserData(String uID){
-        this.uID = uID;
+    public UserData(){
+
     }
 
     //Copy constructor
     public UserData(UserData userData) {
-        uID = userData.getuID();
         beanFrequency = userData.getBeanFrequency();
         porkFrequency = userData.getPorkFrequency();
         chickenFrenquency = userData.getChickenFrenquency();
@@ -143,13 +141,6 @@ public class UserData implements Serializable {
     }
 
 
-    public String getuID() {
-        return uID;
-    }
-
-    public void setuID(String uID) {
-        this.uID = uID;
-    }
 
     public int getBeefFrequency() {
         return beefFrequency;
