@@ -51,8 +51,8 @@ public class PledgeSummary extends AppCompatActivity {
         getSupportActionBar().setTitle("Pledge Summary");
 
 
-        final String[] cities = { "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                            "New Westminister", "Burnaby"};
+        final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
+                                    "New Westminister", "Burnaby"};
 
         // set the hashmap
         pledges = createMap(cities);
@@ -227,6 +227,12 @@ public class PledgeSummary extends AppCompatActivity {
 
     public void seePledgeSummary(View v) {
         Intent myIntent = new Intent(PledgeSummary.this, ViewAllPledges.class);
+
+        Spinner dropdown = findViewById(R.id.spinner1);
+        String city = dropdown.getSelectedItem().toString();
+
+        myIntent.putExtra("municipality", city);
+
         startActivity(myIntent);
     }
 }

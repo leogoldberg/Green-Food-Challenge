@@ -7,11 +7,35 @@
     android:orientation="vertical"
     tools:context=".activities.ViewAllPledges">
 
-    <de.codecrafters.tableview.TableView
-        xmlns:table="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/tableView"
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@android:drawable/btn_dropdown"
+        android:gravity="right"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="511dp" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        table:tableView_columnCount="4" />
+        android:fillViewport="true">
+
+        <de.codecrafters.tableview.TableView
+            xmlns:table="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tableView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="0"
+            android:stretchColumns="0"
+            table:tableView_columnCount="4" />
+
+    </ScrollView>
 
 </android.widget.LinearLayout>
