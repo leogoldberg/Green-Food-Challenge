@@ -11,5 +11,16 @@ public class Pledge {
     public Pledge(double saveAmount, String dietOption) {
             this.saveAmount = saveAmount;
             this.dietOption = dietOption;
+            //this.municipality = municipality;
+    }
+
+    public void setMunicipality(String municipality) {
+        this.municipality = municipality;
+    }
+
+    public Pledge(double saveAmount, String dietOption, String municipality) {
+        this.saveAmount = saveAmount;
+        this.dietOption = dietOption;
+        this.municipality = municipality;
     }
 }

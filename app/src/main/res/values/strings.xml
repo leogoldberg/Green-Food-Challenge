@@ -59,4 +59,9 @@
     <string name="results2Redo">Redo Quiz</string>
     <string name="results2About">About</string>
     <string name="pledgeButton">Make a Pledge</string>
+
+    <!-- Pledge Summary -->
+    <string name="pledgeSummary1">Number Of Pledges</string>
+    <string name="pledgeSummary2">Total Amount Saved</string>
+    <string name="pledgeSummary3">Average Save Amount</string>
 </resources>
