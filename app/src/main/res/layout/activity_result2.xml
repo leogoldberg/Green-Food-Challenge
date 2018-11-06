@@ -116,6 +116,24 @@
             android:textColor="@android:color/white"
             android:text="@string/results2Redo" />
 
+        <Button
+            android:id="@+id/TEMP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/headerText"
+            android:text="LOGIN"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+
 
     </LinearLayout>
 </LinearLayout>
