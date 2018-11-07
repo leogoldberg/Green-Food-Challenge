@@ -50,7 +50,6 @@ public class PledgeSummary extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Pledge Summary");
 
-
         final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
                                     "New Westminister", "Burnaby"};
 
@@ -175,10 +174,14 @@ public class PledgeSummary extends AppCompatActivity {
         Map<String, ArrayList> citiesMap = new HashMap<>();
 
         for(int i = 0; i < cities.length; i++) {
-            ArrayList<Pledge> pledges = new ArrayList<Pledge>();
+            ArrayList<Pledge> pledges = new ArrayList<>();
             String city = cities[i];
             citiesMap.put(city, pledges);
         }
+
+        // no city in database
+        ArrayList<Pledge> pledges = new ArrayList<>();
+        citiesMap.put("null", pledges);
 
         return citiesMap;
     }

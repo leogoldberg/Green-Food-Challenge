@@ -30,6 +30,7 @@ import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.Pledge;
+import team6.cmpt276.greenfoodchallenge.classes.PledgesAdapater;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 // https://github.com/ISchwarz23/SortableTableView
@@ -134,12 +135,12 @@ public class ViewAllPledges extends AppCompatActivity {
             Pledge curPledge = pledgeList.get(i);
 
             data[i][0] = "PICTURE";
-            data[i][1] = "NAME: " + System.getProperty("line.separator") + curPledge.dietOption;
+            data[i][1] = "NAME: \n" + System.getProperty("line.separator") + curPledge.dietOption;
             data[i][2] = roundOffTo2DecPlaces((float) curPledge.saveAmount / 1000000) + " tons";
         }
 
         //tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(this, TABLE_HEADERS));
-        tableView.setDataAdapter(new SimpleTableDataAdapter(this, data));
+        tableView.setDataAdapter(new PledgesAdapater(this, data));
     }
 
     private Map<String,ArrayList> createMap(String[] cities) {
@@ -150,6 +151,10 @@ public class ViewAllPledges extends AppCompatActivity {
             String city = cities[i];
             citiesMap.put(city, pledges);
         }
+
+        // no city in database
+        ArrayList<Pledge> pledges = new ArrayList<>();
+        citiesMap.put("null", pledges);
 
         return citiesMap;
     }
