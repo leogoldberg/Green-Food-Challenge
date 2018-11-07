@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,20 +44,45 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
-        Button loginButton = findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, UserLogin.class);
-                startActivity(intent);
-            }
-        });
         //log out for testing
-        FirebaseAuth.getInstance().signOut();
+        //FirebaseAuth.getInstance().signOut();
 
         /* Authentication stuff */
         mAuth = FirebaseAuth.getInstance();
-
+        /*
+            Check if User is already logged in
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+            boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        */
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        boolean isLoggedIn = currentUser != null || (accessToken != null && !accessToken.isExpired());
+        Button loginButton = findViewById(R.id.loginButton);
+        if(isLoggedIn){
+            loginButton.setText("Logout");
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseAuth.getInstance().signOut();
+                    LoginManager.getInstance().logOut();
+                    /*finish();
+                    startActivity(getIntent());*/
+                    Intent intent = new Intent(HomeScreen.this, HomeScreen.class);
+                    startActivity(intent);
+                }
+            });
+            //loginButton.setVisibility(View.GONE);
+        }
+        else {
+            loginButton.setText("Login");
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeScreen.this, UserLogin.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
         @Override
@@ -64,8 +91,12 @@ public class HomeScreen extends AppCompatActivity {
             // Check if user is signed in (non-null) and update UI accordingly.
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){ // User is signed in
-                //TODO: Go to dashboard
-                Log.d(TAG, "user is signed in");
+                //TODO: Skip quiz and go to user profile
+                Log.d(TAG, "user is signed in");/*
+            code to check if User is logged in to facebook
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+            boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        */
                 // Intent intent = new Intent(HomeScreen.this, Dashboard.class);
                 //startActivity(intent);
             }
@@ -78,7 +109,6 @@ public class HomeScreen extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInAnonymously:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    //TODO: implement saveQuizDataToFirebase(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInAnonymously:failure", task.getException());
