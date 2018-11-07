@@ -49,6 +49,8 @@
         <activity
             android:name=".activities.ResultActivity2"
             android:screenOrientation="portrait" />
+        <activity android:name=".activities.PledgeSummary" />
+        <activity android:name=".activities.ViewAllPledges"></activity>
         <activity android:name=".activities.UserLogin"></activity>
 
 
