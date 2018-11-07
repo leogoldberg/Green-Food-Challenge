@@ -18,21 +18,8 @@ public class PlanPicker {
      * @param currentConsumption object that holds users' parameters for the current diet
      */
     public PlanPicker(UserData currentConsumption){
-        proteinList = new ArrayList<>();
-        proteinList.add("Beef");
-        proteinList.add("Pork");
-        proteinList.add("Chicken");
-        proteinList.add("Fish");
-        proteinList.add("Eggs");
-        proteinList.add("Beans");
-
-        proteinFrequency = new ArrayList<>();
-        proteinFrequency.add(currentConsumption.getUserFrequency("Beef"));
-        proteinFrequency.add(currentConsumption.getUserFrequency("Pork"));
-        proteinFrequency.add(currentConsumption.getUserFrequency("Chicken"));
-        proteinFrequency.add(currentConsumption.getUserFrequency("Fish"));
-        proteinFrequency.add(currentConsumption.getUserFrequency("Eggs"));
-        proteinFrequency.add(currentConsumption.getUserFrequency("Beans"));
+        proteinList = currentConsumption.getFoodNames();
+        proteinFrequency = currentConsumption.getUserFoodData();
     };
 
 
@@ -86,12 +73,12 @@ public class PlanPicker {
             totalProteinConsumption += proteinFrequency.get(index);
         }
 
-        suggestedConsumption.setFoodFrequency("Beans", totalProteinConsumption);
-        suggestedConsumption.setFoodFrequency("Beef", 0);
-        suggestedConsumption.setFoodFrequency("Pork", 0);
-        suggestedConsumption.setFoodFrequency("Chicken", 0);
-        suggestedConsumption.setFoodFrequency("Fish", 0);
-        suggestedConsumption.setFoodFrequency("Eggs", 0);
+        suggestedConsumption.setBeanFrequency(totalProteinConsumption);
+        suggestedConsumption.setBeefFrequency(0);
+        suggestedConsumption.setPorkFrequency(0);
+        suggestedConsumption.setChickenFrenquency(0);
+        suggestedConsumption.setFishFrequency(0);
+        suggestedConsumption.setEggFrequency(0);
 
         return suggestedConsumption;
 
@@ -149,10 +136,13 @@ public class PlanPicker {
             displayOptionList.add(4);
             displayOptionList.add(R.drawable.egg);
             displayOptionList.add(R.string.egg);
-        } else {
+        } else if (protein == "Beans"){
             displayOptionList.add(5);
             displayOptionList.add(R.drawable.bean);
             displayOptionList.add(R.string.bean);
+        }
+        else {
+
         }
     }
 
