@@ -113,14 +113,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/headerText"
-            android:textColor="@android:color/white"
-            android:text="@string/results2Redo" />
-
-        <Button
-            android:id="@+id/TEMP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/results2Redo"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/loginButton"

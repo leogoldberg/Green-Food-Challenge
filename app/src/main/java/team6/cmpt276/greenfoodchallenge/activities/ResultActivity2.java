@@ -89,13 +89,11 @@ public class ResultActivity2 extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ResultActivity2.this, ConsumptionQuiz1.class);
+                Intent intent = new Intent(ResultActivity2.this, UserLogin.class);
                 startActivity(intent);
             }
         });
-        // On login sidebar or make a pledge button click: Start activity UserLogin
-        // Intent intent = new Intent(UserLogin.this, Dashboard.class);
-        //startActivity(intent);
+
 
     }
 

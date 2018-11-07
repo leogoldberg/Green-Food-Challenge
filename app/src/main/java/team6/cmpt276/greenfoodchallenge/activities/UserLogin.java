@@ -42,6 +42,7 @@ public class UserLogin extends AppCompatActivity {
     private static final String TAG = "UserLogin";
     private GoogleSignInClient mGoogleSignInClient;
     private static final String EMAIL = "email";
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class UserLogin extends AppCompatActivity {
                 signIn();
             }
         });
-        CallbackManager callbackManager = CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
@@ -76,42 +77,61 @@ public class UserLogin extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        // App code
+                        Log.d(TAG, "FB login:success");
+                        Toast.makeText(UserLogin.this, "Authentication success.",
+                                Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(UserLogin.this, ConsumptionQuiz1.class);
+                        startActivity(intent);
                     }
 
                     @Override
                     public void onCancel() {
-                        // App code
+                        Log.w(TAG, "FB login:canceled");
+                        Toast.makeText(UserLogin.this, "Authentication cancelled.",
+                                Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        // App code
+                        Log.w(TAG, "FB login:failure", exception);
+                        Toast.makeText(UserLogin.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
                     }
+
                 });
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                // App code
+                Log.d(TAG, "FB login:success");
+                Toast.makeText(UserLogin.this, "Authentication success.",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UserLogin.this, ConsumptionQuiz1.class);
+                startActivity(intent);
             }
 
             @Override
             public void onCancel() {
-                // App code
+                Log.w(TAG, "FB login:canceled");
+                Toast.makeText(UserLogin.this, "Authentication cancelled.",
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+                Log.w(TAG, "FB login:failure", exception);
+                Toast.makeText(UserLogin.this, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show();
             }
+
         });
+
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
-        signIn();
     }
 
     private void signIn() {
@@ -121,6 +141,7 @@ public class UserLogin extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -141,14 +162,12 @@ public class UserLogin extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "linkWithCredential:success");
                                     FirebaseUser user = task.getResult().getUser();
-                                    //gotoNextPage(user);
                                     Intent intent = new Intent(UserLogin.this, ConsumptionQuiz1.class);
                                     startActivity(intent);
                                 } else {
                                     Log.w(TAG, "linkWithCredential:failure", task.getException());
                                     Toast.makeText(UserLogin.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
-                                    //gotoNextPage(null);
                                 }
                             }
                         });

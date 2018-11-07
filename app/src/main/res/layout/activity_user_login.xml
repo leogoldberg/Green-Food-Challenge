@@ -12,14 +12,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             android:ems="10"
             android:gravity="center"
-            android:inputType="textPersonName"
             android:text="Choose your prefered login method" />
 
         <com.google.android.gms.common.SignInButton
