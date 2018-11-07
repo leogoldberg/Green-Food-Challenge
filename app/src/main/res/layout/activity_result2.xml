@@ -114,13 +114,26 @@
             android:layout_margin="10dp"
             android:gravity="center"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/redoQuiz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/headerText"
-                android:textColor="@android:color/white"
-                android:text="@string/results2Redo" />
+
+        <Button
+            android:id="@+id/redoQuiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/headerText"
+            android:text="@string/results2Redo"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/headerText"
+            android:text="LOGIN"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/pledgeButton"

@@ -51,7 +51,7 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
         //log out for testing
-        //FirebaseAuth.getInstance().signOut();
+        FirebaseAuth.getInstance().signOut();
 
         /* Authentication stuff */
         mAuth = FirebaseAuth.getInstance();

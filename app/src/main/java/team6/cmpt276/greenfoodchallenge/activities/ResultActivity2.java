@@ -103,6 +103,15 @@ public class ResultActivity2 extends AppCompatActivity {
                     }
                 });
 
+        Button loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultActivity2.this, UserLogin.class);
+                startActivity(intent);
+            }
+        });
+
                 Button pledgeButton = findViewById(R.id.pledgeButton);
                 pledgeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
