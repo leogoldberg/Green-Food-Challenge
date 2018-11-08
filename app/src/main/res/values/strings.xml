@@ -61,4 +61,9 @@
     <string name="facebook_app_id">302662937008173</string>
     <string name="fb_login_protocol_scheme">fb302662937008173</string>
     <string name="pledgeButton">Make a Pledge</string>
+
+    <!-- Pledge Summary -->
+    <string name="pledgeSummary1">Number Of Pledges</string>
+    <string name="pledgeSummary2">Total Amount Saved</string>
+    <string name="pledgeSummary3">Average Save Amount</string>
 </resources>
