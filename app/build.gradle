@@ -1,13 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'my-alias'
-            storeFile file('C:/Program Files/Java/jdk-10.0.2/bin/my-release-key.jks')
-            storePassword '123123'
-        }
-    }
+
+    //add removed code here
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "team6.cmpt276.greenfoodchallenge"

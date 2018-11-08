@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chart"
+            android:id="@+id/currChart"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginLeft="35dp"
@@ -23,7 +23,7 @@
         </com.github.mikephil.charting.charts.PieChart>
 
         <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chart"
+            android:id="@+id/suggChart"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginRight="35dp"
