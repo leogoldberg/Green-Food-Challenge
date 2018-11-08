@@ -126,36 +126,4 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){ // User is signed in
-            //TODO: Skip quiz and go to user profile
-            Log.d(TAG, "user is signed in");/*
-        code to check if User is logged in to facebook
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-    */
-            // Intent intent = new Intent(HomeScreen.this, Dashboard.class);
-            //startActivity(intent);
-        } else {
-            mAuth.signInAnonymously() .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInAnonymously:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInAnonymously:failure", task.getException());
-                    Toast.makeText(HomeScreen.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
-                }
-                }
-            });
-        }
-    }
 }
