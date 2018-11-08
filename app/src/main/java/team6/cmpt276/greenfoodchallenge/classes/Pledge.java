@@ -4,6 +4,7 @@ public class Pledge {
     public double saveAmount;
     public String dietOption;
     public String municipality = null;
+    private String name;
 
     public Pledge() {
     }
@@ -22,5 +23,13 @@ public class Pledge {
         this.saveAmount = saveAmount;
         this.dietOption = dietOption;
         this.municipality = municipality;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

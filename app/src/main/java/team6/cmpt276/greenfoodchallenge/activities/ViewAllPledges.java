@@ -42,6 +42,7 @@ public class ViewAllPledges extends AppCompatActivity {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
     private Map<String, ArrayList> pledges;
+    private HashMap<String, String> userNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class ViewAllPledges extends AppCompatActivity {
 
         Intent intent = getIntent();
         String city = intent.getStringExtra("municipality");
+        userNames = (HashMap<String, String>) intent.getSerializableExtra("usernames");
 
         final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
                                     "New Westminister", "Burnaby"};
@@ -88,6 +90,7 @@ public class ViewAllPledges extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                    String key = item_snapshot.getKey();
                     Map<String, Object> curPledge = (Map<String, Object>) item_snapshot.getValue();
 
                     String dietOption = String.valueOf(curPledge.get("dietOption"));
@@ -95,6 +98,8 @@ public class ViewAllPledges extends AppCompatActivity {
                     String municipality = String.valueOf(curPledge.get("municipality"));
 
                     Pledge pledge = new Pledge(saveAmount, dietOption, municipality);
+                    String name = (userNames.get(key).equals("")) ? "Unknown" : userNames.get(key);
+                    pledge.setName(name);
                     ArrayList<Pledge> pledgeList = pledges.get(municipality);
                     pledgeList.add(pledge);
 
@@ -133,9 +138,9 @@ public class ViewAllPledges extends AppCompatActivity {
         String[][] data = new String[pledgeList.size()][COLUMN_COUNT];
         for(int i = 0 ; i < pledgeList.size(); i++) {
             Pledge curPledge = pledgeList.get(i);
-
+            String name = curPledge.getName();
             data[i][0] = "PICTURE";
-            data[i][1] = "NAME: \n" + System.getProperty("line.separator") + curPledge.dietOption;
+            data[i][1] = name + ": \n" + System.getProperty("line.separator") + curPledge.dietOption;
             data[i][2] = roundOffTo2DecPlaces((float) curPledge.saveAmount / 1000000) + " tons";
         }
 
@@ -157,14 +162,6 @@ public class ViewAllPledges extends AppCompatActivity {
         citiesMap.put("null", pledges);
 
         return citiesMap;
-    }
-
-    private static class UserDataComparator implements Comparator<UserData> {
-        @Override
-        public int compare(UserData car1, UserData car2) {
-            //return car1.getProducer().getName().compareTo(car2.getProducer().getName());
-            return 1;
-        }
     }
 
     private String roundOffTo2DecPlaces(float val) {
