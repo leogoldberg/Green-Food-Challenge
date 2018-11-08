@@ -79,7 +79,7 @@ public class HomeScreen extends AppCompatActivity {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(HomeScreen.this, UserLogin.class);
+                    Intent intent = new Intent(HomeScreen.this, UserProfile.class);
                     startActivity(intent);
                 }
             });
