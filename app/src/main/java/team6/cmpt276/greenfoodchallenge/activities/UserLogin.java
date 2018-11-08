@@ -122,8 +122,8 @@ public class UserLogin extends AppCompatActivity {
                             Toast.makeText(UserLogin.this, "Authentication successful.",
                                     Toast.LENGTH_SHORT).show();
 
-                            // Intent intent = new Intent(UserLogin.this, HomeScreen.class);
-                            //startActivity(intent);
+                            Intent intent = new Intent(UserLogin.this, HomeScreen.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -160,8 +160,8 @@ public class UserLogin extends AppCompatActivity {
                                     Toast.makeText(UserLogin.this, "Authentication successful.",
                                             Toast.LENGTH_SHORT).show();
                                     saveToDatabase(user);
-                                    //Intent intent = new Intent(UserLogin.this, HomeScreen.class);
-                                    //startActivity(intent);
+                                    Intent intent = new Intent(UserLogin.this, HomeScreen.class);
+                                    startActivity(intent);
                                 } else {
                                     Log.w(TAG, "linkWithCredential:failure", task.getException());
                                     /*Toast.makeText(UserLogin.this, "Authentication failed.",
@@ -215,14 +215,13 @@ public class UserLogin extends AppCompatActivity {
                             Log.d(TAG, "IT RANn");
                             Toast.makeText(UserLogin.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
                             Snackbar.make(findViewById(R.id.main_layout), "Authentication successful.", Snackbar.LENGTH_SHORT).show();
-                            //Intent intent = new Intent(UserLogin.this, HomeScreen.class);
-                            //startActivity(intent);
+                            Intent intent = new Intent(UserLogin.this, HomeScreen.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                         }
-
                     }
                 });
 
@@ -231,10 +230,11 @@ public class UserLogin extends AppCompatActivity {
 
     private void saveToDatabase(FirebaseUser user){
         String userID = user.getUid();
-        Log.d(TAG, "saaaignInWithCredential:success");
+        Log.d(TAG, "ssaignInWithCredential:success");
         //String key = mDatabase.child("users").push().getKey();
         mDatabase.child("users").child(userID).child("name").setValue(user.getDisplayName());
         mDatabase.child("users").child(userID).child("email").setValue(user.getEmail());
+        mDatabase.child("users").child(userID).child("isAdmin").setValue(0);
     }
     /*public boolean isUserLoggedIn(){
         FirebaseUser currentUser = mAuth.getCurrentUser();
