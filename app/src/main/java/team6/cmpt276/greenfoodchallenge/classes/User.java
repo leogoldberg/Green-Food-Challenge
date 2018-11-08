@@ -15,7 +15,7 @@ public class User {
         this.email = email;
         isAdmin = false;
         icon = "cherry";
-        municipality = "undefined";
+        municipality = "Undefined";
     }
 
 }
