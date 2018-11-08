@@ -20,28 +20,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
-import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
-import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.Pledge;
 import team6.cmpt276.greenfoodchallenge.classes.PledgesAdapater;
-import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 // https://github.com/ISchwarz23/SortableTableView
 // https://github.com/ISchwarz23/SortableTableView-ExampleApp/blob/master/app/src/main/java/com/sortabletableview/recyclerview/exampleapp/customdata/CustomDataExampleFragment.java
 public class ViewAllPledges extends AppCompatActivity {
-    //private static final String[] TABLE_HEADERS = { "This", "is", "a" };
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
     private Map<String, ArrayList> pledges;
+    private HashMap<String, String> userNames;
+    private HashMap<String, String> pictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +51,11 @@ public class ViewAllPledges extends AppCompatActivity {
 
         Intent intent = getIntent();
         String city = intent.getStringExtra("municipality");
+        userNames = (HashMap<String, String>) intent.getSerializableExtra("usernames");
+        pictures = (HashMap<String, String>) intent.getSerializableExtra("pictures");
 
-        final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                                    "New Westminister", "Burnaby"};
+        final String[] cities = {   "Metro Vancouver","Richmond", "Coquitlam", "Surrey",
+                                    "Vancouver", "New Westminister", "Burnaby", "Undefined"};
 
         // set the hashmap
         pledges = createMap(cities);
@@ -88,6 +87,7 @@ public class ViewAllPledges extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                    String key = item_snapshot.getKey();
                     Map<String, Object> curPledge = (Map<String, Object>) item_snapshot.getValue();
 
                     String dietOption = String.valueOf(curPledge.get("dietOption"));
@@ -95,8 +95,19 @@ public class ViewAllPledges extends AppCompatActivity {
                     String municipality = String.valueOf(curPledge.get("municipality"));
 
                     Pledge pledge = new Pledge(saveAmount, dietOption, municipality);
+                    String name = (userNames.get(key) == null) ? "Unknown" : userNames.get(key);
+                    String photo = (pictures.get(key) == null) ? "cherry" : pictures.get(key);
+                    pledge.setName(name);
+                    pledge.setPhoto(photo);
                     ArrayList<Pledge> pledgeList = pledges.get(municipality);
                     pledgeList.add(pledge);
+
+                    // for metro vancouver
+                    if(municipality != "null" && municipality != "Undefined") {
+                        ArrayList<Pledge> metroVancouverList = pledges.get("Metro Vancouver");
+                        pledgeList.add(pledge);
+                        pledges.put("Metro Vancouver", pledgeList);
+                    }
 
                     pledges.put(municipality, pledgeList);
                 }
@@ -133,9 +144,10 @@ public class ViewAllPledges extends AppCompatActivity {
         String[][] data = new String[pledgeList.size()][COLUMN_COUNT];
         for(int i = 0 ; i < pledgeList.size(); i++) {
             Pledge curPledge = pledgeList.get(i);
-
-            data[i][0] = "PICTURE";
-            data[i][1] = "NAME: \n" + System.getProperty("line.separator") + curPledge.dietOption;
+            String name = curPledge.getName();
+            String photo = curPledge.getPhoto();
+            data[i][0] = photo;
+            data[i][1] = name + ": \n" + curPledge.dietOption;
             data[i][2] = roundOffTo2DecPlaces((float) curPledge.saveAmount / 1000000) + " tons";
         }
 
@@ -157,14 +169,6 @@ public class ViewAllPledges extends AppCompatActivity {
         citiesMap.put("null", pledges);
 
         return citiesMap;
-    }
-
-    private static class UserDataComparator implements Comparator<UserData> {
-        @Override
-        public int compare(UserData car1, UserData car2) {
-            //return car1.getProducer().getName().compareTo(car2.getProducer().getName());
-            return 1;
-        }
     }
 
     private String roundOffTo2DecPlaces(float val) {

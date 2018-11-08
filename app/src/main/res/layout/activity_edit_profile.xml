@@ -15,12 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/border"
         >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal">
             <TextView
@@ -62,6 +63,7 @@
         android:orientation="vertical"
         android:layout_marginTop="0dp"
         android:layout_gravity="center">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +78,7 @@
                 android:padding="7dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                android:src="@drawable/earth" />
+                android:src="@drawable/bamboo" />
 
             <ImageButton
                 android:id="@+id/profile2"
@@ -85,7 +87,7 @@
                 android:padding="7dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                android:src="@drawable/tree" />
+                android:src="@drawable/cherry" />
 
 
             <ImageButton
@@ -94,7 +96,7 @@
                 android:layout_height="120dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                android:src="@drawable/heart" />
+                android:src="@drawable/peanut" />
 
         </LinearLayout>
         <LinearLayout
@@ -136,8 +138,9 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/border">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -170,7 +173,7 @@
             android:padding="10dp"
             android:backgroundTint="@color/headerText"
             android:textColor="@android:color/white"
-            android:text="@string/finish"/>
+            android:text="finish"/>
 
     </LinearLayout>
 </LinearLayout>

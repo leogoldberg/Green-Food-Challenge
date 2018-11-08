@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,10 +37,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.User;
 
 import static com.facebook.login.LoginManager.getInstance;
 
@@ -44,13 +54,21 @@ public class UserLogin extends AppCompatActivity {
     private static final String TAG = "UserLogin";
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_user_login);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Login");
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -114,7 +132,8 @@ public class UserLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+                            saveUserToDatabase();
                             Intent intent = new Intent(UserLogin.this, HomeScreen.class);
                             startActivity(intent);
                             //updateUI(user);
@@ -154,7 +173,8 @@ public class UserLogin extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "linkWithCredential:success");
-                                    FirebaseUser user = task.getResult().getUser();
+                                    user = task.getResult().getUser();
+//                                    saveUserToDatabase(user);
                                     Intent intent = new Intent(UserLogin.this, ConsumptionQuiz1.class);
                                     startActivity(intent);
                                 } else {
@@ -205,7 +225,8 @@ public class UserLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+                            saveUserToDatabase();
                             Snackbar.make(findViewById(R.id.main_layout), "Authentication successful.", Snackbar.LENGTH_SHORT).show();
                             Intent intent = new Intent(UserLogin.this, HomeScreen.class);
                             startActivity(intent);
@@ -228,4 +249,42 @@ public class UserLogin extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return (currentUser!=null);
     }*/
+
+    private void saveUserToDatabase(){
+        String userID = user.getUid();
+        database.child("user").child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //User already exists on the database, do nothing
+                if(dataSnapshot.exists()){
+                    Log.d(TAG, "saveUserToDataBase: User already exists");
+                }
+                // User does not exist. Create a new user
+                else {
+                    String userID = user.getUid();
+                    String email = user.getEmail();
+                    String displayName = user.getDisplayName();
+
+                    // If the above were null, iterate the provider data
+                    // and set with the first non null data
+                    for (UserInfo userInfo : user.getProviderData()) {
+                        if (displayName == null && userInfo.getDisplayName() != null) {
+                            displayName = userInfo.getDisplayName();
+                        }
+                        if (email == null && userInfo.getEmail() != null) {
+                            email = userInfo.getEmail();
+                        }
+                    }
+                    User currentUser = new User(displayName,email);
+                    database.child("user").child(userID).setValue(currentUser);
+                    Log.d(TAG, "saveUserToDataBase: Create a new User");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+
+    }
 }

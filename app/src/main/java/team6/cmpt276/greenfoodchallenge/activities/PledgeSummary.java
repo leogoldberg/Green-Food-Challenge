@@ -40,6 +40,8 @@ public class PledgeSummary extends AppCompatActivity {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
     private Map<String, ArrayList> pledges;
+    private HashMap<String, String> userNames;
+    private HashMap<String, String> pictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,13 @@ public class PledgeSummary extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Pledge Summary");
 
-        final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                                    "New Westminister", "Burnaby"};
+        final String[] cities = {   "Metro Vancouver","Richmond", "Coquitlam", "Surrey",
+                                    "Vancouver", "New Westminister", "Burnaby", "Undefined"};
 
         // set the hashmap
         pledges = createMap(cities);
+        userNames = new HashMap<>();
+        pictures = new HashMap<>();
 
         // set the drop down
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -81,21 +85,61 @@ public class PledgeSummary extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                    String curUserId = item_snapshot.getKey();
                     Map<String, Object> curPledge = (Map<String, Object>) item_snapshot.getValue();
 
                     String dietOption = String.valueOf(curPledge.get("dietOption"));
                     Double saveAmount = Double.valueOf(curPledge.get("saveAmount").toString());
                     String municipality = String.valueOf(curPledge.get("municipality"));
 
+                    // current city
                     Pledge pledge = new Pledge(saveAmount, dietOption, municipality);
                     ArrayList<Pledge> pledgeList = pledges.get(municipality);
                     pledgeList.add(pledge);
-
                     pledges.put(municipality, pledgeList);
+
+                    // for metro vancouver
+                    if(!(municipality.equals("null")) && (!(municipality.equals("Undefined")))) {
+                        ArrayList<Pledge> metroVancouverList = pledges.get("Metro Vancouver");
+                        metroVancouverList.add(pledge);
+                        pledges.put("Metro Vancouver", metroVancouverList);
+                    }
+
+                    userNames.put(curUserId, "");
                 }
 
                 Spinner dropdown = findViewById(R.id.spinner1);
                 String city = dropdown.getSelectedItem().toString();
+
+                for (final String key : userNames.keySet()) {
+                    final DatabaseReference name = database.child("user").child(key).child("name");
+                    name.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String name = dataSnapshot.getValue(String.class);
+                            userNames.put(key, name);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    final DatabaseReference photo = database.child("user").child(key).child("icon");
+                    photo.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String photo = dataSnapshot.getValue(String.class);
+                            pictures.put(key, photo);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
 
                 setUpActivity(city);
             }
@@ -235,6 +279,8 @@ public class PledgeSummary extends AppCompatActivity {
         String city = dropdown.getSelectedItem().toString();
 
         myIntent.putExtra("municipality", city);
+        myIntent.putExtra("usernames", userNames);
+        myIntent.putExtra("pictures", pictures);
 
         startActivity(myIntent);
     }

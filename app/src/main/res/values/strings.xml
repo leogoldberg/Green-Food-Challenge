@@ -67,6 +67,6 @@
     <string name="pledgeSummary2">Total Amount Saved</string>
     <string name="pledgeSummary3">Average Save Amount</string>
 
-    <!-- Edit Profile -->
-    <string name="finish">Finish</string>
+    <!-- Login -->
+    <string name="loginMessage"></string>
 </resources>

@@ -51,6 +51,7 @@ public class EditProfile extends AppCompatActivity {
 
         dropdown.setAdapter(adapter);
 
+        //submit name from edit text
         Button submit = findViewById(R.id.submitName);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +61,13 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
+        //sets profile image based off image button selected
+
         ImageButton profile1 = findViewById(R.id.profile1);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.child("users").child("userid").child("icon").setValue("bamboo");
+                database.child("users").child(userID).child("icon").setValue("bamboo");
             }
         });
 
@@ -72,26 +75,51 @@ public class EditProfile extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.child("users").child("userid").child("icon").setValue("cherry");
+                database.child("users").child(userID).child("icon").setValue("cherry");
             }
         });
+
         ImageButton profile3 = findViewById(R.id.profile3);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.child("users").child("userid").child("icon").setValue("bamboo");
+                database.child("users").child(userID).child("icon").setValue("peanut");
             }
         });
 
-        //finish exits edit profile and sends some data
+        ImageButton profile4 = findViewById(R.id.profile4);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database.child("users").child(userID).child("icon").setValue("earth");
+            }
+        });
+
+        ImageButton profile5 = findViewById(R.id.profile5);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database.child("users").child(userID).child("icon").setValue("tree");
+            }
+        });
+
+        ImageButton profile6 = findViewById(R.id.profile6);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database.child("users").child(userID).child("icon").setValue("heart");
+            }
+        });
+
+        //finish exits edit profile and sends back user data
         Button finish = findViewById(R.id.finish);
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String city=dropdown.getSelectedItem().toString();
+
                 database.child("users").child(userID).child("municipality").setValue(city);
                 Intent intent = new Intent(v.getContext(), UserProfile.class);
-                //add city to database
 
                 startActivity(intent);
             }
