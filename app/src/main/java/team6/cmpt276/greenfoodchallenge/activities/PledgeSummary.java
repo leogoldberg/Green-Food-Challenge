@@ -53,7 +53,7 @@ public class PledgeSummary extends AppCompatActivity {
         getSupportActionBar().setTitle("Pledge Summary");
 
         final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                                    "New Westminister", "Burnaby"};
+                                    "New Westminister", "Burnaby", "Undefined"};
 
         // set the hashmap
         pledges = createMap(cities);
