@@ -75,6 +75,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.UserDashboard"></activity>
         <activity android:name=".activities.SharingActivity"></activity>
     </application>
 
