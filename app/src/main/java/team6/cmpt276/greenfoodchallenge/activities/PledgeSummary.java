@@ -101,6 +101,22 @@ public class PledgeSummary extends AppCompatActivity {
                 Spinner dropdown = findViewById(R.id.spinner1);
                 String city = dropdown.getSelectedItem().toString();
 
+                for (final String key : userNames.keySet()) {
+                    final DatabaseReference user = database.child("users").child(key).child("name");
+                    user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String name = dataSnapshot.getValue(String.class);
+                            userNames.put(key, name);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
                 setUpActivity(city);
             }
 
@@ -109,25 +125,6 @@ public class PledgeSummary extends AppCompatActivity {
 
             }
         });
-
-        for (final String key : userNames.keySet()) {
-            final DatabaseReference user = database.child("users").child(key).child("name");
-            user.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String name = dataSnapshot.getValue(String.class);
-                    if(name == "") {
-                        name = "Unknown";
-                    }
-                    userNames.put(key, name);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
 
     protected void onStart() {

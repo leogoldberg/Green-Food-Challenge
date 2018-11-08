@@ -98,7 +98,7 @@ public class ViewAllPledges extends AppCompatActivity {
                     String municipality = String.valueOf(curPledge.get("municipality"));
 
                     Pledge pledge = new Pledge(saveAmount, dietOption, municipality);
-                    String name = (userNames.get(key).equals("")) ? "Unknown" : userNames.get(key);
+                    String name = (userNames.get(key) == null) ? "Unknown" : userNames.get(key);
                     pledge.setName(name);
                     ArrayList<Pledge> pledgeList = pledges.get(municipality);
                     pledgeList.add(pledge);
