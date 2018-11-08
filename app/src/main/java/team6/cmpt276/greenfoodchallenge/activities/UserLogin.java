@@ -272,7 +272,7 @@ public class UserLogin extends AppCompatActivity {
                             displayName = userInfo.getDisplayName();
                         }
                         if (email == null && userInfo.getEmail() != null) {
-                            displayName = userInfo.getEmail();
+                            email = userInfo.getEmail();
                         }
                     }
                     User currentUser = new User(displayName,email);
