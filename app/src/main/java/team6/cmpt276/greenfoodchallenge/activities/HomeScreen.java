@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -59,22 +60,24 @@ public class HomeScreen extends AppCompatActivity {
         boolean isLoggedIn = currentUser != null || (accessToken != null && !accessToken.isExpired());
         Button loginButton = findViewById(R.id.loginButton);
         if(isLoggedIn){
-            loginButton.setText("Logout");
+            loginButton.setText("lLogout");
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FirebaseAuth.getInstance().signOut();
                     LoginManager.getInstance().logOut();
-                    /*finish();
-                    startActivity(getIntent());*/
                     Intent intent = new Intent(HomeScreen.this, HomeScreen.class);
                     startActivity(intent);
                 }
             });
+            for (UserInfo profile : currentUser.getProviderData()) {
+                Log.d(TAG, profile.getDisplayName());
+                Log.d(TAG, profile.getEmail());
+            }
             //loginButton.setVisibility(View.GONE);
         }
         else {
-            loginButton.setText("Login");
+            loginButton.setText("lLogin");
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,7 +85,10 @@ public class HomeScreen extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
         }
+
+        Log.d(TAG, "user is signed in");
     }
 
         @Override
@@ -92,13 +98,7 @@ public class HomeScreen extends AppCompatActivity {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){ // User is signed in
                 //TODO: Skip quiz and go to user profile
-                Log.d(TAG, "user is signed in");/*
-            code to check if User is logged in to facebook
-            AccessToken accessToken = AccessToken.getCurrentAccessToken();
-            boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        */
-                // Intent intent = new Intent(HomeScreen.this, Dashboard.class);
-                //startActivity(intent);
+                Log.d(TAG, "user is signed in");
             }
             else {
                 mAuth.signInAnonymously()
