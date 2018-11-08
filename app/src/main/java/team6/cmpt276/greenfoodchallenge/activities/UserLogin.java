@@ -19,6 +19,11 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -247,20 +252,39 @@ public class UserLogin extends AppCompatActivity {
 
     private void saveUserToDatabase(){
         String userID = user.getUid();
-        String email = user.getEmail();
-        String displayName = user.getDisplayName();
+        database.child("user").child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //User already exists on the database, do nothing
+                if(dataSnapshot.exists()){
+                    Log.d(TAG, "saveUserToDataBase: User already exists");
+                }
+                // User does not exist. Create a new user
+                else {
+                    String userID = user.getUid();
+                    String email = user.getEmail();
+                    String displayName = user.getDisplayName();
 
-        // If the above were null, iterate the provider data
-        // and set with the first non null data
-        for (UserInfo userInfo : user.getProviderData()) {
-            if (displayName == null && userInfo.getDisplayName() != null) {
-                displayName = userInfo.getDisplayName();
+                    // If the above were null, iterate the provider data
+                    // and set with the first non null data
+                    for (UserInfo userInfo : user.getProviderData()) {
+                        if (displayName == null && userInfo.getDisplayName() != null) {
+                            displayName = userInfo.getDisplayName();
+                        }
+                        if (email == null && userInfo.getEmail() != null) {
+                            displayName = userInfo.getEmail();
+                        }
+                    }
+                    User currentUser = new User(displayName,email);
+                    database.child("user").child(userID).setValue(currentUser);
+                    Log.d(TAG, "saveUserToDataBase: Create a new User");
+                }
             }
-            if (email == null && userInfo.getEmail() != null) {
-                displayName = userInfo.getEmail();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-        }
-        User currentUser = new User(displayName,email);
-        database.child("user").child(userID).setValue(currentUser);
+        });
+
+
     }
 }
