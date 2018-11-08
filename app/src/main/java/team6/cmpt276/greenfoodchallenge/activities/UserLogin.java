@@ -31,10 +31,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.User;
 
 import static com.facebook.login.LoginManager.getInstance;
 
@@ -44,6 +48,8 @@ public class UserLogin extends AppCompatActivity {
     private static final String TAG = "UserLogin";
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +120,8 @@ public class UserLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+                            saveUserToDatabase();
                             Intent intent = new Intent(UserLogin.this, HomeScreen.class);
                             startActivity(intent);
                             //updateUI(user);
@@ -154,7 +161,8 @@ public class UserLogin extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "linkWithCredential:success");
-                                    FirebaseUser user = task.getResult().getUser();
+                                    user = task.getResult().getUser();
+//                                    saveUserToDatabase(user);
                                     Intent intent = new Intent(UserLogin.this, ConsumptionQuiz1.class);
                                     startActivity(intent);
                                 } else {
@@ -205,7 +213,8 @@ public class UserLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+                            saveUserToDatabase();
                             Snackbar.make(findViewById(R.id.main_layout), "Authentication successful.", Snackbar.LENGTH_SHORT).show();
                             Intent intent = new Intent(UserLogin.this, HomeScreen.class);
                             startActivity(intent);
@@ -228,4 +237,23 @@ public class UserLogin extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return (currentUser!=null);
     }*/
+
+    private void saveUserToDatabase(){
+        String userID = user.getUid();
+        String email = user.getEmail();
+        String displayName = user.getDisplayName();
+
+        // If the above were null, iterate the provider data
+        // and set with the first non null data
+        for (UserInfo userInfo : user.getProviderData()) {
+            if (displayName == null && userInfo.getDisplayName() != null) {
+                displayName = userInfo.getDisplayName();
+            }
+            if (email == null && userInfo.getEmail() != null) {
+                displayName = userInfo.getEmail();
+            }
+        }
+        User currentUser = new User(displayName,email);
+        database.child("user").child(userID).setValue(currentUser);
+    }
 }

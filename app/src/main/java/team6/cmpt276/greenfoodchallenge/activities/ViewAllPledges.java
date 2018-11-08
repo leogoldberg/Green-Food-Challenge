@@ -56,7 +56,7 @@ public class ViewAllPledges extends AppCompatActivity {
         String city = intent.getStringExtra("municipality");
 
         final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                                    "New Westminister", "Burnaby"};
+                                    "New Westminister", "Burnaby","Undefined"};
 
         // set the hashmap
         pledges = createMap(cities);
