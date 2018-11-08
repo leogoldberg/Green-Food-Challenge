@@ -20,23 +20,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
-import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
-import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.Pledge;
 import team6.cmpt276.greenfoodchallenge.classes.PledgesAdapater;
-import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 // https://github.com/ISchwarz23/SortableTableView
 // https://github.com/ISchwarz23/SortableTableView-ExampleApp/blob/master/app/src/main/java/com/sortabletableview/recyclerview/exampleapp/customdata/CustomDataExampleFragment.java
 public class ViewAllPledges extends AppCompatActivity {
-    //private static final String[] TABLE_HEADERS = { "This", "is", "a" };
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -59,8 +54,8 @@ public class ViewAllPledges extends AppCompatActivity {
         userNames = (HashMap<String, String>) intent.getSerializableExtra("usernames");
         pictures = (HashMap<String, String>) intent.getSerializableExtra("pictures");
 
-        final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                                    "New Westminister", "Burnaby","Undefined"};
+        final String[] cities = {   "Metro Vancouver","Richmond", "Coquitlam", "Surrey",
+                                    "Vancouver", "New Westminister", "Burnaby", "Undefined"};
 
         // set the hashmap
         pledges = createMap(cities);
@@ -106,6 +101,13 @@ public class ViewAllPledges extends AppCompatActivity {
                     pledge.setPhoto(photo);
                     ArrayList<Pledge> pledgeList = pledges.get(municipality);
                     pledgeList.add(pledge);
+
+                    // for metro vancouver
+                    if(municipality != "null" && municipality != "Undefined") {
+                        ArrayList<Pledge> metroVancouverList = pledges.get("Metro Vancouver");
+                        pledgeList.add(pledge);
+                        pledges.put("Metro Vancouver", pledgeList);
+                    }
 
                     pledges.put(municipality, pledgeList);
                 }
