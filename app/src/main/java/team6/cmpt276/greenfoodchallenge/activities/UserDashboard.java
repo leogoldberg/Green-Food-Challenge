@@ -1,13 +1,10 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.Pledge;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class UserDashboard extends AppCompatActivity {
@@ -59,7 +55,8 @@ public class UserDashboard extends AppCompatActivity {
 
                 currentConsumption = dataSnapshot.child("current_consumptions").child(userID).getValue(UserData.class);
                 suggestedConsumption = dataSnapshot.child("suggested_consumptions").child(userID).getValue(UserData.class);
-                int total_amount_per_week = suggestedConsumption.getTotalFrequency();
+                int total_amount_per_week_current = currentConsumption.getTotalFrequency();
+                int total_amount_per_week_suggested = suggestedConsumption.getTotalFrequency();
 
                 double totalCurrentConsumption = currentConsumption.getTotalco2perYear();
                 double totalSuggestedConsumption = suggestedConsumption.getTotalco2perYear();
@@ -75,7 +72,7 @@ public class UserDashboard extends AppCompatActivity {
 
                 // sets up the pie charts
                 PieChart suggChart = initializePieChart(R.id.suggChart);
-                List<PieEntry> entries = addEntries(suggestedConsumption, total_amount_per_week);
+                List<PieEntry> entries = addEntries(suggestedConsumption, total_amount_per_week_suggested);
                 PieDataSet dataSet = setPieDataSet(entries);
 
                 PieData pieData = setPieData(dataSet);
@@ -84,12 +81,9 @@ public class UserDashboard extends AppCompatActivity {
                 suggChart.invalidate();
 
 
-                UserData currentConsumption = dataSnapshot.getValue(UserData.class);
-
-
                 // set up current diet chart
                 PieChart currChart = initializePieChart(R.id.currChart);
-                List<PieEntry> currEntries = addEntries(currentConsumption, total_amount_per_week);
+                List<PieEntry> currEntries = addEntries(currentConsumption, total_amount_per_week_current);
                 PieDataSet currDataSet = setPieDataSet(currEntries);
 
                 PieData currPieData = setPieData(currDataSet);
@@ -103,8 +97,8 @@ public class UserDashboard extends AppCompatActivity {
                 TextView cityView= findViewById(R.id.cityText);
                 TextView planView=findViewById(R.id.dietText);
 
-                String city = dataSnapshot.child("users").child(userID).child("name").getValue(String.class);
-                String diet = dataSnapshot.child("pledge").child(userID).child("dietOption").getValue(String.class);
+                String city = dataSnapshot.child("user").child(userID).child("municipality").getValue(String.class);
+                String diet = dataSnapshot.child("pledges").child(userID).child("dietOption").getValue(String.class);
 
                 cityView.setText(city);
                 planView.setText(diet);
