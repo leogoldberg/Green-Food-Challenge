@@ -56,7 +56,7 @@ public class ViewAllPledges extends AppCompatActivity {
         String city = intent.getStringExtra("municipality");
 
         final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                                    "New Westminister", "Burnaby"};
+                                    "New Westminister", "Burnaby","Undefined"};
 
         // set the hashmap
         pledges = createMap(cities);
@@ -135,7 +135,7 @@ public class ViewAllPledges extends AppCompatActivity {
             Pledge curPledge = pledgeList.get(i);
 
             data[i][0] = "PICTURE";
-            data[i][1] = "NAME: \n" + System.getProperty("line.separator") + curPledge.dietOption;
+            data[i][1] = "Name\n" + curPledge.dietOption;
             data[i][2] = roundOffTo2DecPlaces((float) curPledge.saveAmount / 1000000) + " tons";
         }
 

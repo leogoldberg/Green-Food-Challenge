@@ -3,7 +3,7 @@ package team6.cmpt276.greenfoodchallenge.classes;
 public class Pledge {
     public double saveAmount;
     public String dietOption;
-    public String municipality = null;
+    public String municipality;
 
     public Pledge() {
     }
@@ -11,7 +11,7 @@ public class Pledge {
     public Pledge(double saveAmount, String dietOption) {
             this.saveAmount = saveAmount;
             this.dietOption = dietOption;
-            //this.municipality = municipality;
+            this.municipality = "Undefined";
     }
 
     public void setMunicipality(String municipality) {

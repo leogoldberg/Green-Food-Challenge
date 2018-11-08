@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
 
-    //add removed code here
-
     compileSdkVersion 28
     defaultConfig {
         applicationId "team6.cmpt276.greenfoodchallenge"
