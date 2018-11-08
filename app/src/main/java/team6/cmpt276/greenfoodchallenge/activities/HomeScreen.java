@@ -60,7 +60,7 @@ public class HomeScreen extends AppCompatActivity {
         boolean isLoggedIn = currentUser != null || (accessToken != null && !accessToken.isExpired());
         Button loginButton = findViewById(R.id.loginButton);
         if(isLoggedIn){
-            loginButton.setText("lLogout");
+            loginButton.setText("Logout");
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,7 +77,7 @@ public class HomeScreen extends AppCompatActivity {
             //loginButton.setVisibility(View.GONE);
         }
         else {
-            loginButton.setText("lLogin");
+            loginButton.setText("Login");
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
