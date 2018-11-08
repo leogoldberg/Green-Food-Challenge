@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -59,22 +60,24 @@ public class HomeScreen extends AppCompatActivity {
         boolean isLoggedIn = currentUser != null || (accessToken != null && !accessToken.isExpired());
         Button loginButton = findViewById(R.id.loginButton);
         if(isLoggedIn){
-            loginButton.setText("Logout");
+            loginButton.setText("lLogout");
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FirebaseAuth.getInstance().signOut();
                     LoginManager.getInstance().logOut();
-                    /*finish();
-                    startActivity(getIntent());*/
                     Intent intent = new Intent(HomeScreen.this, HomeScreen.class);
                     startActivity(intent);
                 }
             });
+            for (UserInfo profile : currentUser.getProviderData()) {
+                Log.d(TAG, profile.getDisplayName());
+                Log.d(TAG, profile.getEmail());
+            }
             //loginButton.setVisibility(View.GONE);
         }
         else {
-            loginButton.setText("Login");
+            loginButton.setText("lLogin");
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,8 +85,41 @@ public class HomeScreen extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
         }
+
+        Log.d(TAG, "user is signed in");
     }
+
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            // Check if user is signed in (non-null) and update UI accordingly.
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){ // User is signed in
+                //TODO: Skip quiz and go to user profile
+                Log.d(TAG, "user is signed in");
+            }
+            else {
+                mAuth.signInAnonymously()
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInAnonymously:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInAnonymously:failure", task.getException());
+                                    Toast.makeText(HomeScreen.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        }
 
     public void seePledgeSummary(View v) {
         Intent myIntent = new Intent(HomeScreen.this, PledgeSummary.class);
