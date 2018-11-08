@@ -146,7 +146,7 @@ public class MeatEater extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                    //  startActivity(new Intent(this, DashBoardActivity.class));
+                    startActivity(new Intent(this, UserDashboard.class));
                     return true;
                 }
             case R.id.view_all_pledge:

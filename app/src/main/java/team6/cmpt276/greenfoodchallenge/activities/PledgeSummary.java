@@ -62,9 +62,6 @@ public class PledgeSummary extends AppCompatActivity {
         Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
         toolbar.setOverflowIcon(threeLineIcon);
 
-        final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
-                                    "New Westminister", "Burnaby"};
-
         // set the hashmap
         pledges = createMap(cities);
         userNames = new HashMap<>();
@@ -311,7 +308,7 @@ public class PledgeSummary extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                    //  startActivity(new Intent(this, DashBoardActivity.class));
+                    startActivity(new Intent(this, UserDashboard.class));
                     return true;
                 }
             case R.id.view_all_pledge:

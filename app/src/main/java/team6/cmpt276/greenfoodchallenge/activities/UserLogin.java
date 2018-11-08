@@ -1,19 +1,16 @@
 package team6.cmpt276.greenfoodchallenge.activities;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,15 +20,8 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -46,15 +36,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Arrays;
+import com.google.firebase.database.ValueEventListener;
 
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.User;
-
-import static com.facebook.login.LoginManager.getInstance;
 
 public class UserLogin extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
@@ -76,6 +65,9 @@ public class UserLogin extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Login");
+
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+        toolbar.setOverflowIcon(threeLineIcon);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -294,5 +286,45 @@ public class UserLogin extends AppCompatActivity {
         });
 
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.user_dashboard:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent(this, UserDashboard.class));
+                    return true;
+                }
+            case R.id.view_all_pledge:
+                startActivity(new Intent(this,ViewAllPledges.class));
+                return true;
+            case R.id.calculate_consumption:
+                startActivity(new Intent(this,ConsumptionQuiz1.class));
+                return true;
+            case R.id.profile_login:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    // startActivity(new Intent this, UserDashboard.class);
+                    return true;
+                }
+            case R.id.about_us:
+                startActivity(new Intent(this,AboutActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
