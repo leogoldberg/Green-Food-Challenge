@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -72,11 +72,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="Your Pledge"
             android:textSize="24dp"
             android:textStyle="bold"
+            android:textColor="@color/headerText"
             />
         <TextView
             android:layout_width="match_parent"
@@ -91,13 +92,13 @@
             android:id="@+id/saveText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="50dp"
             android:layout_marginLeft="50dp"
             android:gravity="center"
             android:background="@drawable/border"
             android:text="co2e"
             android:padding="10dp"
+            android:textColor="@color/headerText"
             android:textSize="24dp"
             android:textStyle="bold"
             />
@@ -123,9 +124,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="50dp"
             android:gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             android:text="Municipality"
             android:textSize="16dp"
@@ -147,8 +148,8 @@
             android:background="@drawable/border"
             android:layout_marginLeft="20dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="10dp"
             android:gravity="center"
+            android:textColor="@color/headerText"
             android:padding="10dp"
             android:text="None"
             android:textSize="18dp"
@@ -168,13 +169,13 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
             android:padding="10dp"
             android:text="None"
             android:textSize="18dp"
             android:textStyle="bold"
+            android:textColor="@color/headerText"
             android:layout_toRightOf="@+id/centerPoint2"/>
     </RelativeLayout>
 
