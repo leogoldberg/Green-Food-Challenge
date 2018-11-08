@@ -7,15 +7,62 @@
     android:orientation="vertical"
     tools:context=".activities.UserDashboard">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
         android:orientation="horizontal">
-    </LinearLayout>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="35dp"
+            android:layout_alignParentLeft="true">
+        </com.github.mikephil.charting.charts.PieChart>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginRight="35dp"
+            android:layout_alignParentRight="true">
+        </com.github.mikephil.charting.charts.PieChart>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="60dp"
+            android:text="Current Diet"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60dp"
+            android:text="Suggested Diet"
+            android:textSize="16dp"
+            />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
         android:orientation="vertical">
 
         <TextView
@@ -40,7 +87,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
             android:gravity="center"
+            android:background="@drawable/border"
             android:text="co2e"
             android:padding="10dp"
             android:textSize="24dp"
@@ -48,7 +98,7 @@
             />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -59,8 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="50dp"
             android:text="Diet Option"
             android:textSize="16dp"
             />
@@ -69,16 +119,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginRight="50dp"
             android:gravity="center"
+            android:layout_alignParentRight="true"
             android:text="Municipality"
             android:textSize="16dp"
 
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -87,27 +138,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="60dp"
+            android:background="@drawable/border"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Plan"
-            android:textSize="22dp"
-            android:textStyle="bold" />
+            android:text="None"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@+id/centerPoint2"/>
 
+        <TextView
+            android:id="@+id/centerPoint2"
+            android:text=""
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
+            android:background="@drawable/border"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Plan"
-            android:textSize="22dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:text="None"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/centerPoint2"/>
+    </RelativeLayout>
 
 
     <RelativeLayout
