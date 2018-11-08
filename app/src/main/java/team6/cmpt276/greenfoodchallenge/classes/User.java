@@ -13,4 +13,8 @@ public class User {
         this.lastName = lastName;
         isAdmin = false;
     }
+
+    public boolean isAdmin() {
+        return this.isAdmin;
+    }
 }
