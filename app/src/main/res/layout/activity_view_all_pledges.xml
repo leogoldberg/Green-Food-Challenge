@@ -17,7 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@android:drawable/btn_dropdown"
         android:gravity="right"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="511dp" />
