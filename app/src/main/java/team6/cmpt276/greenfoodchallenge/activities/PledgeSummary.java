@@ -41,6 +41,7 @@ public class PledgeSummary extends AppCompatActivity {
     private String userID = user.getUid();
     private Map<String, ArrayList> pledges;
     private HashMap<String, String> userNames;
+    private HashMap<String, String> pictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class PledgeSummary extends AppCompatActivity {
         // set the hashmap
         pledges = createMap(cities);
         userNames = new HashMap<>();
+        pictures = new HashMap<>();
 
         // set the drop down
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -102,12 +104,26 @@ public class PledgeSummary extends AppCompatActivity {
                 String city = dropdown.getSelectedItem().toString();
 
                 for (final String key : userNames.keySet()) {
-                    final DatabaseReference user = database.child("users").child(key).child("name");
-                    user.addValueEventListener(new ValueEventListener() {
+                    final DatabaseReference name = database.child("users").child(key).child("name");
+                    name.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String name = dataSnapshot.getValue(String.class);
                             userNames.put(key, name);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    final DatabaseReference photo = database.child("users").child(key).child("photo");
+                    photo.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String photo = dataSnapshot.getValue(String.class);
+                            pictures.put(key, photo);
                         }
 
                         @Override
@@ -256,6 +272,7 @@ public class PledgeSummary extends AppCompatActivity {
 
         myIntent.putExtra("municipality", city);
         myIntent.putExtra("usernames", userNames);
+        myIntent.putExtra("pictures", pictures);
 
         startActivity(myIntent);
     }

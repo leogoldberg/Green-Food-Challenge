@@ -43,6 +43,7 @@ public class ViewAllPledges extends AppCompatActivity {
     private String userID = user.getUid();
     private Map<String, ArrayList> pledges;
     private HashMap<String, String> userNames;
+    private HashMap<String, String> pictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class ViewAllPledges extends AppCompatActivity {
         Intent intent = getIntent();
         String city = intent.getStringExtra("municipality");
         userNames = (HashMap<String, String>) intent.getSerializableExtra("usernames");
+        pictures = (HashMap<String, String>) intent.getSerializableExtra("pictures");
 
         final String[] cities = {   "Richmond", "Coquitlam", "Surrey", "Vancouver",
                                     "New Westminister", "Burnaby"};
@@ -99,7 +101,9 @@ public class ViewAllPledges extends AppCompatActivity {
 
                     Pledge pledge = new Pledge(saveAmount, dietOption, municipality);
                     String name = (userNames.get(key) == null) ? "Unknown" : userNames.get(key);
+                    String photo = (pictures.get(key) == null) ? "cherry" : pictures.get(key);
                     pledge.setName(name);
+                    pledge.setPhoto(photo);
                     ArrayList<Pledge> pledgeList = pledges.get(municipality);
                     pledgeList.add(pledge);
 
@@ -139,7 +143,8 @@ public class ViewAllPledges extends AppCompatActivity {
         for(int i = 0 ; i < pledgeList.size(); i++) {
             Pledge curPledge = pledgeList.get(i);
             String name = curPledge.getName();
-            data[i][0] = "PICTURE";
+            String photo = curPledge.getPhoto();
+            data[i][0] = photo;
             data[i][1] = name + ": \n" + System.getProperty("line.separator") + curPledge.dietOption;
             data[i][2] = roundOffTo2DecPlaces((float) curPledge.saveAmount / 1000000) + " tons";
         }

@@ -5,6 +5,7 @@ public class Pledge {
     public String dietOption;
     public String municipality = null;
     private String name;
+    private String photo;
 
     public Pledge() {
     }
@@ -31,5 +32,13 @@ public class Pledge {
 
     public String getName() {
         return name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
