@@ -1,13 +1,10 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.Pledge;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
 public class UserDashboard extends AppCompatActivity {
@@ -109,6 +105,9 @@ public class UserDashboard extends AppCompatActivity {
                 cityView.setText(city);
                 planView.setText(diet);
 
+                final String dietPlanToSharing = diet;
+                final String savedCO2eToSharing = amountSaved.getText().toString();
+
                 Button shareButton = findViewById(R.id.shareButton);
                 shareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -118,6 +117,13 @@ public class UserDashboard extends AppCompatActivity {
                         Intent intent = new Intent(UserDashboard.this, ConsumptionQuiz1.class);
                         startActivity(intent);
                         */
+                        Intent intent = new Intent(UserDashboard.this, SharingActivity.class);
+                        Bundle extras = new Bundle();
+                        extras.putString("dietPlanName", dietPlanToSharing);
+                        extras.putString("savedAmount",savedCO2eToSharing);
+                        intent.putExtras(extras);
+
+                        startActivity(intent);
 
                     }
                 });

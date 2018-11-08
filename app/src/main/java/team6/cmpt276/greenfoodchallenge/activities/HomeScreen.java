@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -148,7 +146,7 @@ public class HomeScreen extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                    //  startActivity(new Intent(this, DashBoardActivity.class));
+                    startActivity(new Intent(this, UserDashboard.class));
                     return true;
                 }
             case R.id.view_all_pledge:
