@@ -53,30 +53,22 @@
             android:layout_marginRight="20dp"
             >
             <Button
-                android:id="@+id/editButton"
+                android:id="@+id/editProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/headerText"
-                android:text="Edit Profile"
-                android:textStyle="bold"
-                android:textColor="@android:color/white" />
+                android:padding="10dp"
+                android:backgroundTint="@color/headerText"
+                android:textColor="@android:color/white"
+                android:text="@string/reduceConsumption"/>
 
             <Button
-                android:id="@+id/logoutButton"
+                android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/headerText"
-                android:text="Logout"
-                android:textStyle="bold"
-                android:textColor="@android:color/white" />
+                android:padding="10dp"
+                android:backgroundTint="@color/headerText"
+                android:textColor="@android:color/white"
+                android:text="@string/reduceConsumption"/>
 
 
         </LinearLayout>
