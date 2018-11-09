@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Email"
-                android:textSize="24dp"
+                android:textSize="17dp"
                 android:textStyle="bold"
                 />
             <TextView
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Municipality"
-                android:textSize="24dp"
+                android:textSize="17dp"
                 android:textStyle="bold"
                 />
             <TextView
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Pledge"
-                android:textSize="24dp"
+                android:textSize="17dp"
                 android:textStyle="bold"
                 />
             <TextView
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Diet Option"
-                android:textSize="24dp"
+                android:textSize="17dp"
                 android:textStyle="bold"
                 />
             <TextView

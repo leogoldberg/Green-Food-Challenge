@@ -184,10 +184,10 @@ public class PledgeSummary extends AppCompatActivity {
         pledgeCount.setText(Integer.toString(totalPledges));
 
         TextView pledgeTotal = findViewById(R.id.pledge_total_save);
-        pledgeTotal.setText(Float.toString(totalAmount));
+        pledgeTotal.setText(Float.toString(totalAmount/1000)+" kg CO2e");
 
         TextView pledgeAvg = findViewById(R.id.pledge_avg);
-        pledgeAvg.setText(Float.toString(average));
+        pledgeAvg.setText(Float.toString(average/1000)+" kg CO2e");
 
         BarDataSet set = new BarDataSet(entries, "BarDataSet");
         set.setDrawValues(false);
