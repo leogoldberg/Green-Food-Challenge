@@ -105,8 +105,8 @@ public class ViewAllPledges extends AppCompatActivity {
                     // for metro vancouver
                     if(municipality != "null" && municipality != "Undefined") {
                         ArrayList<Pledge> metroVancouverList = pledges.get("Metro Vancouver");
-                        pledgeList.add(pledge);
-                        pledges.put("Metro Vancouver", pledgeList);
+                        metroVancouverList.add(pledge);
+                        pledges.put("Metro Vancouver", metroVancouverList);
                     }
 
                     pledges.put(municipality, pledgeList);
