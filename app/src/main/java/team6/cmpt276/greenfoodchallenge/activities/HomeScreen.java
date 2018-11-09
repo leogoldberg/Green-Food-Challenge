@@ -1,10 +1,15 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -34,6 +38,9 @@ public class HomeScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Green Food Challenge");
 
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+        toolbar.setOverflowIcon(threeLineIcon);
+
         Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,23 +49,7 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button dashboardButton = findViewById(R.id.TEMP2);
-        dashboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, UserDashboard.class);
-                startActivity(intent);
-            }
-        });
 
-        Button profileButton = findViewById(R.id.TEMP2);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, UserProfile.class);
-                startActivity(intent);
-            }
-        });
 
         //log out for testing
         //FirebaseAuth.getInstance().signOut();
@@ -134,9 +125,46 @@ public class HomeScreen extends AppCompatActivity {
             }
         }
 
-    public void seePledgeSummary(View v) {
-        Intent myIntent = new Intent(HomeScreen.this, PledgeSummary.class);
-        startActivity(myIntent);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        switch (item.getItemId()) {
+            case R.id.user_dashboard:
+                if (currentUser.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent(this, UserDashboard.class));
+                    return true;
+                }
+            case R.id.view_all_pledge:
+                startActivity(new Intent(this,ViewAllPledges.class));
+                return true;
+            case R.id.calculate_consumption:
+                startActivity(new Intent(this,ConsumptionQuiz1.class));
+                return true;
+            case R.id.profile_login:
+                if (currentUser.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent (this, UserProfile.class));
+                    return true;
+                }
+            case R.id.about_us:
+                startActivity(new Intent(this,AboutActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }

@@ -69,4 +69,7 @@
 
     <!-- Login -->
     <string name="loginMessage"></string>
+    <!--Sharing Activity-->
+    <string name="share_guide">Share</string>
+    <string name="share_title">Sharing Your Pledge!</string>/>
 </resources>

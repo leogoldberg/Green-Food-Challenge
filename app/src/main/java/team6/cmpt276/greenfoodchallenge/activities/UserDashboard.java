@@ -1,10 +1,15 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -47,6 +52,9 @@ public class UserDashboard extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Green Food Challenge");
+
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+        toolbar.setOverflowIcon(threeLineIcon);
 
 
         database.addValueEventListener(new ValueEventListener() {
@@ -103,6 +111,9 @@ public class UserDashboard extends AppCompatActivity {
                 cityView.setText(city);
                 planView.setText(diet);
 
+                final String dietPlanToSharing = diet;
+                final String savedCO2eToSharing = amountSaved.getText().toString();
+
                 Button shareButton = findViewById(R.id.shareButton);
                 shareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -112,6 +123,13 @@ public class UserDashboard extends AppCompatActivity {
                         Intent intent = new Intent(UserDashboard.this, ConsumptionQuiz1.class);
                         startActivity(intent);
                         */
+                        Intent intent = new Intent(UserDashboard.this, SharingActivity.class);
+                        Bundle extras = new Bundle();
+                        extras.putString("dietPlanName", dietPlanToSharing);
+                        extras.putString("savedAmount",savedCO2eToSharing);
+                        intent.putExtras(extras);
+
+                        startActivity(intent);
 
                     }
                 });
@@ -213,5 +231,45 @@ public class UserDashboard extends AppCompatActivity {
      */
     private float getPercentage(int count, int total) {
         return ((float) count / total) * 100;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.user_dashboard:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent(this, UserDashboard.class));
+                    return true;
+                }
+            case R.id.view_all_pledge:
+                startActivity(new Intent(this,ViewAllPledges.class));
+                return true;
+            case R.id.calculate_consumption:
+                startActivity(new Intent(this,ConsumptionQuiz1.class));
+                return true;
+            case R.id.profile_login:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent (this, UserProfile.class));
+                    return true;
+                }
+            case R.id.about_us:
+                startActivity(new Intent(this,AboutActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
