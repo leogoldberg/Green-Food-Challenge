@@ -55,7 +55,7 @@ public class ResultActivity2 extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Suggested Diet");
 
-        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dashboard_black_24dp);
         toolbar.setOverflowIcon(threeLineIcon);
 
         Intent intent = getIntent();
@@ -105,24 +105,25 @@ public class ResultActivity2 extends AppCompatActivity {
                     }
                 });
 
-        Button loginButton = findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ResultActivity2.this, UserLogin.class);
-                startActivity(intent);
-            }
-        });
+
 
                 Button pledgeButton = findViewById(R.id.pledgeButton);
                 pledgeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Pledge userPledge = new Pledge(Math.round(saved),dietOption);
                         database.child("pledges").child(userID).setValue(userPledge);
-//                        Add the new activities here
-//                        Intent intent = new Intent(ResultActivity2.this, ConsumptionQuiz1.class);
-//                        startActivity(intent);
+
+                        if (user.isAnonymous()){
+                            Intent intent = new Intent(ResultActivity2.this, UserLogin.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            Intent intent = new Intent(ResultActivity2.this, UserDashboard.class);
+                            startActivity(intent);
+                        }
+
                     }
                 });
 
@@ -253,7 +254,7 @@ public class ResultActivity2 extends AppCompatActivity {
                     return true;
                 }
             case R.id.view_all_pledge:
-                startActivity(new Intent(this,ViewAllPledges.class));
+                startActivity(new Intent(this,PledgeSummary.class));
                 return true;
             case R.id.calculate_consumption:
                 startActivity(new Intent(this,ConsumptionQuiz1.class));

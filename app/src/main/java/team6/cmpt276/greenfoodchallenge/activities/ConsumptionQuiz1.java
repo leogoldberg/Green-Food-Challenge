@@ -109,7 +109,7 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
                     return true;
                 }
             case R.id.view_all_pledge:
-                startActivity(new Intent(this,ViewAllPledges.class));
+                startActivity(new Intent(this,PledgeSummary.class));
                 return true;
             case R.id.profile_login:
                 if (user.isAnonymous()){
