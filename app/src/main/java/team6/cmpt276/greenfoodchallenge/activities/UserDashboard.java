@@ -133,11 +133,6 @@ public class UserDashboard extends AppCompatActivity {
                 shareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /* Seulgee add you share functionality here
-
-                        Intent intent = new Intent(UserDashboard.this, ConsumptionQuiz1.class);
-                        startActivity(intent);
-                        */
                         Intent intent = new Intent(UserDashboard.this, SharingActivity.class);
                         Bundle extras = new Bundle();
                         extras.putString("dietPlanName", dietPlanToSharing);
