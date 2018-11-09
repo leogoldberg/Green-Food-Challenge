@@ -55,7 +55,7 @@ public class ResultActivity2 extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Suggested Diet");
 
-        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dashboard_black_24dp);
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
         toolbar.setOverflowIcon(threeLineIcon);
 
         Intent intent = getIntent();

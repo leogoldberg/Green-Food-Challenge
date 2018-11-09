@@ -196,7 +196,7 @@
             android:layout_alignParentLeft="true"
             android:backgroundTint="@color/headerText"
             android:textColor="@android:color/white"
-            android:layout_toLeftOf="@+id/deletePledge" />
+            android:layout_toLeftOf="@id/deletePledge" />
 
         <Button
             android:id="@+id/deletePledge"
@@ -221,7 +221,7 @@
             android:layout_alignParentRight="true"
             android:backgroundTint="@color/headerText"
             android:textColor="@android:color/white"
-            android:layout_toRightOf="@+id/deletePledge" />
+            android:layout_toRightOf="@id/deletePledge" />
 
     </RelativeLayout>
 
