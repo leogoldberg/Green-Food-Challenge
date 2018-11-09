@@ -150,7 +150,7 @@ public class MeatEater extends AppCompatActivity {
                     return true;
                 }
             case R.id.view_all_pledge:
-                startActivity(new Intent(this,ViewAllPledges.class));
+                startActivity(new Intent(this,PledgeSummary.class));
                 return true;
             case R.id.calculate_consumption:
                 startActivity(new Intent(this,ConsumptionQuiz1.class));

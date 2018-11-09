@@ -205,6 +205,9 @@ public class ViewAllPledges extends AppCompatActivity {
             case R.id.calculate_consumption:
                 startActivity(new Intent(this,ConsumptionQuiz1.class));
                 return true;
+            case R.id.view_all_pledge:
+                startActivity(new Intent(this,ViewAllPledges.class));
+                return true;
             case R.id.profile_login:
                 if (user.isAnonymous()){
                     startActivity(new Intent(this,UserLogin.class));
