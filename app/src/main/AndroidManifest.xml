@@ -75,6 +75,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".UserProfile" />
+        <activity android:name=".activities.UserProfile" />
+        <activity android:name=".activities.EditProfile"></activity>
         <activity android:name=".activities.UserDashboard"></activity>
     </application>
 

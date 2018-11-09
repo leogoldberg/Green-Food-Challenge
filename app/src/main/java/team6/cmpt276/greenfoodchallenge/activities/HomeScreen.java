@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -46,6 +47,15 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this, UserDashboard.class);
+                startActivity(intent);
+            }
+        });
+
+        Button profileButton = findViewById(R.id.TEMP2);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this, UserProfile.class);
                 startActivity(intent);
             }
         });
