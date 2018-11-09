@@ -109,7 +109,7 @@ public class UserDashboard extends AppCompatActivity {
                 cityView= findViewById(R.id.cityText);
                 planView=findViewById(R.id.dietText);
 
-                String city = dataSnapshot.child("user").child(userID).child("municipality").getValue(String.class);
+                String city = dataSnapshot.child("pledges").child(userID).child("municipality").getValue(String.class);
                 String diet = dataSnapshot.child("pledges").child(userID).child("dietOption").getValue(String.class);
 
                 if(city==null){
@@ -130,24 +130,31 @@ public class UserDashboard extends AppCompatActivity {
                 final String savedCO2eToSharing = amountSaved.getText().toString();
 
                 shareButton = findViewById(R.id.shareButton);
-                shareButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                if(diet==null){
+                    shareButton.setVisibility(View.INVISIBLE);
+                }
+
+                else {
+                    shareButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
                         /* Seulgee add you share functionality here
 
                         Intent intent = new Intent(UserDashboard.this, ConsumptionQuiz1.class);
                         startActivity(intent);
                         */
-                        Intent intent = new Intent(UserDashboard.this, SharingActivity.class);
-                        Bundle extras = new Bundle();
-                        extras.putString("dietPlanName", dietPlanToSharing);
-                        extras.putString("savedAmount",savedCO2eToSharing);
-                        intent.putExtras(extras);
+                            Intent intent = new Intent(UserDashboard.this, SharingActivity.class);
+                            Bundle extras = new Bundle();
+                            extras.putString("dietPlanName", dietPlanToSharing);
+                            extras.putString("savedAmount", savedCO2eToSharing);
+                            intent.putExtras(extras);
 
-                        startActivity(intent);
+                            startActivity(intent);
 
-                    }
-                });
+                        }
+                    });
+                }
+
                 Button deletePledge = findViewById(R.id.deletePledge);
                 if(diet==null){
                     deletePledge.setVisibility(View.INVISIBLE);
@@ -167,10 +174,11 @@ public class UserDashboard extends AppCompatActivity {
 
 
                 Button changePlanButton = findViewById(R.id.changeButton);
+
                 changePlanButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(UserDashboard.this, ConsumptionQuiz1.class);
+                        Intent intent = new Intent(UserDashboard.this, PlannerQuiz.class);
                         startActivity(intent);
                     }
                 });
