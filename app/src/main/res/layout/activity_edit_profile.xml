@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.EditProfile">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Name:"
+                />
+            <EditText
+                android:id="@+id/nameText"
+                android:layout_height="wrap_content"
+                android:layout_width="210dp"
+                android:inputType="text"
+                android:text="enter name"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Profile Photo"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="0dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/profile1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/bamboo" />
+
+            <ImageButton
+                android:id="@+id/profile2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/cherry" />
+
+
+            <ImageButton
+                android:id="@+id/profile3"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/peanut" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center">
+            <ImageButton
+                android:id="@+id/profile4"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/earth" />
+
+            <ImageButton
+                android:id="@+id/profile5"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/tree" />
+
+
+            <ImageButton
+                android:id="@+id/profile6"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/heart" />
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/border">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Municipality"
+                />
+
+            <Spinner
+                android:id="@+id/citySpinner"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/finish"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:backgroundTint="@color/headerText"
+            android:textColor="@android:color/white"
+            android:text="finish"/>
+
+    </LinearLayout>
+</LinearLayout>
+
+
