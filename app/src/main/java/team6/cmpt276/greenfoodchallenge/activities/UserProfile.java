@@ -30,19 +30,32 @@ public class UserProfile extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
-    private DatabaseReference nameRef=database.child("users").child(userID).child("name");
-    private DatabaseReference cityRef=database.child("users").child(userID).child("municipality");
-    private DatabaseReference dietRef=database.child("pledge").child(userID).child("dietOption");
-    private DatabaseReference iconRef=database.child("users").child(userID).child("icon");
-    private TextView nameView= findViewById(R.id.userName);
-    private TextView cityView= findViewById(R.id.municipality);
-    private TextView dietView= findViewById(R.id.diet);
-    private ImageView profileView=findViewById(R.id.profilePic);
+    private DatabaseReference nameRef=database.child("user").child(userID).child("name");
+    private DatabaseReference cityRef=database.child("user").child(userID).child("municipality");
+    private DatabaseReference dietRef=database.child("pledges").child(userID).child("dietOption");
+    private DatabaseReference iconRef=database.child("user").child(userID).child("icon");
+    private DatabaseReference emailRef=database.child("user").child(userID).child("email");
+    private DatabaseReference pledgeRef=database.child("pledges").child(userID).child("saveAmount");
+    private TextView nameView;
+    private TextView cityView;
+    private TextView dietView;
+    private ImageView profileView;
+    private TextView emailView;
+    private TextView pledgeView;
+    private Button edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        nameView = (TextView) findViewById(R.id.userName);
+        cityView = (TextView) findViewById(R.id.municipality);
+        dietView= (TextView) findViewById(R.id.diet);
+        emailView= (TextView) findViewById(R.id.email);
+        pledgeView = (TextView) findViewById(R.id.pledge);
+        profileView = (ImageView) findViewById(R.id.profilePic);
+        edit = (Button) findViewById(R.id.editProfile);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -85,6 +98,30 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+        emailRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String email = dataSnapshot.getValue(String.class);
+                emailView.setText(email);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        pledgeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String pledge = dataSnapshot.getValue(Double.class).toString();
+                pledgeView.setText(pledge);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         //setting profile picture
         iconRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -98,16 +135,25 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+        //Edit Profile Button
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfile.this, EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
 
         //logout button, goes to home screen
         mAuth = FirebaseAuth.getInstance();
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         boolean isLoggedIn = (currentUser != null&& !currentUser.isAnonymous()) || (accessToken != null && !accessToken.isExpired());
-        Button loginButton = findViewById(R.id.loginButton);
+        Button logoutButton = findViewById(R.id.logout);
         if(isLoggedIn){
-            loginButton.setText("Logout");
-            loginButton.setOnClickListener(new View.OnClickListener() {
+            logoutButton.setText("Logout");
+            logoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FirebaseAuth.getInstance().signOut();
@@ -121,7 +167,10 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void setImage(ImageView profile, String textToShow) {
-        if (textToShow.equals("cherry")) {
+        if (textToShow == null) {
+
+        }
+        else if(textToShow.equals("cherry")) {
             profile.setImageResource(R.drawable.cherry);
         } else if (textToShow.equals("peanut")) {
             profile.setImageResource(R.drawable.peanut);

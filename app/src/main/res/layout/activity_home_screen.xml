@@ -65,6 +65,7 @@
             android:layout_height="wrap_content"
             android:onClick="seePledgeSummary"
             android:text="Pledge Summary TEMP" />
+
         <Button
             android:id="@+id/TEMP2"
             android:layout_width="match_parent"

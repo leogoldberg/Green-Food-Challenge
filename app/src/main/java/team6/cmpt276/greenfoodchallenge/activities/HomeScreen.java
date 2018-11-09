@@ -45,6 +45,15 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+        Button profileButton = findViewById(R.id.TEMP2);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this, UserProfile.class);
+                startActivity(intent);
+            }
+        });
+
         //log out for testing
         //FirebaseAuth.getInstance().signOut();
 
@@ -79,7 +88,7 @@ public class HomeScreen extends AppCompatActivity {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(HomeScreen.this, UserProfile.class);
+                    Intent intent = new Intent(HomeScreen.this, UserLogin.class);
                     startActivity(intent);
                 }
             });
