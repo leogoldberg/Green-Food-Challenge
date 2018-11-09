@@ -71,7 +71,7 @@ public class ResultActivity extends AppCompatActivity {
                 // set total text
                 double total = dataSnapshot.child("totalco2perYear").getValue(Double.class);
                 TextView tv1 = findViewById(R.id.consumed_co2e);
-                tv1.setText(Math.round(total) + " CO2e ");
+                tv1.setText((Math.round(total) / 1000) + "kg CO2e ");
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
