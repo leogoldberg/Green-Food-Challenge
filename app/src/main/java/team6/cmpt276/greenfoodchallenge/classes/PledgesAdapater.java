@@ -70,6 +70,21 @@ public final class PledgesAdapater extends TableDataAdapter<String[]> {
                 imageView.setImageResource(R.drawable.bamboo);
                 imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
                 return imageView;
+            } else if(textToShow.equals("earth")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.earth);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            } else if(textToShow.equals("heart")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.heart);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            } else if(textToShow.equals("tree")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.tree);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
             }
             textView.setText(textToShow);
         } catch (final IndexOutOfBoundsException e) {

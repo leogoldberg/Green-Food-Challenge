@@ -78,6 +78,7 @@
         <activity android:name=".UserProfile" />
         <activity android:name=".activities.UserProfile" />
         <activity android:name=".activities.EditProfile"></activity>
+        <activity android:name=".activities.UserDashboard"></activity>
     </application>
 
 </manifest>
