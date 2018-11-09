@@ -71,6 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
@@ -91,12 +92,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
-
                 android:text="None"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 />
             </RelativeLayout>
 
@@ -117,12 +116,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
-
                 android:text="None"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 />
         </RelativeLayout>
 
@@ -143,12 +140,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
-
                 android:text="None"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 />
         </RelativeLayout>
 
@@ -169,11 +164,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
                 android:text="None"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 />
         </RelativeLayout>
 
