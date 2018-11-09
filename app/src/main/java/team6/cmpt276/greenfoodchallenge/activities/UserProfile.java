@@ -64,7 +64,7 @@ public class UserProfile extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
 
-        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dashboard_black_24dp);
         toolbar.setOverflowIcon(threeLineIcon);
 
 

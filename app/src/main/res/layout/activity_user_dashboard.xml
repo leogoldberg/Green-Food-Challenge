@@ -190,32 +190,39 @@
             android:id="@+id/shareButton"
             android:text="Share"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_alignParentLeft="true"
             android:backgroundTint="@color/headerText"
             android:textColor="@android:color/white"
-            android:layout_toLeftOf="@+id/centerPoint" />
+            android:layout_toLeftOf="@+id/deletePledge" />
 
-        <TextView
-            android:id="@+id/centerPoint"
-            android:text=""
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true" />
+        <Button
+            android:id="@+id/deletePledge"
+            android:text="Delete"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/headerText"
+            android:textColor="@android:color/white"
+            />
 
         <Button
             android:id="@+id/changeButton"
             android:text="Change Plan"
             android:padding="10dp"
             android:layout_width="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:backgroundTint="@color/headerText"
             android:textColor="@android:color/white"
-            android:layout_toRightOf="@+id/centerPoint" />
+            android:layout_toRightOf="@+id/deletePledge" />
+
     </RelativeLayout>
 
 </LinearLayout>

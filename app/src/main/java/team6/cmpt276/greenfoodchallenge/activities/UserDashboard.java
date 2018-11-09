@@ -39,6 +39,10 @@ public class UserDashboard extends AppCompatActivity {
     private UserData suggestedConsumption;
     private UserData currentConsumption;
     private double saved;
+    private TextView amountSaved;
+    private TextView cityView;
+    private TextView planView;
+    private Button shareButton;
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -75,7 +79,7 @@ public class UserDashboard extends AppCompatActivity {
                 }
 
                 // set amount saved text
-                TextView amountSaved = findViewById(R.id.saveText);
+                amountSaved = findViewById(R.id.saveText);
                 amountSaved.setText(Math.round(saved) + " CO2e ");
 
                 // sets up the pie charts
@@ -102,19 +106,30 @@ public class UserDashboard extends AppCompatActivity {
 
                 //set text
 
-                TextView cityView= findViewById(R.id.cityText);
-                TextView planView=findViewById(R.id.dietText);
+                cityView= findViewById(R.id.cityText);
+                planView=findViewById(R.id.dietText);
 
                 String city = dataSnapshot.child("user").child(userID).child("municipality").getValue(String.class);
                 String diet = dataSnapshot.child("pledges").child(userID).child("dietOption").getValue(String.class);
 
-                cityView.setText(city);
-                planView.setText(diet);
+                if(city==null){
+                    cityView.setText("None");
+                }
+                else{
+                    cityView.setText(city);
+                }
+                if(diet==null){
+                    planView.setText("None");
+                }
+                else{
+                    planView.setText(diet);
+                }
+
 
                 final String dietPlanToSharing = diet;
                 final String savedCO2eToSharing = amountSaved.getText().toString();
 
-                Button shareButton = findViewById(R.id.shareButton);
+                shareButton = findViewById(R.id.shareButton);
                 shareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -133,12 +148,29 @@ public class UserDashboard extends AppCompatActivity {
 
                     }
                 });
+                Button deletePledge = findViewById(R.id.deletePledge);
+                if(diet==null){
+                    deletePledge.setVisibility(View.INVISIBLE);
+                }
+
+                else {
+
+                    deletePledge.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            database.child("pledges").child(userID).removeValue();
+                            amountSaved.setText("0 CO2e ");
+                            shareButton.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
+
 
                 Button changePlanButton = findViewById(R.id.changeButton);
                 changePlanButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(UserDashboard.this, PlannerQuiz.class);
+                        Intent intent = new Intent(UserDashboard.this, ConsumptionQuiz1.class);
                         startActivity(intent);
                     }
                 });
@@ -253,7 +285,7 @@ public class UserDashboard extends AppCompatActivity {
                     return true;
                 }
             case R.id.view_all_pledge:
-                startActivity(new Intent(this,ViewAllPledges.class));
+                startActivity(new Intent(this,PledgeSummary.class));
                 return true;
             case R.id.calculate_consumption:
                 startActivity(new Intent(this,ConsumptionQuiz1.class));
