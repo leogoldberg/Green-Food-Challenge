@@ -133,7 +133,7 @@ public class PlannerQuiz extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                    // startActivity(new Intent this, UserDashboard.class);
+                    startActivity(new Intent (this, UserProfile.class));
                     return true;
                 }
             case R.id.about_us:

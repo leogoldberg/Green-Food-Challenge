@@ -313,14 +313,6 @@ public class UserLogin extends AppCompatActivity {
             case R.id.calculate_consumption:
                 startActivity(new Intent(this,ConsumptionQuiz1.class));
                 return true;
-            case R.id.profile_login:
-                if (user.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    // startActivity(new Intent this, UserDashboard.class);
-                    return true;
-                }
             case R.id.about_us:
                 startActivity(new Intent(this,AboutActivity.class));
             default:

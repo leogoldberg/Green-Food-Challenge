@@ -73,7 +73,7 @@ public class AboutActivity extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                  //  startActivity(new Intent(this, ProfileActivity.class));
+                    startActivity(new Intent (this, UserProfile.class));
                     return true;
                 }
             default:

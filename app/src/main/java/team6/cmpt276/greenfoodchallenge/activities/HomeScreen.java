@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -50,23 +49,7 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button dashboardButton = findViewById(R.id.TEMP2);
-        dashboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, UserDashboard.class);
-                startActivity(intent);
-            }
-        });
 
-        Button profileButton = findViewById(R.id.TEMP2);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, UserProfile.class);
-                startActivity(intent);
-            }
-        });
 
         //log out for testing
         //FirebaseAuth.getInstance().signOut();
@@ -142,11 +125,6 @@ public class HomeScreen extends AppCompatActivity {
             }
         }
 
-    public void seePledgeSummary(View v) {
-        Intent myIntent = new Intent(HomeScreen.this, PledgeSummary.class);
-        startActivity(myIntent);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -178,7 +156,7 @@ public class HomeScreen extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                    // startActivity(new Intent this, UserDashboard.class);
+                    startActivity(new Intent (this, UserProfile.class));
                     return true;
                 }
             case R.id.about_us:
