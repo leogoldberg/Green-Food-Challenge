@@ -78,7 +78,7 @@ public class ResultActivity2 extends AppCompatActivity {
 
                 // change text
                 TextView amountSaved = findViewById(R.id.amount_saved);
-                amountSaved.setText(Math.round(saved) + " CO2e ");
+                amountSaved.setText((Math.round(saved) / 1000) + "kg CO2e ");
 
                 TextView calculateTreesSaved = findViewById(R.id.amount_tree_saved);
                 calculateTreesSaved.setText("Or " + calculateTreesSaved(saved) + " trees per year");
