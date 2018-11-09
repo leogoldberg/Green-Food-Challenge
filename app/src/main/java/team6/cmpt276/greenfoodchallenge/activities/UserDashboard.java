@@ -70,17 +70,16 @@ public class UserDashboard extends AppCompatActivity {
                 int total_amount_per_week_current = currentConsumption.getTotalFrequency();
                 int total_amount_per_week_suggested = suggestedConsumption.getTotalFrequency();
 
-                double totalCurrentConsumption = currentConsumption.getTotalco2perYear();
-                double totalSuggestedConsumption = suggestedConsumption.getTotalco2perYear();
-                saved = totalCurrentConsumption - totalSuggestedConsumption;
+                saved = currentConsumption.getTotalco2perYear() - suggestedConsumption.getTotalco2perYear();
 
                 if(saved < 0) {
                     saved = 0;
                 }
 
-                // set amount saved text
-                amountSaved = findViewById(R.id.saveText);
-                amountSaved.setText(Math.round(saved) + " CO2e ");
+
+
+
+
 
                 // sets up the pie charts
                 PieChart suggChart = initializePieChart(R.id.suggChart);
@@ -104,8 +103,9 @@ public class UserDashboard extends AppCompatActivity {
                 currChart.invalidate();
 
 
-                //set text
 
+                // set amount saved text
+                amountSaved = findViewById(R.id.saveText);
                 cityView= findViewById(R.id.cityText);
                 planView=findViewById(R.id.dietText);
 
@@ -120,10 +120,13 @@ public class UserDashboard extends AppCompatActivity {
                 }
                 if(diet==null){
                     planView.setText("None");
+                    amountSaved.setText("None");
                 }
                 else{
                     planView.setText(diet);
+                    amountSaved.setText(Math.round(saved)/1000 + "kg CO2e ");
                 }
+
 
 
                 final String dietPlanToSharing = diet;
