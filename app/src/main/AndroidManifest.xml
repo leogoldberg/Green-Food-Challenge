@@ -77,9 +77,10 @@
         </activity>
         <activity android:name=".UserProfile" />
         <activity android:name=".activities.UserProfile" />
-        <activity android:name=".activities.EditProfile"></activity>
-        <activity android:name=".activities.UserDashboard"></activity>
-        <activity android:name=".activities.SharingActivity"></activity>
+        <activity android:name=".activities.EditProfile" />
+        <activity android:name=".activities.UserDashboard" />
+        <activity android:name=".activities.SharingActivity" />
+        <activity android:name=".activities.ProfileTab"></activity>
     </application>
 
 </manifest>
