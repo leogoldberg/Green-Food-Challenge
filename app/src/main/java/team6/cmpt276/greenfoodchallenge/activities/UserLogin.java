@@ -304,7 +304,7 @@ public class UserLogin extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                    startActivity(new Intent(this, UserDashboard.class));
+                    startActivity(new Intent(this, ProfileTab.class));
                     return true;
                 }
             case R.id.view_all_pledge:

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.ViewPagerAdapter;
 
 public class ProfileTab extends AppCompatActivity {
     private TabLayout mTabLayout;
@@ -24,6 +25,15 @@ public class ProfileTab extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        adapter.addFragment(new FragmentOne(), "Pledge");
+        adapter.addFragment(new FragmentTwo(), "Meal");
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+
     }
+
+
+
 }

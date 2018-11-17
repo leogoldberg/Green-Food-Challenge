@@ -120,7 +120,7 @@ public class ResultActivity2 extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else{
-                            Intent intent = new Intent(ResultActivity2.this, UserDashboard.class);
+                            Intent intent = new Intent(ResultActivity2.this, ProfileTab.class);
                             startActivity(intent);
                         }
 
@@ -250,7 +250,7 @@ public class ResultActivity2 extends AppCompatActivity {
                     startActivity(new Intent(this,UserLogin.class));
                     return true;
                 } else {
-                    startActivity(new Intent(this, UserDashboard.class));
+                    startActivity(new Intent(this, ProfileTab.class));
                     return true;
                 }
             case R.id.view_all_pledge:
