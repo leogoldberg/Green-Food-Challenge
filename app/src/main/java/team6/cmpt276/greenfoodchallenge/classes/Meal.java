@@ -15,7 +15,7 @@ public class Meal {
 
     public Meal(String userID, String mealName, String protein,
                 CharSequence restaurantName, CharSequence address, CharSequence city,
-                String filName) {
+                String fileName) {
         this.userID = userID;
         this.mealName = mealName;
         this.mealDescription = mealDescription;

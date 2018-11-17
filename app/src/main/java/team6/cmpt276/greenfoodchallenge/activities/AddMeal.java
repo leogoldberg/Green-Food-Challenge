@@ -72,7 +72,6 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
     private String restaurantName;
     private String protein;
     private Float mealRating;
-    private String photoURL;
 
     private EditText mealNameEdit;
     private EditText mealDescriptionEdit;
@@ -82,8 +81,6 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
     private RatingBar ratingBar;
 
     private Geocoder mGeocoder = new Geocoder(this, Locale.getDefault());
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,10 +147,9 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         }
     }
 
-    public void uploadImage(String fileName) {
+    public void uploadImage(String fileName, String userId) {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        String userId = "DONT KNOW/";
         String fileDirectory = "meals/" + userId;
 
         if(filePath != null) {
@@ -210,9 +206,10 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
 
 
         String fileName = UUID.randomUUID().toString();
-        uploadImage(fileName);
+        String userId = user.getUid();
+        uploadImage(fileName, userId);
 
-        Meal meal = new Meal(user.getUid(),mealName,protein,restaurantName,restaurantAddress,restaurantCity, fileName);
+        Meal meal = new Meal(userId,mealName,protein,restaurantName,restaurantAddress,restaurantCity, fileName);
 
         if (mealDescription != null){
             meal.setMealDescription(mealDescription);
@@ -272,6 +269,5 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
             restaurantCity = addresses.get(0).getLocality();
             Log.d("CITY",restaurantCity);
         }
-
     }
 }
