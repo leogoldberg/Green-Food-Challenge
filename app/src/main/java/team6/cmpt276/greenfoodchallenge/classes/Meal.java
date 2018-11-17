@@ -5,6 +5,7 @@ public class Meal {
     public String mealName;
     public String mealDescription;
     public String protein;
+    public String fileName;
     public CharSequence restaurantName;
     public CharSequence address;
     public CharSequence city;
@@ -12,12 +13,9 @@ public class Meal {
 
     public Meal(){}
 
-    public Meal(String userID,
-                String mealName,
-                String protein,
-                CharSequence restaurantName,
-                CharSequence address,
-                CharSequence city) {
+    public Meal(String userID, String mealName, String protein,
+                CharSequence restaurantName, CharSequence address, CharSequence city,
+                String filName) {
         this.userID = userID;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
@@ -26,6 +24,7 @@ public class Meal {
         this.city = city;
         this.rating = rating;
         this. protein = protein;
+        this.fileName = fileName;
     }
 
     public float getRating() {

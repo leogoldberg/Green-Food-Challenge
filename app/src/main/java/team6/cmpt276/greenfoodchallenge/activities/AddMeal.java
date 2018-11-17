@@ -150,12 +150,11 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         }
     }
 
-    public void uploadImage(View view) {
+    public void uploadImage(String fileName) {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         String userId = "DONT KNOW/";
         String fileDirectory = "meals/" + userId;
-        String fileName = UUID.randomUUID().toString();
 
         if(filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -189,6 +188,7 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         }
     }
 
+
     // Upload the meal onto the database
     public void submitMeal(View view){
         mealName = mealNameEdit.getText().toString();
@@ -208,7 +208,11 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
             return;
         }
 
-        Meal meal = new Meal(user.getUid(),mealName,protein,restaurantName,restaurantAddress,restaurantCity);
+
+        String fileName = UUID.randomUUID().toString();
+        uploadImage(fileName);
+
+        Meal meal = new Meal(user.getUid(),mealName,protein,restaurantName,restaurantAddress,restaurantCity, fileName);
 
         if (mealDescription != null){
             meal.setMealDescription(mealDescription);
