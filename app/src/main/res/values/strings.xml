@@ -74,5 +74,26 @@
     <string name="share_title">Sharing Your Pledge!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>/>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>/>
+
+
+    <!--Add Meal-->
+    <string name="mealName">Meal Name*</string>
+    <string name="mealNameHint">Meatball Spaghetii</string>
+    <string name="description">Description</string>
+    <string name="rating">Rating</string>
+    <string name="protein">Main Protein*</string>
+    <string name="restaurant">Restaurant*</string>
+    <string name="photo">Photo</string>
+    <string name="uploadPhoto">UPLOAD</string>
+
+    <string-array name="proteinList">
+        <item>Beef</item>
+        <item>Pork</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+        <item>Egg</item>
+        <item>Bean</item>
+    </string-array>
 </resources>

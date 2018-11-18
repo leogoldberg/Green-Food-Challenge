@@ -166,5 +166,8 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
-
+    public void tempAdd(View v) {
+        Intent intent = new Intent(this, AddMeal.class);
+        startActivity(intent);
+    }
 }
