@@ -31,6 +31,30 @@
           }
         },
         {
+          "client_id": "65095117690-81gkmg9bgb43p651q67ugbir3o45s1ks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team6.cmpt276.greenfoodchallenge",
+            "certificate_hash": "5acdcf88cb28273fb812e877a73d1d07c31bf327"
+          }
+        },
+        {
+          "client_id": "65095117690-886ko794uepv1lap4t7gr52fc0dv9qik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team6.cmpt276.greenfoodchallenge",
+            "certificate_hash": "cb49bca3116e145bdd0295cb8b0ba6f19559e3a2"
+          }
+        },
+        {
+          "client_id": "65095117690-ctaebvqdk3u8qo0lc467g7p1tbp2e6tu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team6.cmpt276.greenfoodchallenge",
+            "certificate_hash": "51dc4b53da336534357da6f86124288e23faeb77"
+          }
+        },
+        {
           "client_id": "65095117690-qogt0dvuevvdfd6ileubsibri23rkn3s.apps.googleusercontent.com",
           "client_type": 3
         },
