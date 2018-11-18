@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="210dp"
                 android:inputType="text"
-                android:text="enter name"/>
+               />
 
         </LinearLayout>
         <TextView
@@ -48,6 +48,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:textSize="20dp"
+            android:layout_marginBottom="15dp"
             android:textStyle="bold"
             android:text="Profile Photo"
             />
@@ -63,14 +64,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center">
 
             <ImageButton
                 android:id="@+id/profile1"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:padding="7dp"
+                android:padding="15dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
                 android:src="@drawable/bamboo" />
@@ -79,7 +79,7 @@
                 android:id="@+id/profile2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:padding="7dp"
+                android:padding="15dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
                 android:src="@drawable/cherry" />
@@ -90,6 +90,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:scaleType="fitCenter"
+                android:padding="15dp"
                 android:background="@null"
                 android:src="@drawable/peanut" />
 
@@ -98,13 +99,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="0dp"
             android:layout_gravity="center">
             <ImageButton
                 android:id="@+id/profile4"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:padding="7dp"
+                android:padding="12dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
                 android:src="@drawable/earth" />
@@ -113,15 +114,17 @@
                 android:id="@+id/profile5"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:padding="7dp"
+                android:padding="12dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                android:src="@drawable/tree" />
+                android:src="@drawable/tree"
+                />
 
 
             <ImageButton
                 android:id="@+id/profile6"
                 android:layout_width="120dp"
+                android:padding="8dp"
                 android:layout_height="120dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
@@ -140,6 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <TextView
