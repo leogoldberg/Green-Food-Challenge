@@ -126,4 +126,8 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void seeMealFeed(View v) {
+        Intent myIntent = new Intent(HomeScreen.this, MealFeed.class);
+        startActivity(myIntent);
+    }
 }
