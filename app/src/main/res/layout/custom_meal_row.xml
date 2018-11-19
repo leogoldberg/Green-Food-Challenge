@@ -85,7 +85,7 @@
     <TextView
         android:id="@+id/restaurantInfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:text="Restaurant Info" />
 
 </LinearLayout>
