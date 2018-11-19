@@ -60,6 +60,20 @@
             android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/TEMP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="seePledgeSummary"
+            android:text="Pledge Summary TEMP" />
+
+        <Button
+            android:id="@+id/MealFeedTemp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="seeMealFeed"
+            android:text="Meal Feed temp" />
+
+        <Button
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

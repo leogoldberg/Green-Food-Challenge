@@ -102,4 +102,12 @@
                                 remember this is just a test and nothing will happen. close your eyes and breathe in deeply\n
                                 remember this is just a test. remember this is just a test. it will not affect you in any way\n
                                 relax. nothing will hurt you. you can trust me. remember this is just a test.</string>
+    <string-array name="location_names">
+        <item>Vancouver</item>
+        <item>Burnaby</item>
+        <item>Richmond</item>
+        <item>Coquitlam</item>
+        <item>Surrey</item>
+        <item>New Westminister</item>
+    </string-array>
 </resources>

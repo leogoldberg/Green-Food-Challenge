@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -63,7 +64,7 @@ public class HomeScreen extends AppCompatActivity {
         */
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        boolean isLoggedIn = (currentUser != null&& !currentUser.isAnonymous()) || (accessToken != null && !accessToken.isExpired());
+        boolean isLoggedIn = currentUser != null || (accessToken != null && !accessToken.isExpired());
         Button loginButton = findViewById(R.id.loginButton);
         if(isLoggedIn){
             loginButton.setText("Logout");
@@ -76,10 +77,12 @@ public class HomeScreen extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
+            for (UserInfo profile : currentUser.getProviderData()) {
+                Log.d(TAG, profile.getDisplayName());
+                Log.d(TAG, profile.getEmail());
             }
             //loginButton.setVisibility(View.GONE);
-
+        }
         else {
             loginButton.setText("Login");
             loginButton.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +95,7 @@ public class HomeScreen extends AppCompatActivity {
 
         }
 
-
+        Log.d(TAG, "user is signed in");
     }
 
 
@@ -103,7 +106,7 @@ public class HomeScreen extends AppCompatActivity {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){ // User is signed in
                 //TODO: Skip quiz and go to user profile
-//                Log.d(TAG, "user is signed in");
+                Log.d(TAG, "user is signed in");
             }
             else {
                 mAuth.signInAnonymously()
@@ -112,11 +115,11 @@ public class HomeScreen extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-//                                    Log.d(TAG, "signInAnonymously:success");
+                                    Log.d(TAG, "signInAnonymously:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                 } else {
                                     // If sign in fails, display a message to the user.
-//                                    Log.w(TAG, "signInAnonymously:failure", task.getException());
+                                    Log.w(TAG, "signInAnonymously:failure", task.getException());
                                     Toast.makeText(HomeScreen.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
@@ -167,4 +170,8 @@ public class HomeScreen extends AppCompatActivity {
     }
 
 
+    public void seeMealFeed(View v) {
+        Intent myIntent = new Intent(HomeScreen.this, MealFeed.class);
+        startActivity(myIntent);
+    }
 }

@@ -84,6 +84,7 @@
         <activity android:name=".activities.SharingActivity" />
         <activity android:name=".activities.ProfileTab" />
         <activity android:name=".activities.AddMeal"></activity>
+        <activity android:name=".activities.MealFeed"></activity>
     </application>
 
 </manifest>
