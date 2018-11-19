@@ -45,7 +45,7 @@ import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.Meal;
 
 public class AddMeal extends AppCompatActivity implements PlaceSelectionListener  {
-    private static final String TAG = "Tag" ;
+
     private ImageView imageView;
 
     private Uri filePath;
@@ -73,7 +73,7 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
     private Spinner proteinSpinner;
     private RatingBar ratingBar;
 
-    private Geocoder mGeocoder = new Geocoder(this, Locale.getDefault());
+    private Geocoder mGeocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,7 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         proteinSpinner = (Spinner) findViewById(R.id.protein);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
+        mGeocoder = new Geocoder(AddMeal.this, Locale.CANADA);
 
         //Set up Google Autocomplete Fragment
         autocompleteFragment = (PlaceAutocompleteFragment)
