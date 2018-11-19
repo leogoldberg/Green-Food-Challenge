@@ -23,22 +23,12 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spinner5"
-                android:layout_width="120dp"
+                android:id="@+id/locationSpinner"
+                android:layout_width="163dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="100dp"
+                android:layout_marginLeft="200dp"
                 android:layout_marginTop="15dp"
-                android:layout_weight="0"
-                />
-
-            <Spinner
-                android:id="@+id/spinner6"
-                android:layout_width="120dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="0"
-                />
+                android:layout_weight="0" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

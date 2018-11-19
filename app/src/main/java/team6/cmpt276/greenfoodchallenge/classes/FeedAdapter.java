@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
@@ -19,22 +17,25 @@ import team6.cmpt276.greenfoodchallenge.R;
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder>{
 
     private LayoutInflater inflater;
-    List<MealInformation> data = Collections.emptyList();
+    List<MealInformation> data;
     public FeedAdapter(Context context, List<MealInformation>data){
         inflater = LayoutInflater.from(context);
-        this.data= data;
+        this.data = data;
+        //System.out.println("FeedAdapter: data.size: " + data.size());
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //System.out.println("onCreateViewHolder called.............");
         View view = inflater.inflate(R.layout.custom_meal_row, viewGroup, false);
         MyViewHolder holder = new MyViewHolder(view);
-        return null;
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, int i) {
+        //System.out.println("onBindViewHolder called.............");
        MealInformation current = data.get(i);
        viewHolder.mealName.setText(current.mealName);
        viewHolder.mealInfo.setText(current.mealDescription);
@@ -47,7 +48,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder>{
 
     @Override
     public int getItemCount() {
-        return 0;
+        //System.out.println("getItemCount called........... Datasize: " + data.size());
+        return data.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{

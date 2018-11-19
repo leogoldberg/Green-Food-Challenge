@@ -1,17 +1,15 @@
 package team6.cmpt276.greenfoodchallenge.classes;
 
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-
 public class MealInformation {
-     String mealName;
-     String protein;
-     String mealDescription;
-     int rating;
-     int iconResource;
-     String restaurantName;
-     String address;
-     String userID;
+    public String mealName;
+    public String protein;
+    public String mealDescription;
+    public int rating;
+    public int iconResource;
+    public String restaurantName;
+    public String address;
+    public String userID;
+    public String city;
+
 }
 
