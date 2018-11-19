@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,16 +64,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder>{
        Glide.with(mContext).load(url).into(viewHolder.iconId);
        //viewHolder.iconId.setImageResource(current.iconResource);
        viewHolder.starRating.setNumStars(current.rating);
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + current.mealName);
 
                 Toast.makeText(mContext, current.mealName, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(mContext, MealView.class);
-                intent.putExtra("image_url", position);
-                mContext.startActivity(intent);
+                //Intent intent = new Intent(mContext, ViewMeal.class);
+                //intent.putExtra("mealId", position);
+                //mContext.startActivity(intent);
             }
         });
     }
@@ -90,6 +92,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder>{
         ImageView iconId;
         TextView restaurantName;
         TextView restaurantInfo;
+        LinearLayout parentLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,6 +103,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder>{
             restaurantInfo = itemView.findViewById(R.id.restaurantInfo);
             iconId = itemView.findViewById(R.id.listIcon);
             starRating = itemView.findViewById(R.id.ratingBar);
+            parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
 }
