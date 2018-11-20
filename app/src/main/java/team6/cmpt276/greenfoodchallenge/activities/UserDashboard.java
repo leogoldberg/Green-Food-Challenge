@@ -202,15 +202,9 @@ public class UserDashboard extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    //add case feed after feed activity pushed
                     case R.id.action_feed:
-                      //  if (user.isAnonymous()){
-                     //       startActivity(new Intent(bottomNavigationView.getContext(), Feed.class));
-                            return true;
-                    //    } else {
-                   //         startActivity(new Intent(bottomNavigationView.getContext(), UserDashboard.class));
-                  //          return true;
-                   //     }
+                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
+                        return true;
                     case R.id.view_all_pledge:
                         startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
                         return true;

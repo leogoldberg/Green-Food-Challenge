@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -100,7 +101,7 @@ public class HomeScreen extends AppCompatActivity {
         public void onStart() {
             super.onStart();
             // Check if user is signed in (non-null) and update UI accordingly.
-            FirebaseUser currentUser = mAuth.getCurrentUser();
+            final FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){ // User is signed in
                 //TODO: Skip quiz and go to user profile
 //                Log.d(TAG, "user is signed in");

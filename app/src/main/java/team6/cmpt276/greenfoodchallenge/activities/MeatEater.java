@@ -3,6 +3,7 @@ package team6.cmpt276.greenfoodchallenge.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class MeatEater extends AppCompatActivity {
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +129,36 @@ public class MeatEater extends AppCompatActivity {
             }
         });
 
+        bottomNavigationView =findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_feed:
+                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
+                        return true;
+                    case R.id.view_all_pledge:
+                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
+                        return true;
+                    case R.id.calculate_consumption:
+                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
+                        return true;
+                    case R.id.about:
+                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
+                    case R.id.profile:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent (bottomNavigationView.getContext(), UserProfile.class));
+                            return true;
+                        }
+                    default:
+                        return onNavigationItemSelected(item);
+                }
+            }
+        });
 
     }
 }
