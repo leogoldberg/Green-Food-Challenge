@@ -23,47 +23,7 @@ public class Meal {
         this.restaurantName = restaurantName;
         this.city = city;
         this.rating = rating;
-        this.protein = protein;
-        this.fileName = fileName;
-    }
-
-    public String getProtein(){
-        return protein;
-    }
-
-    public void setProtein(String protein){
-        this.protein = protein;
-    }
-
-    public CharSequence getRestaurantName(){
-        return restaurantName;
-    }
-
-    public void setRestaurantName(CharSequence restaurantName){
-        this.restaurantName = restaurantName;
-    }
-
-    public CharSequence getAddress(){
-        return address;
-    }
-
-    public void setAddress(CharSequence address){
-        this.address = address;
-    }
-
-    public String getMealName(){
-        return mealName;
-    }
-
-    public void setMealName(String mealName){
-        this.mealName = mealName;
-    }
-
-    public String getFileName(){
-        return fileName;
-    }
-
-    public void setFileName(String fileName){
+        this. protein = protein;
         this.fileName = fileName;
     }
 

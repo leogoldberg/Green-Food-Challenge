@@ -1,84 +1,93 @@
 package team6.cmpt276.greenfoodchallenge.classes;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.activities.FragmentTwo;
+import team6.cmpt276.greenfoodchallenge.activities.DeleteMealPopup;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 
-    private Context mContext;
-    private List<Meal> mMealList;
+    private LayoutInflater inflater;
+    List<MealInformation> data;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView mMealName;
-        public TextView mProteinOption;
-        public TextView mMealDescription;
-        public TextView mRestaurantName;
-        public TextView mAddress;
-        public RatingBar mStarRating;
-        public ImageView mGarbage;
-        public ImageView mPhoto;
-
-        public MyViewHolder(View view){
-            super(view);
-            mMealName = (TextView) view.findViewById(R.id.meal_name);
-            mProteinOption = (TextView) view.findViewById(R.id.protein_choice);
-            mMealDescription = (TextView) view.findViewById(R.id.meal_description);
-            mRestaurantName = (TextView) view.findViewById(R.id.restaurant_name);
-            mAddress = (TextView) view.findViewById(R.id.address);
-            mStarRating = (RatingBar) view.findViewById(R.id.rating_bar);
-            mGarbage = (ImageView) view.findViewById(R.id.garbage);
-            mPhoto = (ImageView) view.findViewById(R.id.meal_photo);
-
-        }
+    public CardAdapter(Context context, List<MealInformation> data) {
+        inflater = LayoutInflater.from(context);
+        this.data = data;
+        //System.out.println("FeedAdapter: data.size: " + data.size());
     }
 
-    public CardAdapter(FragmentTwo mContext, List<Meal> mealList){
-        this.mContext = mContext;
-        this.mMealList = mealList;
+    @NonNull
+    @Override
+    public CardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //System.out.println("onCreateViewHolder called.............");
+        View view = inflater.inflate(R.layout.meal_card, viewGroup, false);
+        CardAdapter.MyViewHolder holder = new CardAdapter.MyViewHolder(view);
+        return holder;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_user_meals, parent, false);
-        return new MyViewHolder(itemView);
-    }
+    public void onBindViewHolder(@NonNull final CardAdapter.MyViewHolder viewHolder, int i) {
+        //System.out.println("onBindViewHolder called.............");
+        MealInformation current = data.get(i);
+        viewHolder.mealName.setText(current.mealName);
+        viewHolder.mealInfo.setText(current.mealDescription);
+        viewHolder.proteinChoice.setText(current.protein);
+        viewHolder.restaurantInfo.setText(current.address);
+        viewHolder.restaurantName.setText(current.restaurantName);
+        viewHolder.iconId.setImageResource(current.iconResource);
+        viewHolder.starRating.setNumStars(current.rating);
 
-    @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position){
-        Meal meal = mMealList.get(position);
-        holder.mMealName.setText(meal.getMealDescription());
-        holder.mProteinOption.setText(meal.getProtein());
-        holder.mMealDescription.setText(meal.getMealDescription());
-        holder.mRestaurantName.setText(meal.getRestaurantName());
-        holder.mAddress.setText(meal.getAddress());
-        holder.mStarRating.setRating(meal.getRating());
-
-        Glide.with(mContext).load(meal.getFileName()).into(holder.mPhoto);
-
-        holder.mGarbage.setOnClickListener(new View.OnClickListener(){
+        viewHolder.garbage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                //pop up to ask if user wants to delete post
+            public void onClick(View view) {
+                //show suggest if the meal should really be deleted
+                Intent intent = new Intent(view.getContext(), DeleteMealPopup.class);
+                view.getContext().startActivity(intent);
             }
         });
     }
 
+
     @Override
     public int getItemCount() {
-        return mMealList.size();
+        //System.out.println("getItemCount called........... Datasize: " + data.size());
+        return data.size();
     }
 
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView mealName;
+        TextView proteinChoice;
+        TextView mealInfo;
+        RatingBar starRating;
+        ImageView iconId;
+        TextView restaurantName;
+        TextView restaurantInfo;
+        ImageButton garbage;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mealName = itemView.findViewById(R.id.meal_name);
+            proteinChoice = itemView.findViewById(R.id.protein_option);
+            mealInfo = itemView.findViewById(R.id.meal_description);
+            restaurantName = itemView.findViewById(R.id.restaurant_name);
+            restaurantInfo = itemView.findViewById(R.id.address);
+            iconId = itemView.findViewById(R.id.meal_photo);
+            starRating = itemView.findViewById(R.id.rating_bar);
+            garbage = itemView.findViewById(R.id.garbage_button);
+            garbage.setLayoutParams(new LinearLayout.LayoutParams(100,100));
+        }
+    }
 }

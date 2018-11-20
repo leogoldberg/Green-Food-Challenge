@@ -1,44 +1,47 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.CardAdapter;
-import team6.cmpt276.greenfoodchallenge.classes.GridSpacingItemDecoration;
-import team6.cmpt276.greenfoodchallenge.classes.Meal;
+import team6.cmpt276.greenfoodchallenge.classes.MealInformation;
 
 //import com.google.firebase.storage.StorageReference;
 
 public class FragmentTwo extends Fragment {
+    private RecyclerView recyclerView;
+    List<MealInformation> data;
 
-    //to read and write data from the database
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private String userID = user.getUid();
+    private CardAdapter adapter;
 
-    private RecyclerView mRecyclerView;
-    private CardAdapter mCardAdapter;
-    private List<Meal> mMealList;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String userID = user.getUid();
+    DatabaseReference ref = database.getInstance().getReference("meals");
 
-    private Map<String, ArrayList> meals;
+
+
 
 
     public FragmentTwo(){
@@ -54,38 +57,60 @@ public class FragmentTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.activity_user_meals, container, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        data = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.userMealList);
+        //recyclerView.setHasFixedSize(true);
+        data = getData();
+        //System.out.println("Fetched data:" + data.size());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mMealList = new ArrayList<>();
-        mCardAdapter = new CardAdapter(this, mMealList);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 1);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mCardAdapter);
-
-        prepareMeals();
 
 
         return view;
 
     }
 
-    private void prepareMeals() {
-       //int list of image ids
-       //set up list of  meals
+    private List<MealInformation> getData() {
+        ref.orderByChild("userID").equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
+                adapter = new CardAdapter(getActivity(), data);
+                recyclerView.setAdapter(adapter);
+            }
 
-        //pull each meal and make a meal variable and add them all to mealList
-        //Meal one = pull a meal from data
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        mCardAdapter.notifyDataSetChanged();
+            }
 
-    }
+            public void onCancelled(FirebaseError firebaseError) { }
+        });
+        ref.orderByChild("userID").equalTo(userID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                MealInformation obj = dataSnapshot.getValue(MealInformation.class);
+                data.add(obj);
+                //System.out.println(obj.mealName);
+                //System.out.println("DATA size:" + data.size());
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-    private int dpToPx(int dp) {
-        Resources r = getResources();
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return data;
     }
 
 

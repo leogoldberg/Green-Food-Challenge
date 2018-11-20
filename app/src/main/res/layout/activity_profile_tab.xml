@@ -190,7 +190,7 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextColor="@color/cream" />
+        app:tabTextColor="@color/lightGray" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

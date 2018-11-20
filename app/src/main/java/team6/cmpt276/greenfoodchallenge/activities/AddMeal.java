@@ -215,8 +215,8 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         database.child("meals").child(key).setValue(meal);
 
         //Start a new intent
-        /*Intent intent = new Intent(AddMeal.this, UserProfile.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(AddMeal.this, ProfileTab.class);
+        startActivity(intent);
     }
     public void clickAddImage(View view) {
         Intent intent = new Intent();
