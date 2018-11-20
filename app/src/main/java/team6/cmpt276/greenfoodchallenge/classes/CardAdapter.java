@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
@@ -22,9 +24,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     private LayoutInflater inflater;
     List<MealInformation> data;
+    private Context userMealContext;
 
     public CardAdapter(Context context, List<MealInformation> data) {
         inflater = LayoutInflater.from(context);
+        userMealContext = context;
         this.data = data;
         //System.out.println("FeedAdapter: data.size: " + data.size());
     }
@@ -47,7 +51,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         viewHolder.proteinChoice.setText(current.protein);
         viewHolder.restaurantInfo.setText(current.address);
         viewHolder.restaurantName.setText(current.restaurantName);
-        viewHolder.iconId.setImageResource(current.iconResource);
+        //System.out.println("current.fileName: " +current.fileName);
+        String url = "https://firebasestorage.googleapis.com/v0/b/greenfoodchallenge-9ec3c.appspot.com/o/meals%2Fnoimage.jpg?alt=media&token=30584887-c1cd-437a-bc84-ac337358dc90";
+        if(current.fileName != null){
+            url= "https://firebasestorage.googleapis.com/v0/b/greenfoodchallenge-9ec3c.appspot.com/o/meals%2F" + current.fileName + "?alt=media&token=30584887-c1cd-437a-bc84-ac337358dc90";
+        }
+        Glide.with(userMealContext).load(url).into(viewHolder.iconId);
+        //viewHolder.iconId.setImageResource(current.iconResource);
         viewHolder.starRating.setNumStars(current.rating);
 
         viewHolder.garbage.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +65,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
             public void onClick(View view) {
                 //show suggest if the meal should really be deleted
                 Intent intent = new Intent(view.getContext(), DeleteMealPopup.class);
+
                 view.getContext().startActivity(intent);
             }
         });

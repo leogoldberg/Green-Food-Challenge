@@ -53,7 +53,9 @@ public class DeleteMealPopup extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         //delete the current meal
-                        ref.child(userID).removeValue();
+                       // ref.child(userID).removeValue();
+                       // ref.getInstance().getReference("memos").child(key).removeValue()
+                        finish();
 
                     }
                 });
