@@ -49,7 +49,7 @@ public class MeatEater extends AppCompatActivity {
         Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
         toolbar.setOverflowIcon(threeLineIcon);
 
-        database.child("current_consumptions").child(userID).addValueEventListener(new ValueEventListener() {
+        database.child("current_consumptions").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 suggestedConsumption = dataSnapshot.getValue(UserData.class);
