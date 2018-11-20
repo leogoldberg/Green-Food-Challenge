@@ -1,5 +1,7 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,13 +10,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
-public class ConsumptionQuiz1 extends AppCompatActivity {
+public class ConsumptionQuiz1 extends NavBarHandler {
     private UserData currentConsumption;
     private DatabaseReference database;
     private TextView proteinGramsCounter;
@@ -33,6 +35,10 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
     private Button nextButton;
     private BottomNavigationView bottomNavigationView;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    public ConsumptionQuiz1() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,45 +93,33 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
             }
         });
 
-
-
-        bottomNavigationView =findViewById(R.id.bottom_navigation);
+        bottomNavigationView =findViewById(R.id.navbar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    //add case feed after feed activity pushed
-                    case R.id.action_feed:
-                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
-                        return true;
-                    case R.id.view_all_pledge:
-                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
-                        return true;
-                    case R.id.calculate_consumption:
-                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
-                        return true;
-                    case R.id.about:
-                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
-                    case R.id.profile:
-                        if (user.isAnonymous()){
-                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
-                            return true;
-                        } else {
-                            startActivity(new Intent (bottomNavigationView.getContext(), UserProfile.class));
-                            return true;
-                        }
-                    default:
-                        return onNavigationItemSelected(item);
-                }
-            }
+                return false;
+            };
         });
+
+
+
     }
 
     private void setNextButton (UserData currentConsumption) {
         final String userID = user.getUid();
         database.child("current_consumptions").child(userID).setValue(currentConsumption);
     }
+
+    ConsumptionQuiz1(Activity activity, FirebaseUser user) {
+        super(activity, user);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_consumption_quiz1;//your layout
+    }
+
 
 
 }
