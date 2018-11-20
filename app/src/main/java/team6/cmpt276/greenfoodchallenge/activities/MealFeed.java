@@ -1,5 +1,6 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -30,17 +33,19 @@ public class MealFeed extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     List<MealInformation> data;
+    List<MealInformation> dataBackup;
 
-    private FeedAdapter adapter;
+    private FeedAdapter mAdapter;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("meals");
+    private boolean finishedLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_feed);
-
+        finishedLoading = false;
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Meals Feed");
@@ -49,6 +54,34 @@ public class MealFeed extends AppCompatActivity {
                 R.array.location_names, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+              public void onItemSelected(AdapterView<?> parent, View view,
+                                         int pos, long id) {
+                  // An item was selected. You can retrieve the selected item using
+                  if(finishedLoading==true) {
+                      System.out.println("Selected Item: " + parent.getItemAtPosition(pos));
+                      data.clear();
+                      for(int i=0;i<dataBackup.size();i++){
+                          MealInformation item = dataBackup.get(i);
+                          if(item.city.equals(parent.getItemAtPosition(pos))) {
+                              System.out.println("adding an item from " + item.city);
+                              data.add(item);
+                          }else {
+                              System.out.println("ignoring item from " + item.city);
+                          }
+                      }
+                      runOnUiThread(new Runnable() {
+                          public void run() {
+                              mAdapter.notifyDataSetChanged();
+                          }
+                      });
+                  }
+              }
+              public void onNothingSelected(AdapterView<?> parent) {
+                  // Another interface callback
+              }
+          });
 
         data = new ArrayList<>();
         recyclerView = findViewById(R.id.mealFeedList);
@@ -63,8 +96,9 @@ public class MealFeed extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
-                adapter = new FeedAdapter(MealFeed.this, data);
-                recyclerView.setAdapter(adapter);
+                mAdapter = new FeedAdapter(MealFeed.this, data);
+                recyclerView.setAdapter(mAdapter);
+                finishedLoading=true;
             }
 
             @Override
@@ -79,6 +113,7 @@ public class MealFeed extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 MealInformation obj = dataSnapshot.getValue(MealInformation.class);
                 data.add(obj);
+                dataBackup = new ArrayList<>(data);
                 //System.out.println(obj.mealName);
                 //System.out.println("DATA size:" + data.size());
             }
