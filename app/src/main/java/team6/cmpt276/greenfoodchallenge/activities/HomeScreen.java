@@ -125,47 +125,6 @@ public class HomeScreen extends AppCompatActivity {
             }
         }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        switch (item.getItemId()) {
-            case R.id.user_dashboard:
-                if (currentUser.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    startActivity(new Intent(this, UserDashboard.class));
-                    return true;
-                }
-            case R.id.view_all_pledge:
-                startActivity(new Intent(this,PledgeSummary.class));
-                return true;
-            case R.id.calculate_consumption:
-                startActivity(new Intent(this,ConsumptionQuiz1.class));
-                return true;
-            case R.id.profile_login:
-                if (currentUser.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    startActivity(new Intent (this, UserProfile.class));
-                    return true;
-                }
-            case R.id.about_us:
-                startActivity(new Intent(this,AboutActivity.class));
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void tempAdd(View v) {
         Intent intent = new Intent(this, AddMeal.class);
         startActivity(intent);
