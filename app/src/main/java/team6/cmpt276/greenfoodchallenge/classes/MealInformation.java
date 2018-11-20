@@ -5,7 +5,7 @@ public class MealInformation {
     public String protein;
     public String mealDescription;
     public int rating;
-    public int iconResource;
+    public String fileName;
     public String restaurantName;
     public String address;
     public String userID;
