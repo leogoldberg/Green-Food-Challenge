@@ -133,6 +133,10 @@ public class HomeScreen extends AppCompatActivity {
         return true;
     }
 
+    public void seeMealFeed(View v) {
+        Intent myIntent = new Intent(HomeScreen.this, MealFeed.class);
+        startActivity(myIntent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
