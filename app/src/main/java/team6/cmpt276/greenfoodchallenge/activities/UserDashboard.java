@@ -247,19 +247,28 @@ public class UserDashboard extends AppCompatActivity {
 
         ArrayList<String> foodNames = suggestedConsumption.getFoodNames();
         ArrayList<Integer> userFoodData = suggestedConsumption.getUserFoodData();
+        int curUserData;
+        float percentage;
+        String curFoodName;
+        for(int i = 0; i < foodNames.size()-1; i++) {
 
-        for(int i = 0; i < foodNames.size(); i++) {
-            String curFoodName = foodNames.get(i);
-            int curUserData = userFoodData.get(i);
+            curFoodName = foodNames.get(i);
+            curUserData = userFoodData.get(i);
 
-            float percentage = getPercentage(curUserData, total_amount_per_week);
+            percentage = getPercentage(curUserData, total_amount_per_week);
 
             if(percentage > 0) {
                 entries.add(new PieEntry(percentage, curFoodName));
             }
         }
+        curFoodName = "Veggies";
+        curUserData = userFoodData.get(foodNames.size()-1);
 
+        percentage = getPercentage(curUserData, total_amount_per_week);
 
+        if(percentage > 0) {
+            entries.add(new PieEntry(percentage, curFoodName));
+        }
         return entries;
     }
 
