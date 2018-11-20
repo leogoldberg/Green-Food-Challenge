@@ -60,16 +60,16 @@ public class MealFeed extends AppCompatActivity {
                                          int pos, long id) {
                   // An item was selected. You can retrieve the selected item using
                   if(finishedLoading==true) {
-                      System.out.println("Selected Item: " + parent.getItemAtPosition(pos));
+                      //System.out.println("Selected Item: " + parent.getItemAtPosition(pos));
                       data.clear();
                       for(int i=0;i<dataBackup.size();i++){
                           MealInformation item = dataBackup.get(i);
                           if(item.city.equals(parent.getItemAtPosition(pos))) {
-                              System.out.println("adding an item from " + item.city);
+                              //System.out.println("adding an item from " + item.city);
                               data.add(item);
-                          }else {
+                          }/*else {
                               System.out.println("ignoring item from " + item.city);
-                          }
+                          }*/
                       }
                       runOnUiThread(new Runnable() {
                           public void run() {

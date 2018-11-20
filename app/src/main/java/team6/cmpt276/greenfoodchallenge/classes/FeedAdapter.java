@@ -64,7 +64,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder>{
        Glide.with(mContext).load(url).into(viewHolder.iconId);
        //viewHolder.iconId.setImageResource(current.iconResource);
        viewHolder.starRating.setNumStars(current.rating);
-        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+       /*viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + current.mealName);
@@ -75,7 +75,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder>{
                 //intent.putExtra("mealId", position);
                 //mContext.startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override
