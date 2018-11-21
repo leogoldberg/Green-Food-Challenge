@@ -174,4 +174,9 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent = new Intent(this, AddMeal.class);
         startActivity(intent);
     }
+
+    public void seePledgeSummary(View view) {
+        Intent intent = new Intent(this, PledgeSummary.class);
+        startActivity(intent);
+    }
 }
