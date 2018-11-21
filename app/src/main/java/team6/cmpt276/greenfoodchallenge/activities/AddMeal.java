@@ -82,6 +82,8 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
 
     private Geocoder mGeocoder;
 
+    private boolean uploadImage = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,11 +208,15 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         }
 
 
-        String fileName = UUID.randomUUID().toString();
         String userId = user.getUid();
-        uploadImage(fileName, userId);
 
-        Meal meal = new Meal(userId,mealName,protein,restaurantName,restaurantAddress,restaurantCity, fileName);
+        Meal meal = new Meal(userId,mealName,protein,restaurantName,restaurantAddress,restaurantCity);
+
+        if(uploadImage) {
+            String fileName = UUID.randomUUID().toString();
+            meal.setFileName(fileName);
+            uploadImage(fileName, userId);
+        }
 
         if (mealDescription != null){
             meal.setMealDescription(mealDescription);
@@ -225,7 +231,10 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         /*Intent intent = new Intent(AddMeal.this, UserProfile.class);
         startActivity(intent);*/
     }
+
     public void clickAddImage(View view) {
+        uploadImage = true;
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
