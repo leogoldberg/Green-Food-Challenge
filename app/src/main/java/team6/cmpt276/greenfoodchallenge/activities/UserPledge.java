@@ -39,7 +39,6 @@ public class UserPledge extends Fragment {
     private UserData currentConsumption;
     private double saved;
     private TextView amountSaved;
-    private TextView cityView;
     private TextView planView;
     private Button shareButton;
 
@@ -97,18 +96,11 @@ public class UserPledge extends Fragment {
 
                 // set amount saved text
                 amountSaved = view.findViewById(R.id.saveText);
-                cityView= view.findViewById(R.id.cityText);
                 planView=view.findViewById(R.id.dietText);
 
                 String city = dataSnapshot.child("pledges").child(userID).child("municipality").getValue(String.class);
                 String diet = dataSnapshot.child("pledges").child(userID).child("dietOption").getValue(String.class);
 
-                if(city==null){
-                    cityView.setText("None");
-                }
-                else{
-                    cityView.setText(city);
-                }
                 if(diet==null){
                     planView.setText("None");
                     amountSaved.setText("None");
