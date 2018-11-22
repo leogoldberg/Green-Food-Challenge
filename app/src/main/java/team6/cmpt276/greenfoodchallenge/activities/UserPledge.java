@@ -54,7 +54,7 @@ public class UserPledge extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        final View view = inflater.inflate(R.layout.activity_user_dashboard, container, false);
+        final View view = inflater.inflate(R.layout.activity_user_pledge, container, false);
 
 
         database.addValueEventListener(new ValueEventListener() {
