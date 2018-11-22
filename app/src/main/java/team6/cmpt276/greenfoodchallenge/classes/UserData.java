@@ -60,8 +60,14 @@ public class UserData {
         total += eggFrequency*4.8*proteinPerMeal;
         total += beanFrequency*2*proteinPerMeal;
         total +=vegFrequency*2*vegFrequency;
-        total = total*2*52;
+        total = total*10;
         return total;
+    }
+
+    private double categoryCalculation(double categoryCo2, int categoryFrequency) {
+        int totalFrequency = getTotalFrequency();
+
+        return categoryCo2 * (categoryFrequency / totalFrequency);
     }
 
     public void setFoodFrequency (String foodName, int frequency) {

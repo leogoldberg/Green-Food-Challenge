@@ -1,12 +1,15 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 
 import team6.cmpt276.greenfoodchallenge.R;
 
@@ -36,6 +38,9 @@ public class HomeScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Green Food Challenge");
 
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+        toolbar.setOverflowIcon(threeLineIcon);
+
         Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +49,7 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         //log out for testing
         //FirebaseAuth.getInstance().signOut();
@@ -57,7 +63,7 @@ public class HomeScreen extends AppCompatActivity {
         */
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        boolean isLoggedIn = currentUser != null || (accessToken != null && !accessToken.isExpired());
+        boolean isLoggedIn = (currentUser != null&& !currentUser.isAnonymous()) || (accessToken != null && !accessToken.isExpired());
         Button loginButton = findViewById(R.id.loginButton);
         if(isLoggedIn){
             loginButton.setText("Logout");
@@ -70,12 +76,10 @@ public class HomeScreen extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            for (UserInfo profile : currentUser.getProviderData()) {
-                Log.d(TAG, profile.getDisplayName());
-                Log.d(TAG, profile.getEmail());
+
             }
             //loginButton.setVisibility(View.GONE);
-        }
+
         else {
             loginButton.setText("Login");
             loginButton.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +92,7 @@ public class HomeScreen extends AppCompatActivity {
 
         }
 
-        Log.d(TAG, "user is signed in");
+
     }
 
 
@@ -99,7 +103,7 @@ public class HomeScreen extends AppCompatActivity {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){ // User is signed in
                 //TODO: Skip quiz and go to user profile
-                Log.d(TAG, "user is signed in");
+//                Log.d(TAG, "user is signed in");
             }
             else {
                 mAuth.signInAnonymously()
@@ -108,11 +112,11 @@ public class HomeScreen extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInAnonymously:success");
+//                                    Log.d(TAG, "signInAnonymously:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInAnonymously:failure", task.getException());
+//                                    Log.w(TAG, "signInAnonymously:failure", task.getException());
                                     Toast.makeText(HomeScreen.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
@@ -121,13 +125,58 @@ public class HomeScreen extends AppCompatActivity {
             }
         }
 
-    public void seePledgeSummary(View v) {
-        Intent myIntent = new Intent(HomeScreen.this, PledgeSummary.class);
-        startActivity(myIntent);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation, menu);
+        return true;
     }
 
     public void seeMealFeed(View v) {
         Intent myIntent = new Intent(HomeScreen.this, MealFeed.class);
         startActivity(myIntent);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        switch (item.getItemId()) {
+            case R.id.user_dashboard:
+                if (currentUser.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent(this, UserDashboard.class));
+                    return true;
+                }
+            case R.id.view_all_pledge:
+                startActivity(new Intent(this,PledgeSummary.class));
+                return true;
+            case R.id.calculate_consumption:
+                startActivity(new Intent(this,ConsumptionQuiz1.class));
+                return true;
+            case R.id.profile_login:
+                if (currentUser.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent (this, UserProfile.class));
+                    return true;
+                }
+            case R.id.about_us:
+                startActivity(new Intent(this,AboutActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void tempAdd(View v) {
+        Intent intent = new Intent(this, AddMeal.class);
+        startActivity(intent);
+    }
+
+    public void seePledgeSummary(View view) {
+        Intent intent = new Intent(this, PledgeSummary.class);
+        startActivity(intent);
     }
 }

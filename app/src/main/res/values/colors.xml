@@ -6,5 +6,11 @@
     <color name="headerText">#029132 </color>
     <color name="titleBar">#00a651</color>
     <color name="lightGray">#C0C0C0</color>
-
+    <color name="cream">#edeae6</color>
+    <color name="lightGreen">#7acc7f</color>
+    <color name="red">#FF0000</color>
+    <color name="black">#000000</color>
+    <color name="lightBlue">#33d6ff</color>
+    <color name="lightBlue2"> #00b8e6</color>
+    <color name="highlightGreen">#03b03c</color>
 </resources>

@@ -6,10 +6,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
+import team6.cmpt276.greenfoodchallenge.R;
 
 
 /**
@@ -40,7 +43,9 @@ public final class PledgesAdapater extends TableDataAdapter<String[]> {
 
     @Override
     public View getCellView(final int rowIndex, final int columnIndex, final ViewGroup parentView) {
-        final TextView textView = new TextView(getContext());
+        parentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,250));
+
+        TextView textView = new TextView(getContext());
         textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
         textView.setTypeface(textView.getTypeface(), typeface);
         textView.setTextSize(textSize);
@@ -49,7 +54,38 @@ public final class PledgesAdapater extends TableDataAdapter<String[]> {
         textView.setEllipsize(TextUtils.TruncateAt.END);
 
         try {
-            final String textToShow = getItem(rowIndex)[columnIndex];
+            String textToShow = getItem(rowIndex)[columnIndex];
+            if(textToShow.equals("cherry")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.cherry);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            } else if(textToShow.equals("peanut")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.peanut);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            } else if(textToShow.equals("bamboo")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.bamboo);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            } else if(textToShow.equals("earth")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.earth);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            } else if(textToShow.equals("heart")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.heart);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            } else if(textToShow.equals("tree")) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setImageResource(R.drawable.tree);
+                imageView.setPadding(paddingLeft,paddingTop,paddingRight,paddingBottom);
+                return imageView;
+            }
             textView.setText(textToShow);
         } catch (final IndexOutOfBoundsException e) {
             Log.w(LOG_TAG, "No Sting given for row " + rowIndex + ", column " + columnIndex + ". "
@@ -137,6 +173,4 @@ public final class PledgesAdapater extends TableDataAdapter<String[]> {
     public void setTextColor(final int textColor) {
         this.textColor = textColor;
     }
-
-
 }

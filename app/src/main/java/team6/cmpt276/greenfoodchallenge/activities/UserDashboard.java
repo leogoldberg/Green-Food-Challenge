@@ -32,100 +32,160 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.classes.Pledge;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
-public class ResultActivity2 extends AppCompatActivity {
+public class UserDashboard extends AppCompatActivity {
+
     private UserData suggestedConsumption;
     private UserData currentConsumption;
     private double saved;
-    private String dietOption;
+    private TextView amountSaved;
+    private TextView cityView;
+    private TextView planView;
+    private Button shareButton;
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result2);
+        setContentView(R.layout.activity_user_dashboard);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Your Suggested Diet");
+        getSupportActionBar().setTitle("Green Food Challenge");
 
         Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
         toolbar.setOverflowIcon(threeLineIcon);
 
-        Intent intent = getIntent();
-        dietOption = intent.getStringExtra("dietOption");
 
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 currentConsumption = dataSnapshot.child("current_consumptions").child(userID).getValue(UserData.class);
                 suggestedConsumption = dataSnapshot.child("suggested_consumptions").child(userID).getValue(UserData.class);
-                int total_amount_per_week = suggestedConsumption.getTotalFrequency();
+                int total_amount_per_week_current = currentConsumption.getTotalFrequency();
+                int total_amount_per_week_suggested = suggestedConsumption.getTotalFrequency();
 
-                double totalCurrentConsumption = currentConsumption.getTotalco2perYear();
-                double totalSuggestedConsumption = suggestedConsumption.getTotalco2perYear();
-                saved = totalCurrentConsumption - totalSuggestedConsumption;
+                saved = currentConsumption.getTotalco2perYear() - suggestedConsumption.getTotalco2perYear();
 
                 if(saved < 0) {
                     saved = 0;
                 }
 
-                // change text
-                TextView amountSaved = findViewById(R.id.amount_saved);
-                amountSaved.setText((Math.round(saved) / 1000) + "kg CO2e ");
 
-                TextView calculateTreesSaved = findViewById(R.id.amount_tree_saved);
-                calculateTreesSaved.setText("Or " + calculateTreesSaved(saved) + " trees per year");
 
-                TextView vancouverSaved = findViewById(R.id.vancouverSaved);
-                vancouverSaved.setText(calculateVancouverSaved(saved) + " tons C02e");
+
+
 
                 // sets up the pie charts
-                PieChart chart = initializePieChart(R.id.chart);
-                List<PieEntry> entries = addEntries(suggestedConsumption, total_amount_per_week);
+                PieChart suggChart = initializePieChart(R.id.suggChart);
+                List<PieEntry> entries = addEntries(suggestedConsumption, total_amount_per_week_suggested);
                 PieDataSet dataSet = setPieDataSet(entries);
 
                 PieData pieData = setPieData(dataSet);
 
-                chart.setData(pieData);
-                chart.invalidate();
+                suggChart.setData(pieData);
+                suggChart.invalidate();
 
-                Button redoQuiz = findViewById(R.id.redoQuiz);
-                redoQuiz.setOnClickListener(new View.OnClickListener() {
+
+                // set up current diet chart
+                PieChart currChart = initializePieChart(R.id.currChart);
+                List<PieEntry> currEntries = addEntries(currentConsumption, total_amount_per_week_current);
+                PieDataSet currDataSet = setPieDataSet(currEntries);
+
+                PieData currPieData = setPieData(currDataSet);
+
+                currChart.setData(currPieData);
+                currChart.invalidate();
+
+
+
+                // set amount saved text
+                amountSaved = findViewById(R.id.saveText);
+                cityView= findViewById(R.id.cityText);
+                planView=findViewById(R.id.dietText);
+
+                String city = dataSnapshot.child("pledges").child(userID).child("municipality").getValue(String.class);
+                String diet = dataSnapshot.child("pledges").child(userID).child("dietOption").getValue(String.class);
+
+                if(city==null){
+                    cityView.setText("None");
+                }
+                else{
+                    cityView.setText(city);
+                }
+                if(diet==null){
+                    planView.setText("None");
+                    amountSaved.setText("None");
+                }
+                else{
+                    planView.setText(diet);
+                    amountSaved.setText(Math.round(saved)/1000 + "kg CO2e ");
+                }
+
+
+
+                final String dietPlanToSharing = diet;
+                final String savedCO2eToSharing = amountSaved.getText().toString();
+
+                shareButton = findViewById(R.id.shareButton);
+                if(diet==null){
+                    shareButton.setVisibility(View.INVISIBLE);
+                }
+
+                else {
+                    shareButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        /* Seulgee add you share functionality here
+
+                        Intent intent = new Intent(UserDashboard.this, ConsumptionQuiz1.class);
+                        startActivity(intent);
+                        */
+                            Intent intent = new Intent(UserDashboard.this, SharingActivity.class);
+                            Bundle extras = new Bundle();
+                            extras.putString("dietPlanName", dietPlanToSharing);
+                            extras.putString("savedAmount", savedCO2eToSharing);
+                            intent.putExtras(extras);
+
+                            startActivity(intent);
+
+                        }
+                    });
+                }
+
+                Button deletePledge = findViewById(R.id.deletePledge);
+                if(diet==null){
+                    deletePledge.setVisibility(View.INVISIBLE);
+                }
+
+                else {
+
+                    deletePledge.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            database.child("pledges").child(userID).removeValue();
+                            amountSaved.setText("0 CO2e ");
+                            shareButton.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
+
+
+                Button changePlanButton = findViewById(R.id.changeButton);
+
+                changePlanButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ResultActivity2.this, ConsumptionQuiz1.class);
+                        Intent intent = new Intent(UserDashboard.this, PlannerQuiz.class);
                         startActivity(intent);
                     }
                 });
 
-
-
-                Button pledgeButton = findViewById(R.id.pledgeButton);
-                pledgeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Pledge userPledge = new Pledge(Math.round(saved),dietOption);
-                        database.child("pledges").child(userID).setValue(userPledge);
-
-                        if (user.isAnonymous()){
-                            Intent intent = new Intent(ResultActivity2.this, UserLogin.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            Intent intent = new Intent(ResultActivity2.this, UserDashboard.class);
-                            startActivity(intent);
-                        }
-
-                    }
-                });
 
                 // On login sidebar or make a pledge button click: Start activity UserLogin
                 // Intent intent = new Intent(UserLogin.this, Dashboard.class);
@@ -214,24 +274,6 @@ public class ResultActivity2 extends AppCompatActivity {
      */
     private float getPercentage(int count, int total) {
         return ((float) count / total) * 100;
-    }
-
-    /**
-     * Calculates the tree saved
-     * @param saved     the amount of co2e saved
-     * @return          returns the number of trees saved
-     */
-    private long calculateTreesSaved(double saved) {
-        return Math.round(saved / 21.7);
-    }
-
-    /**
-     * Calculates the amount vancouver saved
-     * @param saved     the amount of co2e saved
-     * @return          returns the number of trees saved
-     */
-    private long calculateVancouverSaved(double saved) {
-        return Math.round(saved / 500);
     }
 
 
