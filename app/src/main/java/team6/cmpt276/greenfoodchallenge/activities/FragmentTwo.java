@@ -64,8 +64,8 @@ public class FragmentTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.activity_user_meals, container, false);
 
-        keyList = new ArrayList<>();
-        keyList = getKeys();
+      //  keyList = new ArrayList<>();
+      //  keyList = getKeys();
 
 
         data = new ArrayList<>();
@@ -83,13 +83,14 @@ public class FragmentTwo extends Fragment {
         return view;
 
     }
-
+/*
     private ArrayList<String> getKeys(){
         ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
                     String key = item_snapshot.getKey();
+                    System.out.println("fetched key:" + key);
                     keyList.add(key);
                 }
 
@@ -102,13 +103,13 @@ public class FragmentTwo extends Fragment {
         });
         return keyList;
     }
-
+*/
     private List<MealInformation> getData() {
         //retrieving process, so nothing has to be done in onChildRemoved
         ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
-                adapter = new CardAdapter(getActivity(), data, keyList);
+                adapter = new CardAdapter(getActivity(), data, keyList, ref);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -124,8 +125,11 @@ public class FragmentTwo extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 MealInformation obj = dataSnapshot.getValue(MealInformation.class);
                 data.add(obj);
-                //System.out.println(obj.mealName);
-                //System.out.println("DATA size:" + data.size());
+
+              //  String key = dataSnapshot.getKey();
+              //  keyList.add(key);
+
+              //  System.out.println("Fetched key:" + key);
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

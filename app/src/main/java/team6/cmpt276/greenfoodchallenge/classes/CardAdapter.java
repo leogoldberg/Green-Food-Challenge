@@ -13,10 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,27 +27,23 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     private Context userMealContext;
     private boolean userWants = false;
 
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("meals");
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private String userID = user.getUid();
-
+    DatabaseReference ref;
     ArrayList<String> keyList = new ArrayList<>();
 
 
 
 
-    public CardAdapter(Context context, List<MealInformation> data, ArrayList<String> keyList) {
+    public CardAdapter(Context context, List<MealInformation> data, ArrayList<String> keyList,  DatabaseReference ref) {
         inflater = LayoutInflater.from(context);
         userMealContext = context;
         this.data = data;
         this.keyList = keyList;
+        this.ref = ref;
 
 
-
-        //System.out.println("FeedAdapter: data.size: " + data.size());
     }
 
-    public CardAdapter(ArrayList<String> keyListReceived) {
+    public CardAdapter() {
 
 
     }
@@ -58,7 +51,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     @NonNull
     @Override
     public CardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        //System.out.println("onCreateViewHolder called.............");
         View view = inflater.inflate(R.layout.meal_card, viewGroup, false);
         CardAdapter.MyViewHolder holder = new CardAdapter.MyViewHolder(view);
         return holder;
@@ -66,20 +58,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final CardAdapter.MyViewHolder viewHolder, final int position) {
-        //System.out.println("onBindViewHolder called.............");
         MealInformation current = data.get(position);
         viewHolder.mealName.setText(current.mealName);
         viewHolder.mealInfo.setText(current.mealDescription);
         viewHolder.proteinChoice.setText(current.protein);
         viewHolder.restaurantInfo.setText(current.address);
         viewHolder.restaurantName.setText(current.restaurantName);
-        //System.out.println("current.fileName: " +current.fileName);
         String url = "https://firebasestorage.googleapis.com/v0/b/greenfoodchallenge-9ec3c.appspot.com/o/meals%2Fnoimage.jpg?alt=media&token=30584887-c1cd-437a-bc84-ac337358dc90";
         if(current.fileName != null){
             url= "https://firebasestorage.googleapis.com/v0/b/greenfoodchallenge-9ec3c.appspot.com/o/meals%2F" + current.fileName + "?alt=media&token=30584887-c1cd-437a-bc84-ac337358dc90";
         }
         Glide.with(userMealContext).load(url).into(viewHolder.iconId);
-        //viewHolder.iconId.setImageResource(current.iconResource);
         viewHolder.starRating.setNumStars(current.rating);
 
 
@@ -90,7 +79,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
                 //show suggest if the meal should really be deleted
 
-
               //  Intent askingUser = new Intent(view.getContext(), DeleteMealPopup.class);
               //  Bundle extras = new Bundle();
               //  extras.putInt("position", position);
@@ -100,7 +88,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                 data.remove(position);
                 onItemRemoved(position);
                 String keyToDeleteItem = keyList.get(position);
-                database.child(keyToDeleteItem).removeValue();
+                ref.child(keyToDeleteItem).removeValue();
 
              //   view.getContext().startActivity(askingUser);
 
@@ -118,7 +106,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        //System.out.println("getItemCount called........... Datasize: " + data.size());
         return data.size();
     }
 
