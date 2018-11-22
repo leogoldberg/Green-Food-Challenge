@@ -49,18 +49,44 @@ public class MealFeed extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Meals Feed");
-        Spinner spinner = (Spinner) findViewById(R.id.locationSpinner);
+        Spinner locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
+        Spinner mealSpinner = (Spinner) findViewById(R.id.proteinSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.protein_names, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mealSpinner.setAdapter(adapter);
+        mealSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if(finishedLoading==true) {
+                    data.clear();
+                    for(int i=0;i<dataBackup.size();i++){
+                        MealInformation item = dataBackup.get(i);
+                        if(item.protein.equals(parent.getItemAtPosition(pos))) {
+                            //System.out.println("adding an item with " + item.protein);
+                            data.add(item);
+                        }
+                    }
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+        });
+        adapter = ArrayAdapter.createFromResource(this,
                 R.array.location_names, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        locationSpinner.setAdapter(adapter);
+        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
               public void onItemSelected(AdapterView<?> parent, View view,
                                          int pos, long id) {
                   // An item was selected. You can retrieve the selected item using
                   if(finishedLoading==true) {
-                      //System.out.println("Selected Item: " + parent.getItemAtPosition(pos));
                       data.clear();
                       for(int i=0;i<dataBackup.size();i++){
                           MealInformation item = dataBackup.get(i);

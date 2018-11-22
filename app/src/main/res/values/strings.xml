@@ -74,4 +74,12 @@
         <item>Surrey</item>
         <item>New Westminister</item>
     </string-array>
+    <string-array name="protein_names">
+        <item>Chicken</item>
+        <item>Beef</item>
+        <item>Fish</item>
+        <item>Egg</item>
+        <item>Bean</item>
+        <item>Pork</item>
+    </string-array>
 </resources>
