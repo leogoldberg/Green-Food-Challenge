@@ -62,17 +62,18 @@ public class FragmentTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.activity_user_meals, container, false);
 
+
         data = new ArrayList<>();
         recyclerView = view.findViewById(R.id.userMealList);
-
-
-
         //recyclerView.setHasFixedSize(true);
         data = getData();
         //removing cannot be done here. size is 0 at this moment
 
         //System.out.println("Fetched data:" + data.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+
 
         return view;
 
@@ -124,3 +125,5 @@ public class FragmentTwo extends Fragment {
 
 
 }
+
+

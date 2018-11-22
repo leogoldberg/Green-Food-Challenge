@@ -59,7 +59,7 @@ public class DeleteMealPopup extends AppCompatActivity {
                     yesButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (key == "LRimlsuN9rCsoJN9RR"){
+                            if (key == "LRimlsuN9raCsoJN9RR"){
                                 database.child(key).removeValue();
                             }
 

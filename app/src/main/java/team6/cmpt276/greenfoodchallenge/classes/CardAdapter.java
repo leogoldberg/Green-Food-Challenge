@@ -1,8 +1,6 @@
 package team6.cmpt276.greenfoodchallenge.classes;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +13,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import team6.cmpt276.greenfoodchallenge.R;
-import team6.cmpt276.greenfoodchallenge.activities.DeleteMealPopup;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 
@@ -27,6 +32,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     static List<MealInformation> data;
     private Context userMealContext;
     private boolean userWants = false;
+
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("meals");
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String userID = user.getUid();
+
+    ArrayList<String> keyList = new ArrayList<String>();
+
 
 
 
@@ -71,20 +83,41 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         //viewHolder.iconId.setImageResource(current.iconResource);
         viewHolder.starRating.setNumStars(current.rating);
 
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                    final String key = item_snapshot.getKey();
+                    keyList.add(key);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+            }
+        });
+
         viewHolder.garbage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //this has to be done after yes on popup
 
                 //show suggest if the meal should really be deleted
-                Intent askingUser = new Intent(view.getContext(), DeleteMealPopup.class);
-                Bundle extras = new Bundle();
-                extras.putInt("position", position);
-                askingUser.putExtras(extras);
+
+
+              //  Intent askingUser = new Intent(view.getContext(), DeleteMealPopup.class);
+              //  Bundle extras = new Bundle();
+              //  extras.putInt("position", position);
+              //  askingUser.putExtras(extras);
                 //remove from recycle view but this works only temporarily(probably because remove on databse doesn't work
+
                 data.remove(position);
                 onItemRemoved(position);
-                view.getContext().startActivity(askingUser);
+                String keyToDeleteItem = keyList.get(position);
+                database.child(keyToDeleteItem).removeValue();
+
+             //   view.getContext().startActivity(askingUser);
 
 
             }
