@@ -51,7 +51,7 @@ public class EditProfile extends AppCompatActivity {
 
         nameEdit= (EditText)findViewById(R.id.nameText);
 
-        //making sure to set the defualt name to users current name
+        //making sure to set the default name to users current name
         nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -154,7 +154,7 @@ public class EditProfile extends AppCompatActivity {
                 String name = nameEdit.getText().toString();
                 database.child("user").child(userID).child("name").setValue(name);
 
-                Intent intent = new Intent(v.getContext(), UserProfile.class);
+                Intent intent = new Intent(v.getContext(), ProfileTab.class);
 
                 startActivity(intent);
             }

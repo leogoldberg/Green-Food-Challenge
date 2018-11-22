@@ -29,19 +29,19 @@ public class AboutActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("About Us");
+        getSupportActionBar().setTitle("About This Challenge");
 
-        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
-        toolbar.setOverflowIcon(threeLineIcon);
-
-        learnMore = findViewById(R.id.learn_more);
-        learnMore.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AboutActivity.this, PopupActivity.class));
-            }
-        });
+//        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+//        toolbar.setOverflowIcon(threeLineIcon);
+//
+//        learnMore = findViewById(R.id.learn_more);
+//        learnMore.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(AboutActivity.this, PopupActivity.class));
+//            }
+//        });
     }
 
     @Override
