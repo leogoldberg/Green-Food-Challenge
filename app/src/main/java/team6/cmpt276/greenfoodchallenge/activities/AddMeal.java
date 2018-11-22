@@ -153,7 +153,7 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
     public void uploadImage(String fileName, String userId) {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        String fileDirectory = "meals/" + userId;
+        String fileDirectory = "meals/" + userId + "/";
 
         if(filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
