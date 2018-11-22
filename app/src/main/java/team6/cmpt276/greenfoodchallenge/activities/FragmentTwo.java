@@ -42,18 +42,20 @@ public class FragmentTwo extends Fragment {
     String userID = user.getUid();
     DatabaseReference ref = database.getInstance().getReference("meals");
 
-    private int position;
+    private static int itemToDelete;
 
     public FragmentTwo(){
         //this is meant to be kept empty
     }
 
+    public static void setArguments(int position) {
+        position = itemToDelete;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null){
-            position = getArguments().getInt("position");
-        }
+
     }
 
     @Override
@@ -67,8 +69,7 @@ public class FragmentTwo extends Fragment {
 
         //recyclerView.setHasFixedSize(true);
         data = getData();
-
-
+        //removing cannot be done here. size is 0 at this moment
 
         //System.out.println("Fetched data:" + data.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -78,6 +79,7 @@ public class FragmentTwo extends Fragment {
     }
 
     private List<MealInformation> getData() {
+        //retrieving process, so nothing has to be done in onChildRemoved
         ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
@@ -106,7 +108,6 @@ public class FragmentTwo extends Fragment {
             }
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
 
             }
             @Override

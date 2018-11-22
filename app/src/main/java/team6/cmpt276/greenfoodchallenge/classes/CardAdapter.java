@@ -2,6 +2,7 @@ package team6.cmpt276.greenfoodchallenge.classes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -77,10 +78,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
                 //show suggest if the meal should really be deleted
                 Intent askingUser = new Intent(view.getContext(), DeleteMealPopup.class);
-
+                Bundle extras = new Bundle();
+                extras.putInt("position", position);
+                askingUser.putExtras(extras);
                 //remove from recycle view but this works only temporarily(probably because remove on databse doesn't work
+                data.remove(position);
                 onItemRemoved(position);
-
                 view.getContext().startActivity(askingUser);
 
 
@@ -91,7 +94,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     }
 
     public void onItemRemoved(int position){
-        data.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
     }

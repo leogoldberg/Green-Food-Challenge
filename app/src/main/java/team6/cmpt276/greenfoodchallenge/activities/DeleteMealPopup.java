@@ -19,10 +19,13 @@ import team6.cmpt276.greenfoodchallenge.R;
 
 public class DeleteMealPopup extends AppCompatActivity {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String userID = user.getUid();
-    DatabaseReference ref = database.getInstance().getReference("meals");
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("meals");
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String userID = user.getUid();
+
+  //  Intent intent = getIntent();
+   // Bundle extras= intent.getExtras();
+   // int position = extras.getInt("position");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class DeleteMealPopup extends AppCompatActivity {
 
         getWindow().setLayout((int) (width * 0.80), (int) (height * 0.40));
 
-        ref.addValueEventListener(new ValueEventListener() {
+        database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
@@ -56,9 +59,9 @@ public class DeleteMealPopup extends AppCompatActivity {
                     yesButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //remove from firebase
-                            ref.child(key).removeValue();
-                            //remove from recyclerview. 
+                            if (key == "LRimlsuN9rCsoJN9RR"){
+                                database.child(key).removeValue();
+                            }
 
                             finish();
 
