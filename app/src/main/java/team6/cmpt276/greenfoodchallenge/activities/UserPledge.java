@@ -30,8 +30,8 @@ package team6.cmpt276.greenfoodchallenge.activities;
         import team6.cmpt276.greenfoodchallenge.R;
         import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
-public class FragmentOne extends Fragment {
-    public FragmentOne(){
+public class UserPledge extends Fragment {
+    public UserPledge(){
         // meant to be kept empty
     }
 
@@ -73,8 +73,6 @@ public class FragmentOne extends Fragment {
                     saved = 0;
                 }
 
-
-
                 // sets up the pie charts
                 PieChart suggChart = initializePieChart(R.id.suggChart);
                 List<PieEntry> entries = addEntries(suggestedConsumption, total_amount_per_week_suggested);
@@ -84,7 +82,6 @@ public class FragmentOne extends Fragment {
 
                 suggChart.setData(pieData);
                 suggChart.invalidate();
-
 
                 // set up current diet chart
                 PieChart currChart = initializePieChart(R.id.currChart);

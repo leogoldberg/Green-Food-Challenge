@@ -86,9 +86,6 @@
         <activity android:name=".activities.ProfileTab" />
         <activity android:name=".activities.AddMeal" />
         <activity android:name=".activities.MealFeed" />
-        <activity
-            android:name=".activities.DeleteMealPopup"
-            android:theme="@style/AppTheme.CustomPopUp"/>
 
 
     </application>

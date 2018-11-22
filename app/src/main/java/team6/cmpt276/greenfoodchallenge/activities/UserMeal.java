@@ -27,37 +27,27 @@ import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.CardAdapter;
 import team6.cmpt276.greenfoodchallenge.classes.MealInformation;
 
-//import com.google.firebase.storage.StorageReference;
 
-public class FragmentTwo extends Fragment {
+public class UserMeal extends Fragment {
     private RecyclerView recyclerView;
+    //declare lists for mealPost data and according keys from database
     List<MealInformation> data;
-
     ArrayList<String> keyList;
 
     private CardAdapter adapter;
 
-    //filter this data so that it handles only those from current user
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String userID = user.getUid();
     DatabaseReference ref = database.getInstance().getReference("meals");
 
-    private static int itemToDelete;
-
-    public FragmentTwo(){
+    public UserMeal(){
         //this is meant to be kept empty
-    }
-
-    public static void setArguments(int position) {
-        position = itemToDelete;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -65,31 +55,25 @@ public class FragmentTwo extends Fragment {
         final View view = inflater.inflate(R.layout.activity_user_meals, container, false);
 
         keyList = new ArrayList<>();
-
-
         data = new ArrayList<>();
         recyclerView = view.findViewById(R.id.userMealList);
-        //recyclerView.setHasFixedSize(true);
         data = getData();
-        //removing cannot be done here. size is 0 at this moment
-
-        //System.out.println("Fetched data:" + data.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-
 
         return view;
 
     }
 
     private List<MealInformation> getData() {
-        //retrieving process, so nothing has to be done in onChildRemoved
         ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
-                adapter = new CardAdapter(getActivity(), data, keyList);
-                recyclerView.setAdapter(adapter);
+                if (getActivity() != null){
+                    //pass required values to CardAdapter for mealEntries
+                    adapter = new CardAdapter(getActivity(), data, keyList);
+                    recyclerView.setAdapter(adapter);
+                }
+
             }
 
             @Override
@@ -99,6 +83,7 @@ public class FragmentTwo extends Fragment {
 
             public void onCancelled(FirebaseError firebaseError) { }
         });
+
         ref.orderByChild("userID").equalTo(userID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -106,8 +91,6 @@ public class FragmentTwo extends Fragment {
                 String keyChild = dataSnapshot.getKey();
                 keyList.add(keyChild);
                 data.add(obj);
-                //System.out.println(obj.mealName);
-                //System.out.println("DATA size:" + data.size());
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

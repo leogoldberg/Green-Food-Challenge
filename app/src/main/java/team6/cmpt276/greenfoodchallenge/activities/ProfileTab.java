@@ -33,6 +33,7 @@ public class ProfileTab extends AppCompatActivity {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
 
+    //set up profile data
     private DatabaseReference nameRef=database.child("user").child(userID).child("name");
     private DatabaseReference cityRef=database.child("user").child(userID).child("municipality");
     private DatabaseReference iconRef=database.child("user").child(userID).child("icon");
@@ -64,11 +65,11 @@ public class ProfileTab extends AppCompatActivity {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new FragmentOne(), "Pledge");
-        adapter.addFragment(new FragmentTwo(), "Meal");
+        //add tabs to userPledge and userMealFeed
+        adapter.addFragment(new UserPledge(), "Pledge");
+        adapter.addFragment(new UserMeal(), "Meal");
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
-
 
 
         nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
