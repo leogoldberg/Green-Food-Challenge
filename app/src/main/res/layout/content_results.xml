@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="8dp"
+            android:paddingTop="10dp"
             android:text=""
             android:textStyle="bold"
             android:textColor="@color/headerText"
@@ -39,21 +39,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="8dp"
+            android:paddingTop="10dp"
             android:text="@string/resultsHeader2"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="180dp"></com.github.mikephil.charting.charts.PieChart>
+            android:layout_height="225dp"></com.github.mikephil.charting.charts.PieChart>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="3dp"
+            android:padding="5dp"
             android:text="@string/averageCanadian"
             android:textSize="15sp" />
 
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="3dp"
+            android:padding="5dp"
             android:text="@string/averageWorldwide"
             android:textSize="15sp" />
 
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="3dp"
+            android:padding="5dp"
             android:text="@string/targetWorldwide"
             android:textSize="15sp" />
 
@@ -84,15 +84,7 @@
             android:textColor="@android:color/white"
             android:text="@string/reduceConsumption"/>
 
-
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include
-            android:id="@+id/navbar"
-            layout="@layout/navbar" />
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
