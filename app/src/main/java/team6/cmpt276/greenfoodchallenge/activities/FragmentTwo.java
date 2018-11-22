@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ import team6.cmpt276.greenfoodchallenge.classes.MealInformation;
 public class FragmentTwo extends Fragment {
     private RecyclerView recyclerView;
     List<MealInformation> data;
+    List<String> key = new ArrayList<>();
+
 
     private CardAdapter adapter;
 
@@ -84,7 +87,7 @@ public class FragmentTwo extends Fragment {
         ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
-                adapter = new CardAdapter(getActivity(), data);
+                adapter = new CardAdapter(getActivity(), data, key);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -99,6 +102,9 @@ public class FragmentTwo extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 MealInformation obj = dataSnapshot.getValue(MealInformation.class);
+                String keyChild = dataSnapshot.getKey();
+                Log.i("key", keyChild);
+                key.add(keyChild);
                 data.add(obj);
                 //System.out.println(obj.mealName);
                 //System.out.println("DATA size:" + data.size());

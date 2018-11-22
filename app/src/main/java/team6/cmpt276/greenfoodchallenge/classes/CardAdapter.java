@@ -33,19 +33,20 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     private Context userMealContext;
     private boolean userWants = false;
 
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference("meals");
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
 
-    ArrayList<String> keyList = new ArrayList<String>();
+    List<String> keyList = new ArrayList<String>();
 
 
 
 
-    public CardAdapter(Context context, List<MealInformation> data) {
+    public CardAdapter(Context context, List<MealInformation> data, List<String> key) {
         inflater = LayoutInflater.from(context);
         userMealContext = context;
         this.data = data;
+        keyList = key;
 
 
 
@@ -83,20 +84,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         //viewHolder.iconId.setImageResource(current.iconResource);
         viewHolder.starRating.setNumStars(current.rating);
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
-                    final String key = item_snapshot.getKey();
-                    keyList.add(key);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-            }
-        });
 
         viewHolder.garbage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,10 +99,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
               //  askingUser.putExtras(extras);
                 //remove from recycle view but this works only temporarily(probably because remove on databse doesn't work
 
+
+                String keyToDeleteItem = keyList.get(position);
+                database.child("meals").child(keyToDeleteItem).removeValue();
                 data.remove(position);
                 onItemRemoved(position);
-                String keyToDeleteItem = keyList.get(position);
-                database.child(keyToDeleteItem).removeValue();
 
              //   view.getContext().startActivity(askingUser);
 
