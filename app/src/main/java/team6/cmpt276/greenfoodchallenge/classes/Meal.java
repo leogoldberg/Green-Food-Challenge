@@ -14,8 +14,7 @@ public class Meal {
     public Meal(){}
 
     public Meal(String userID, String mealName, String protein,
-                CharSequence restaurantName, CharSequence address, CharSequence city,
-                String fileName) {
+                CharSequence restaurantName, CharSequence address, CharSequence city) {
         this.userID = userID;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
@@ -24,7 +23,6 @@ public class Meal {
         this.city = city;
         this.rating = rating;
         this. protein = protein;
-        this.fileName = fileName;
     }
 
     public float getRating() {
@@ -41,5 +39,9 @@ public class Meal {
 
     public void setMealDescription(String mealDescription) {
         this.mealDescription = mealDescription;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
