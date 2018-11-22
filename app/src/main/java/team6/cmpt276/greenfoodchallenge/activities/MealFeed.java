@@ -1,24 +1,19 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.google.firebase.FirebaseError;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,10 +40,8 @@ public class MealFeed extends AppCompatActivity {
     private FeedAdapter mAdapter;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference ref = database.getReference("meals");
     private boolean finishedLoading;
-    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,36 +120,6 @@ public class MealFeed extends AppCompatActivity {
         //System.out.println("Fetched data:" + data.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(MealFeed.this));
 
-        bottomNavigationView =findViewById(R.id.navbar);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_feed:
-                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
-                        return true;
-                    case R.id.view_all_pledge:
-                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
-                        return true;
-                    case R.id.calculate_consumption:
-                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
-                        return true;
-                    case R.id.about:
-                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
-                    case R.id.profile:
-                        if (user.isAnonymous()){
-                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
-                            return true;
-                        } else {
-                            startActivity(new Intent (bottomNavigationView.getContext(), UserProfile.class));
-                            return true;
-                        }
-                    default:
-                        return onNavigationItemSelected(item);
-                }
-            }
-        });
     }
 
     public List<MealInformation> getData(){
@@ -202,7 +165,5 @@ public class MealFeed extends AppCompatActivity {
             }
         });
         return data;
-
-
     }
 }

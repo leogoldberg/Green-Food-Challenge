@@ -3,7 +3,6 @@ package team6.cmpt276.greenfoodchallenge.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ public class PledgeSummary extends AppCompatActivity {
     private Map<String, ArrayList> pledges;
     private HashMap<String, String> userNames;
     private HashMap<String, String> pictures;
-    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,37 +154,6 @@ public class PledgeSummary extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
-        bottomNavigationView =findViewById(R.id.navbar);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_feed:
-                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
-                        return true;
-                    case R.id.view_all_pledge:
-                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
-                        return true;
-                    case R.id.calculate_consumption:
-                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
-                        return true;
-                    case R.id.about:
-                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
-                    case R.id.profile:
-                        if (user.isAnonymous()){
-                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
-                            return true;
-                        } else {
-                            startActivity(new Intent (bottomNavigationView.getContext(), UserProfile.class));
-                            return true;
-                        }
-                    default:
-                        return onNavigationItemSelected(item);
-                }
             }
         });
     }
@@ -323,5 +290,45 @@ public class PledgeSummary extends AppCompatActivity {
         myIntent.putExtra("pictures", pictures);
 
         startActivity(myIntent);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.user_dashboard:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent(this, UserDashboard.class));
+                    return true;
+                }
+            case R.id.view_all_pledge:
+                startActivity(new Intent(this,PledgeSummary.class));
+                return true;
+            case R.id.calculate_consumption:
+                startActivity(new Intent(this,ConsumptionQuiz1.class));
+                return true;
+            case R.id.profile_login:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent ( this, UserProfile.class));
+                    return true;
+                }
+            case R.id.about_us:
+                startActivity(new Intent(this,AboutActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
