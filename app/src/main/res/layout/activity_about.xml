@@ -58,10 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/divider2"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="33dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Version: 3.0" />
+        android:text="Version: 1.0" />
 
     <Button
         android:id="@+id/learn_more"
@@ -71,15 +71,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="203dp"
         android:text="learn more" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true">
-        <include
-            android:id="@+id/navbar"
-            layout="@layout/navbar" />
-    </LinearLayout>
 
 </RelativeLayout>
