@@ -26,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import team6.cmpt276.greenfoodchallenge.R;
 import team6.cmpt276.greenfoodchallenge.classes.UserData;
 
-public class ConsumptionQuiz1 extends NavBarHandler {
+public class ConsumptionQuiz1 extends AppCompatActivity {
     private UserData currentConsumption;
     private DatabaseReference database;
     private TextView proteinGramsCounter;
@@ -35,9 +35,6 @@ public class ConsumptionQuiz1 extends NavBarHandler {
     private Button nextButton;
     private BottomNavigationView bottomNavigationView;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-    public ConsumptionQuiz1() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +95,32 @@ public class ConsumptionQuiz1 extends NavBarHandler {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return false;
-            };
+                switch (item.getItemId()) {
+                    //add case feed after feed activity pushed
+                    case R.id.action_feed:
+                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
+                        return true;
+                    case R.id.view_all_pledge:
+                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
+                        return true;
+                    case R.id.calculate_consumption:
+                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
+                        return true;
+                    case R.id.about:
+                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
+                        return true;
+                    case R.id.profile:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent (bottomNavigationView.getContext(), UserProfile.class));
+                            return true;
+                        }
+                    default:
+                        return false;
+                }
+            }
         });
 
 
@@ -110,16 +131,4 @@ public class ConsumptionQuiz1 extends NavBarHandler {
         final String userID = user.getUid();
         database.child("current_consumptions").child(userID).setValue(currentConsumption);
     }
-
-    ConsumptionQuiz1(Activity activity, FirebaseUser user) {
-        super(activity, user);
-    }
-
-    @Override
-    protected int getContentView() {
-        return R.layout.activity_consumption_quiz1;//your layout
-    }
-
-
-
 }

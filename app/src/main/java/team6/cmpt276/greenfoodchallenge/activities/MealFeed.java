@@ -97,7 +97,7 @@ public class MealFeed extends AppCompatActivity {
         //System.out.println("Fetched data:" + data.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(MealFeed.this));
 
-        bottomNavigationView =findViewById(R.id.bottom_navigation);
+        bottomNavigationView =findViewById(R.id.navbar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

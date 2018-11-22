@@ -174,7 +174,7 @@ public class UserProfile extends AppCompatActivity {
 
         }
 
-        bottomNavigationView =findViewById(R.id.bottom_navigation);
+        bottomNavigationView =findViewById(R.id.navbar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -191,6 +191,7 @@ public class UserProfile extends AppCompatActivity {
                         return true;
                     case R.id.about:
                         startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
+                        return true;
                     case R.id.profile:
                         if (user.isAnonymous()){
                             startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));

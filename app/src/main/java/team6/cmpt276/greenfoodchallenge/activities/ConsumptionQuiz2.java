@@ -89,12 +89,13 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
         });
 
 
-        bottomNavigationView =findViewById(R.id.bottom_navigation);
+        bottomNavigationView =findViewById(R.id.navbar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+                    //add case feed after feed activity pushed
                     case R.id.action_feed:
                         startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
                         return true;
@@ -106,6 +107,7 @@ public class ConsumptionQuiz2 extends AppCompatActivity {
                         return true;
                     case R.id.about:
                         startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
+                        return true;
                     case R.id.profile:
                         if (user.isAnonymous()){
                             startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));

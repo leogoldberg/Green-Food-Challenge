@@ -89,7 +89,7 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavigationView =findViewById(R.id.bottom_navigation);
+        bottomNavigationView =findViewById(R.id.navbar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
