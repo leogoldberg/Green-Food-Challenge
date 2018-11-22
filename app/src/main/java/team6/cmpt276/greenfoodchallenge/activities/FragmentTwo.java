@@ -33,6 +33,8 @@ public class FragmentTwo extends Fragment {
     private RecyclerView recyclerView;
     List<MealInformation> data;
 
+    ArrayList<String> keyList;
+
     private CardAdapter adapter;
 
     //filter this data so that it handles only those from current user
@@ -62,6 +64,9 @@ public class FragmentTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.activity_user_meals, container, false);
 
+        keyList = new ArrayList<>();
+        keyList = getKeys();
+
 
         data = new ArrayList<>();
         recyclerView = view.findViewById(R.id.userMealList);
@@ -79,12 +84,31 @@ public class FragmentTwo extends Fragment {
 
     }
 
+    private ArrayList<String> getKeys(){
+        ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                    String key = item_snapshot.getKey();
+                    keyList.add(key);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return keyList;
+    }
+
     private List<MealInformation> getData() {
         //retrieving process, so nothing has to be done in onChildRemoved
         ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
-                adapter = new CardAdapter(getActivity(), data);
+                adapter = new CardAdapter(getActivity(), data, keyList);
                 recyclerView.setAdapter(adapter);
             }
 
