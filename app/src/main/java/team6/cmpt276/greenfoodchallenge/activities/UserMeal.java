@@ -1,5 +1,6 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,7 @@ public class UserMeal extends Fragment {
     //declare lists for mealPost data and according keys from database
     List<MealInformation> data;
     ArrayList<String> keyList;
+    Button addButton;
 
     private CardAdapter adapter;
 
@@ -59,6 +62,17 @@ public class UserMeal extends Fragment {
         recyclerView = view.findViewById(R.id.userMealList);
         data = getData();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        addButton = view.findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), AddMeal.class);
+                startActivity(intent);
+
+            }
+        });
 
         return view;
 
