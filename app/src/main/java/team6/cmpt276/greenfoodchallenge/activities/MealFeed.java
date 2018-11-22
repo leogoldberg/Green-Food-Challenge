@@ -34,6 +34,8 @@ public class MealFeed extends AppCompatActivity {
     private RecyclerView recyclerView;
     List<MealInformation> data;
     List<MealInformation> dataBackup;
+    String filterCity;
+    String filterProtein;
 
     private FeedAdapter mAdapter;
 
@@ -59,9 +61,10 @@ public class MealFeed extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 if(finishedLoading==true) {
                     data.clear();
+                    filterProtein = (String) parent.getItemAtPosition(pos);
                     for(int i=0;i<dataBackup.size();i++){
                         MealInformation item = dataBackup.get(i);
-                        if(item.protein.equals(parent.getItemAtPosition(pos))) {
+                        if((item.protein.equals(filterProtein) || filterProtein.equals("All")) && item.city.equals(filterCity)) {
                             //System.out.println("adding an item with " + item.protein);
                             data.add(item);
                         }
@@ -88,9 +91,10 @@ public class MealFeed extends AppCompatActivity {
                   // An item was selected. You can retrieve the selected item using
                   if(finishedLoading==true) {
                       data.clear();
+                      filterCity = (String) parent.getItemAtPosition(pos);
                       for(int i=0;i<dataBackup.size();i++){
                           MealInformation item = dataBackup.get(i);
-                          if(item.city.equals(parent.getItemAtPosition(pos))) {
+                          if(item.city.equals(filterCity) && (item.protein.equals(filterProtein) || filterProtein.equals("All"))) {
                               //System.out.println("adding an item from " + item.city);
                               data.add(item);
                           }/*else {
