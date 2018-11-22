@@ -102,9 +102,10 @@
         <item>Richmond</item>
         <item>Coquitlam</item>
         <item>Surrey</item>
-        <item>New Westminister</item>
+        <item>New Westminster</item>
     </string-array>
     <string-array name="protein_names">
+        <item>All</item>
         <item>Chicken</item>
         <item>Beef</item>
         <item>Fish</item>
