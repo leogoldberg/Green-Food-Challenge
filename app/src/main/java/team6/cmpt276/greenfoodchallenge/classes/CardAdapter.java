@@ -13,7 +13,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,23 +33,25 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     private Context userMealContext;
     private boolean userWants = false;
 
-    DatabaseReference ref;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String userID = user.getUid();
+
     ArrayList<String> keyList = new ArrayList<>();
 
 
 
 
-    public CardAdapter(Context context, List<MealInformation> data, ArrayList<String> keyList,  DatabaseReference ref) {
+    public CardAdapter(Context context, List<MealInformation> data, ArrayList<String> keyList) {
         inflater = LayoutInflater.from(context);
         userMealContext = context;
         this.data = data;
         this.keyList = keyList;
-        this.ref = ref;
 
 
     }
 
-    public CardAdapter() {
+    public CardAdapter(ArrayList<String> keyListReceived) {
 
 
     }
@@ -51,6 +59,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     @NonNull
     @Override
     public CardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //System.out.println("onCreateViewHolder called.............");
         View view = inflater.inflate(R.layout.meal_card, viewGroup, false);
         CardAdapter.MyViewHolder holder = new CardAdapter.MyViewHolder(view);
         return holder;
@@ -58,12 +67,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final CardAdapter.MyViewHolder viewHolder, final int position) {
+        //System.out.println("onBindViewHolder called.............");
         MealInformation current = data.get(position);
         viewHolder.mealName.setText(current.mealName);
         viewHolder.mealInfo.setText(current.mealDescription);
         viewHolder.proteinChoice.setText(current.protein);
         viewHolder.restaurantInfo.setText(current.address);
         viewHolder.restaurantName.setText(current.restaurantName);
+        //System.out.println("current.fileName: " +current.fileName);
         String url = "https://firebasestorage.googleapis.com/v0/b/greenfoodchallenge-9ec3c.appspot.com/o/meals%2Fnoimage.jpg?alt=media&token=30584887-c1cd-437a-bc84-ac337358dc90";
         if(current.fileName != null){
             url= "https://firebasestorage.googleapis.com/v0/b/greenfoodchallenge-9ec3c.appspot.com/o/meals%2F" + current.fileName + "?alt=media&token=30584887-c1cd-437a-bc84-ac337358dc90";
@@ -85,10 +96,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
               //  askingUser.putExtras(extras);
                 //remove from recycle view but this works only temporarily(probably because remove on databse doesn't work
 
+
+                String keyToDeleteItem = keyList.get(position);
+                database.child("meals").child(keyToDeleteItem).removeValue();
                 data.remove(position);
                 onItemRemoved(position);
-                String keyToDeleteItem = keyList.get(position);
-                ref.child(keyToDeleteItem).removeValue();
+
 
              //   view.getContext().startActivity(askingUser);
 
