@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.PledgeSummary">
@@ -21,7 +21,7 @@
         android:gravity="right"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="511dp" />
-        <!--android:background="@android:drawable/btn_dropdown"-->
+    <!--android:background="@android:drawable/btn_dropdown"-->
 
 
     <LinearLayout
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:text="@string/pledgeSummary1"
             android:textSize="16sp"
@@ -57,20 +57,20 @@
     </LinearLayout>
 
     <LinearLayout
-    android:id="@+id/individual_layout2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:background="@drawable/border"
-    android:orientation="vertical">
+        android:id="@+id/individual_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:text="@string/pledgeSummary2"
             android:textSize="16sp"
@@ -93,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/border"
@@ -102,7 +102,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:text="@string/pledgeSummary3"
             android:textSize="16sp"
@@ -123,8 +123,8 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginBottom="10dp">
+        android:layout_height="180dp"
+        android:layout_marginBottom="5dp">
 
     </com.github.mikephil.charting.charts.BarChart>
 
@@ -138,5 +138,14 @@
         android:textColor="@android:color/background_light"
         android:onClick="seePledgeSummary"
         android:text="View All" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/navbar"
+            layout="@layout/navbar" />
+    </LinearLayout>
 
 </LinearLayout>

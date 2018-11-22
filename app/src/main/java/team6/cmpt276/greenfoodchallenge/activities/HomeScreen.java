@@ -77,8 +77,8 @@ public class HomeScreen extends AppCompatActivity {
                 }
             });
 
-            }
-            //loginButton.setVisibility(View.GONE);
+        }
+        //loginButton.setVisibility(View.GONE);
 
         else {
             loginButton.setText("Login");
@@ -96,87 +96,43 @@ public class HomeScreen extends AppCompatActivity {
     }
 
 
-        @Override
-        public void onStart() {
-            super.onStart();
-            // Check if user is signed in (non-null) and update UI accordingly.
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if(currentUser != null){ // User is signed in
-                //TODO: Skip quiz and go to user profile
-//                Log.d(TAG, "user is signed in");
-            }
-            else {
-                mAuth.signInAnonymously()
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-//                                    Log.d(TAG, "signInAnonymously:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-//                                    Log.w(TAG, "signInAnonymously:failure", task.getException());
-                                    Toast.makeText(HomeScreen.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            }
-        }
-
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.navigation, menu);
-        return true;
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){ // User is signed in
+            //TODO: Skip quiz and go to user profile
+//                Log.d(TAG, "user is signed in");
+        }
+        else {
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+//                                    Log.d(TAG, "signInAnonymously:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+//                                    Log.w(TAG, "signInAnonymously:failure", task.getException());
+                                Toast.makeText(HomeScreen.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
     }
+
 
     public void seeMealFeed(View v) {
-        Intent myIntent = new Intent(HomeScreen.this, MealFeed.class);
-        startActivity(myIntent);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        switch (item.getItemId()) {
-            case R.id.user_dashboard:
-                if (currentUser.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    startActivity(new Intent(this, UserDashboard.class));
-                    return true;
-                }
-            case R.id.view_all_pledge:
-                startActivity(new Intent(this,PledgeSummary.class));
-                return true;
-            case R.id.calculate_consumption:
-                startActivity(new Intent(this,ConsumptionQuiz1.class));
-                return true;
-            case R.id.profile_login:
-                if (currentUser.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    startActivity(new Intent (this, UserProfile.class));
-                    return true;
-                }
-            case R.id.about_us:
-                startActivity(new Intent(this,AboutActivity.class));
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        Intent intent = new Intent(this, MealFeed.class);
+        startActivity(intent);
     }
 
     public void tempAdd(View v) {
         Intent intent = new Intent(this, AddMeal.class);
-        startActivity(intent);
-    }
-
-    public void seePledgeSummary(View view) {
-        Intent intent = new Intent(this, PledgeSummary.class);
         startActivity(intent);
     }
 }
