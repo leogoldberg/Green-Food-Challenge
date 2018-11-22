@@ -11,7 +11,8 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+       />
 
     <include layout="@layout/content_results" />
 

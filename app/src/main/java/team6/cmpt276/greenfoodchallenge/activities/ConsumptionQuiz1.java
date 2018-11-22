@@ -98,11 +98,21 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
                 switch (item.getItemId()) {
                     //add case feed after feed activity pushed
                     case R.id.action_feed:
-                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
-                        return true;
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));;
+                            return true;
+                        }
                     case R.id.view_all_pledge:
-                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
-                        return true;
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
+                            return true;
+                        }
                     case R.id.calculate_consumption:
                         startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
                         return true;

@@ -22,7 +22,7 @@
             android:id="@+id/currChart"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_alignParentLeft="true">
         </com.github.mikephil.charting.charts.PieChart>
 
@@ -30,7 +30,7 @@
             android:id="@+id/suggChart"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true">
         </com.github.mikephil.charting.charts.PieChart>
     </RelativeLayout>
@@ -152,14 +152,14 @@
             android:textColor="@color/headerText"
             android:padding="10dp"
             android:text="None"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textStyle="bold"
             android:layout_toLeftOf="@+id/centerPoint2"/>
 
         <TextView
             android:id="@+id/centerPoint2"
             android:text=""
-            android:layout_width="50dp"
+            android:layout_width="20dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true" />
 
@@ -173,7 +173,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="None"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/headerText"
             android:layout_toRightOf="@+id/centerPoint2"/>
@@ -183,7 +183,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <Button

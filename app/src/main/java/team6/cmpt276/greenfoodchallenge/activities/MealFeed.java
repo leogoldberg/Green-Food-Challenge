@@ -69,18 +69,20 @@ public class MealFeed extends AppCompatActivity {
                 if(finishedLoading==true) {
                     data.clear();
                     filterProtein = (String) parent.getItemAtPosition(pos);
-                    for(int i=0;i<dataBackup.size();i++){
-                        MealInformation item = dataBackup.get(i);
-                        if((item.protein.equals(filterProtein) || filterProtein.equals("All")) && item.city.equals(filterCity)) {
-                            //System.out.println("adding an item with " + item.protein);
-                            data.add(item);
+                    if (dataBackup != null) { //leo:added this because was getting null error
+                        for (int i = 0; i < dataBackup.size(); i++) {
+                            MealInformation item = dataBackup.get(i);
+                            if ((item.protein.equals(filterProtein) || filterProtein.equals("All")) && item.city.equals(filterCity)) {
+                                //System.out.println("adding an item with " + item.protein);
+                                data.add(item);
+                            }
                         }
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
                     }
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    });
                 }
             }
             public void onNothingSelected(AdapterView<?> parent) {
@@ -99,20 +101,22 @@ public class MealFeed extends AppCompatActivity {
                   if(finishedLoading==true) {
                       data.clear();
                       filterCity = (String) parent.getItemAtPosition(pos);
-                      for(int i=0;i<dataBackup.size();i++){
-                          MealInformation item = dataBackup.get(i);
-                          if(item.city.equals(filterCity) && (item.protein.equals(filterProtein) || filterProtein.equals("All"))) {
-                              //System.out.println("adding an item from " + item.city);
-                              data.add(item);
-                          }/*else {
+                      if (dataBackup != null) {
+                          for (int i = 0; i < dataBackup.size(); i++) {
+                              MealInformation item = dataBackup.get(i);
+                              if (item.city.equals(filterCity) && (item.protein.equals(filterProtein) || filterProtein.equals("All"))) {
+                                  //System.out.println("adding an item from " + item.city);
+                                  data.add(item);
+                              }/*else {
                               System.out.println("ignoring item from " + item.city);
                           }*/
-                      }
-                      runOnUiThread(new Runnable() {
-                          public void run() {
-                              mAdapter.notifyDataSetChanged();
                           }
-                      });
+                          runOnUiThread(new Runnable() {
+                              public void run() {
+                                  mAdapter.notifyDataSetChanged();
+                              }
+                          });
+                      }
                   }
               }
               public void onNothingSelected(AdapterView<?> parent) {
@@ -133,17 +137,29 @@ public class MealFeed extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+                    //add case feed after feed activity pushed
                     case R.id.action_feed:
-                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
-                        return true;
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));;
+                            return true;
+                        }
                     case R.id.view_all_pledge:
-                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
-                        return true;
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
+                            return true;
+                        }
                     case R.id.calculate_consumption:
                         startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
                         return true;
                     case R.id.about:
                         startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
+                        return true;
                     case R.id.profile:
                         if (user.isAnonymous()){
                             startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
@@ -153,7 +169,7 @@ public class MealFeed extends AppCompatActivity {
                             return true;
                         }
                     default:
-                        return onNavigationItemSelected(item);
+                        return false;
                 }
             }
         });
