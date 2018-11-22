@@ -37,23 +37,24 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
 
-    List<String> keyList = new ArrayList<String>();
+    ArrayList<String> keyList = new ArrayList<>();
 
 
 
 
-    public CardAdapter(Context context, List<MealInformation> data, List<String> key) {
+    public CardAdapter(Context context, List<MealInformation> data, ArrayList<String> keyList) {
         inflater = LayoutInflater.from(context);
         userMealContext = context;
         this.data = data;
-        keyList = key;
+        this.keyList = keyList;
 
 
 
         //System.out.println("FeedAdapter: data.size: " + data.size());
     }
 
-    public CardAdapter() {
+    public CardAdapter(ArrayList<String> keyListReceived) {
+
 
     }
 
@@ -104,6 +105,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                 database.child("meals").child(keyToDeleteItem).removeValue();
                 data.remove(position);
                 onItemRemoved(position);
+
 
              //   view.getContext().startActivity(askingUser);
 
