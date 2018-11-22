@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -100,7 +101,7 @@ public class HomeScreen extends AppCompatActivity {
         public void onStart() {
             super.onStart();
             // Check if user is signed in (non-null) and update UI accordingly.
-            FirebaseUser currentUser = mAuth.getCurrentUser();
+            final FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){ // User is signed in
                 //TODO: Skip quiz and go to user profile
 //                Log.d(TAG, "user is signed in");
@@ -124,51 +125,6 @@ public class HomeScreen extends AppCompatActivity {
                         });
             }
         }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    public void seeMealFeed(View v) {
-        Intent myIntent = new Intent(HomeScreen.this, MealFeed.class);
-        startActivity(myIntent);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        switch (item.getItemId()) {
-            case R.id.user_dashboard:
-                if (currentUser.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    startActivity(new Intent(this, UserDashboard.class));
-                    return true;
-                }
-            case R.id.view_all_pledge:
-                startActivity(new Intent(this,PledgeSummary.class));
-                return true;
-            case R.id.calculate_consumption:
-                startActivity(new Intent(this,ConsumptionQuiz1.class));
-                return true;
-            case R.id.profile_login:
-                if (currentUser.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    startActivity(new Intent (this, UserProfile.class));
-                    return true;
-                }
-            case R.id.about_us:
-                startActivity(new Intent(this,AboutActivity.class));
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     public void tempAdd(View v) {
         Intent intent = new Intent(this, AddMeal.class);

@@ -84,7 +84,17 @@
             android:textColor="@android:color/white"
             android:text="@string/reduceConsumption"/>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                android:id="@+id/navbar"
+                layout="@layout/navbar" />
+        </LinearLayout>
+
     </LinearLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>

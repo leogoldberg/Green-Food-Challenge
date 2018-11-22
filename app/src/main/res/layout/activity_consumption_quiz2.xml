@@ -328,6 +328,14 @@
             android:textStyle="bold"
             android:textColor="@android:color/white" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                android:id="@+id/navbar"
+                layout="@layout/navbar" />
+        </LinearLayout>
     </LinearLayout>
+
 
 </LinearLayout>

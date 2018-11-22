@@ -14,23 +14,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/currChart"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="35dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true">
         </com.github.mikephil.charting.charts.PieChart>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/suggChart"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginRight="35dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginRight="15dp"
             android:layout_alignParentRight="true">
         </com.github.mikephil.charting.charts.PieChart>
     </RelativeLayout>
@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="60dp"
@@ -53,7 +53,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_marginRight="60dp"
@@ -72,7 +72,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="Your Pledge"
             android:textSize="24dp"
@@ -82,7 +82,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="Save Amount"
             android:textSize="16dp"
@@ -183,7 +183,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <Button
@@ -224,5 +224,9 @@
             android:layout_toRightOf="@id/deletePledge" />
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/navbar"
+        layout="@layout/navbar" />
 
 </LinearLayout>
