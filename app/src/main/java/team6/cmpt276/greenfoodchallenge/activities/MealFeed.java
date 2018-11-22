@@ -80,10 +80,10 @@ public class MealFeed extends AppCompatActivity {
                 // Another interface callback
             }
         });
-        adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.location_names, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        locationSpinner.setAdapter(adapter);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationSpinner.setAdapter(adapter2);
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
               public void onItemSelected(AdapterView<?> parent, View view,
