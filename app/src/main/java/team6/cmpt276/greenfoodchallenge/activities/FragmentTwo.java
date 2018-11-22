@@ -35,14 +35,14 @@ public class FragmentTwo extends Fragment {
 
     private CardAdapter adapter;
 
+    //filter this data so that it handles only those from current user
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String userID = user.getUid();
     DatabaseReference ref = database.getInstance().getReference("meals");
 
-
-
-
+    private int position;
 
     public FragmentTwo(){
         //this is meant to be kept empty
@@ -51,6 +51,9 @@ public class FragmentTwo extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null){
+            position = getArguments().getInt("position");
+        }
     }
 
     @Override
@@ -59,12 +62,16 @@ public class FragmentTwo extends Fragment {
 
         data = new ArrayList<>();
         recyclerView = view.findViewById(R.id.userMealList);
+
+
+
         //recyclerView.setHasFixedSize(true);
         data = getData();
+
+
+
         //System.out.println("Fetched data:" + data.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
 
         return view;
 
@@ -99,6 +106,7 @@ public class FragmentTwo extends Fragment {
             }
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
 
             }
             @Override

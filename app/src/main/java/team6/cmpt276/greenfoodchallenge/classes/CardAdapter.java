@@ -23,14 +23,24 @@ import team6.cmpt276.greenfoodchallenge.activities.DeleteMealPopup;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
-    List<MealInformation> data;
+    static List<MealInformation> data;
     private Context userMealContext;
+    private boolean userWants = false;
+
+
 
     public CardAdapter(Context context, List<MealInformation> data) {
         inflater = LayoutInflater.from(context);
         userMealContext = context;
         this.data = data;
+
+
+
         //System.out.println("FeedAdapter: data.size: " + data.size());
+    }
+
+    public CardAdapter() {
+
     }
 
     @NonNull
@@ -43,9 +53,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CardAdapter.MyViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final CardAdapter.MyViewHolder viewHolder, final int position) {
         //System.out.println("onBindViewHolder called.............");
-        MealInformation current = data.get(i);
+        MealInformation current = data.get(position);
         viewHolder.mealName.setText(current.mealName);
         viewHolder.mealInfo.setText(current.mealDescription);
         viewHolder.proteinChoice.setText(current.protein);
@@ -63,14 +73,28 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         viewHolder.garbage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //show suggest if the meal should really be deleted
-                Intent intent = new Intent(view.getContext(), DeleteMealPopup.class);
+                //this has to be done after yes on popup
 
-                view.getContext().startActivity(intent);
+                //show suggest if the meal should really be deleted
+                Intent askingUser = new Intent(view.getContext(), DeleteMealPopup.class);
+
+                //remove from recycle view but this works only temporarily(probably because remove on databse doesn't work
+                onItemRemoved(position);
+
+                view.getContext().startActivity(askingUser);
+
+
             }
         });
+
+
     }
 
+    public void onItemRemoved(int position){
+        data.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
+    }
 
     @Override
     public int getItemCount() {
@@ -88,6 +112,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         TextView restaurantInfo;
         ImageButton garbage;
 
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mealName = itemView.findViewById(R.id.meal_name);
@@ -101,4 +126,5 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
             garbage.setLayoutParams(new LinearLayout.LayoutParams(100,100));
         }
     }
+
 }

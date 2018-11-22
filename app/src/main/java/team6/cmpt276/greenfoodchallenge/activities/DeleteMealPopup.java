@@ -37,28 +37,35 @@ public class DeleteMealPopup extends AppCompatActivity {
 
         getWindow().setLayout((int) (width * 0.80), (int) (height * 0.40));
 
-        ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener(){
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Button noButton = findViewById(R.id.no_button);
-                noButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
+                for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                    final String key = item_snapshot.getKey();
+                    //correct key should be identified here. tried manually typing in the key, but item did not get removed from database
+                    Button noButton = findViewById(R.id.no_button);
+                    noButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                Button yesButton = findViewById(R.id.yes_button);
-                yesButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //delete the current meal
-                       // ref.child(userID).removeValue();
-                       // ref.getInstance().getReference("memos").child(key).removeValue()
-                        finish();
+                            finish();
+                        }
+                    });
 
-                    }
-                });
+                    Button yesButton = findViewById(R.id.yes_button);
+                    yesButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //remove from firebase
+                            ref.child(key).removeValue();
+                            //remove from recyclerview.
+
+                            finish();
+
+                        }
+                    });
+
+                }
             }
 
             @Override
@@ -66,7 +73,6 @@ public class DeleteMealPopup extends AppCompatActivity {
 
             }
         });
-
     }
 }
 
