@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,7 +39,6 @@ public class UserDashboard extends AppCompatActivity {
     private UserData suggestedConsumption;
     private UserData currentConsumption;
     private double saved;
-    private BottomNavigationView bottomNavigationView;
     private TextView amountSaved;
     private TextView cityView;
     private TextView planView;
@@ -58,6 +56,9 @@ public class UserDashboard extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Green Food Challenge");
+
+        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
+        toolbar.setOverflowIcon(threeLineIcon);
 
 
         database.addValueEventListener(new ValueEventListener() {
@@ -196,37 +197,6 @@ public class UserDashboard extends AppCompatActivity {
             }
         });
 
-        bottomNavigationView =findViewById(R.id.navbar);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_feed:
-                        startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));
-                        return true;
-                    case R.id.view_all_pledge:
-                        startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
-                        return true;
-                    case R.id.calculate_consumption:
-                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
-                        return true;
-                    case R.id.about:
-                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
-                    case R.id.profile:
-                        if (user.isAnonymous()){
-                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
-                            return true;
-                        } else {
-                            startActivity(new Intent (bottomNavigationView.getContext(), UserProfile.class));
-                            return true;
-                        }
-                    default:
-                        return onNavigationItemSelected(item);
-                }
-            }
-        });
-
     }
 
     /**
@@ -241,28 +211,19 @@ public class UserDashboard extends AppCompatActivity {
 
         ArrayList<String> foodNames = suggestedConsumption.getFoodNames();
         ArrayList<Integer> userFoodData = suggestedConsumption.getUserFoodData();
-        int curUserData;
-        float percentage;
-        String curFoodName;
-        for(int i = 0; i < foodNames.size()-1; i++) {
 
-            curFoodName = foodNames.get(i);
-            curUserData = userFoodData.get(i);
+        for(int i = 0; i < foodNames.size(); i++) {
+            String curFoodName = foodNames.get(i);
+            int curUserData = userFoodData.get(i);
 
-            percentage = getPercentage(curUserData, total_amount_per_week);
+            float percentage = getPercentage(curUserData, total_amount_per_week);
 
             if(percentage > 0) {
                 entries.add(new PieEntry(percentage, curFoodName));
             }
         }
-        curFoodName = "Veggies";
-        curUserData = userFoodData.get(foodNames.size()-1);
 
-        percentage = getPercentage(curUserData, total_amount_per_week);
 
-        if(percentage > 0) {
-            entries.add(new PieEntry(percentage, curFoodName));
-        }
         return entries;
     }
 
@@ -315,4 +276,43 @@ public class UserDashboard extends AppCompatActivity {
         return ((float) count / total) * 100;
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.user_dashboard:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent(this, UserDashboard.class));
+                    return true;
+                }
+            case R.id.view_all_pledge:
+                startActivity(new Intent(this,PledgeSummary.class));
+                return true;
+            case R.id.calculate_consumption:
+                startActivity(new Intent(this,ConsumptionQuiz1.class));
+                return true;
+            case R.id.profile_login:
+                if (user.isAnonymous()){
+                    startActivity(new Intent(this,UserLogin.class));
+                    return true;
+                } else {
+                    startActivity(new Intent (this, UserProfile.class));
+                    return true;
+                }
+            case R.id.about_us:
+                startActivity(new Intent(this,AboutActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

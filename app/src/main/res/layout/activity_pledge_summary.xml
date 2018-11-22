@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.PledgeSummary">
@@ -123,8 +123,8 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_marginBottom="5dp">
+        android:layout_height="220dp"
+        android:layout_marginBottom="10dp">
 
     </com.github.mikephil.charting.charts.BarChart>
 
@@ -138,14 +138,5 @@
         android:textColor="@android:color/background_light"
         android:onClick="seePledgeSummary"
         android:text="View All" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include
-            android:id="@+id/navbar"
-            layout="@layout/navbar" />
-    </LinearLayout>
 
 </LinearLayout>
