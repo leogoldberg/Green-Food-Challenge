@@ -58,7 +58,7 @@ public class DeleteMealPopup extends AppCompatActivity {
                         public void onClick(View view) {
                             //remove from firebase
                             ref.child(key).removeValue();
-                            //remove from recyclerview.
+                            //remove from recyclerview. 
 
                             finish();
 

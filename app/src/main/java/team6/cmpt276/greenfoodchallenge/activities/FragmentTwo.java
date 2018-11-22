@@ -78,7 +78,7 @@ public class FragmentTwo extends Fragment {
     }
 
     private List<MealInformation> getData() {
-        ref.orderByChild("userID").equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.orderByChild("userID").equalTo(userID).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
                 adapter = new CardAdapter(getActivity(), data);
