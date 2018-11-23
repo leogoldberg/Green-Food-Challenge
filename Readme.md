@@ -1,5 +1,5 @@
-<img src="screenshot_1.jpg" alt="drawing" style="width:200px;"/>
-<img src="screenshot_2.jpg" alt="drawing" style="width:200px;"/>
+<img src="screenshot_1.jpg" alt="drawing" width="120"/>
+<img src="screenshot_2.jpg" alt="drawing" width="120"/>
 <img src="screenshot_3.jpg" alt="drawing" style="width:200px;"/>
 <img src="screenshot_4.jpg" alt="drawing" style="width:200px;"/>
 <img src="screenshot_5.jpg" alt="drawing" style="width:200px;"/>
