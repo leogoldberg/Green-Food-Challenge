@@ -96,14 +96,15 @@
         <item>Egg</item>
         <item>Bean</item>
     </string-array>
-    <string-array name="location_names">
+
+    <!-- <string-array name="location_names">
         <item>Vancouver</item>
         <item>Burnaby</item>
         <item>Richmond</item>
         <item>Coquitlam</item>
         <item>Surrey</item>
-        <item>New Westminster</item>
-    </string-array>
+        <item>New Westminister</item>
+    </string-array> -->
     <string-array name="protein_names">
         <item>All</item>
         <item>Chicken</item>
@@ -113,4 +114,8 @@
         <item>Bean</item>
         <item>Pork</item>
     </string-array>
+
+    <!--deleting meal-->
+    <string name="deleteTitle">Delete Meal</string>
+    <string name="areYouSure">This action will delete your meal.\n Are you sure you want to delete this meal?</string>
 </resources>

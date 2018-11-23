@@ -1,13 +1,13 @@
 package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,50 +25,61 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import team6.cmpt276.greenfoodchallenge.R;
+import team6.cmpt276.greenfoodchallenge.classes.ViewPagerAdapter;
 
-public class UserProfile extends AppCompatActivity {
+public class ProfileTab extends AppCompatActivity {
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth mAuth;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userID = user.getUid();
+
+    //set up profile data
     private DatabaseReference nameRef=database.child("user").child(userID).child("name");
     private DatabaseReference cityRef=database.child("user").child(userID).child("municipality");
-    private DatabaseReference dietRef=database.child("pledges").child(userID).child("dietOption");
     private DatabaseReference iconRef=database.child("user").child(userID).child("icon");
     private DatabaseReference emailRef=database.child("user").child(userID).child("email");
-    private DatabaseReference pledgeRef=database.child("pledges").child(userID).child("saveAmount");
     private TextView nameView;
     private TextView cityView;
-    private TextView dietView;
     private ImageView profileView;
     private TextView emailView;
-    private TextView pledgeView;
     private Button edit;
+    private BottomNavigationView bottomNavigationView;
+    private Button addButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
-
-        nameView = (TextView) findViewById(R.id.userName);
-        cityView = (TextView) findViewById(R.id.municipality);
-        dietView= (TextView) findViewById(R.id.diet);
-        emailView= (TextView) findViewById(R.id.email);
-        pledgeView = (TextView) findViewById(R.id.pledge);
-        profileView = (ImageView) findViewById(R.id.profilePic);
-        edit = (Button) findViewById(R.id.editProfile);
-
+        setContentView(R.layout.activity_profile_tab);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle("Green Food Challenge");
 
-        Drawable threeLineIcon = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_dehaze_black_24dp);
-        toolbar.setOverflowIcon(threeLineIcon);
+        nameView = (TextView) findViewById(R.id.userName);
+        cityView = (TextView) findViewById(R.id.municipality);
+        emailView= (TextView) findViewById(R.id.email);
+        profileView = (ImageView) findViewById(R.id.profilePic);
+        edit = (Button) findViewById(R.id.editProfile);
+        addButton = (Button) findViewById(R.id.add_button);
+
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        //add tabs to userPledge and userMealFeed
+        adapter.addFragment(new UserPledge(), "Pledge");
+        adapter.addFragment(new UserMeal(), "Meal");
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
 
 
-        nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        nameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userName = dataSnapshot.getValue(String.class);
@@ -80,7 +91,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-        cityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        cityRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String city = dataSnapshot.getValue(String.class);
@@ -92,19 +103,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-        dietRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String diet = dataSnapshot.getValue(String.class);
-                dietView.setText(diet);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        emailRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        emailRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String email = dataSnapshot.getValue(String.class);
@@ -116,20 +115,8 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-        pledgeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String pledge = dataSnapshot.getValue(Double.class).toString();
-                pledgeView.setText(pledge);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
         //setting profile picture
-        iconRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        iconRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String icon = dataSnapshot.getValue(String.class);
@@ -145,8 +132,18 @@ public class UserProfile extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserProfile.this, EditProfile.class);
+                Intent intent = new Intent(ProfileTab.this, EditProfile.class);
                 startActivity(intent);
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ProfileTab.this, AddMeal.class);
+                startActivity(intent);
+
             }
         });
 
@@ -164,12 +161,56 @@ public class UserProfile extends AppCompatActivity {
                 public void onClick(View v) {
                     FirebaseAuth.getInstance().signOut();
                     LoginManager.getInstance().logOut();
-                    Intent intent = new Intent(UserProfile.this, HomeScreen.class);
+                    Intent intent = new Intent(ProfileTab.this, HomeScreen.class);
                     startActivity(intent);
                 }
             });
 
         }
+
+        bottomNavigationView =findViewById(R.id.navbar);
+        bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    //add case feed after feed activity pushed
+                    case R.id.action_feed:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));;
+                            return true;
+                        }
+                    case R.id.view_all_pledge:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
+                            return true;
+                        }
+                    case R.id.calculate_consumption:
+                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
+                        return true;
+                    case R.id.about:
+                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
+                        return true;
+                    case R.id.profile:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent (bottomNavigationView.getContext(), ProfileTab.class));
+                            return true;
+                        }
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     private void setImage(ImageView profile, String textToShow) {
@@ -195,34 +236,5 @@ public class UserProfile extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.navigation, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.user_dashboard:
-                if (user.isAnonymous()){
-                    startActivity(new Intent(this,UserLogin.class));
-                    return true;
-                } else {
-                    startActivity(new Intent(this, UserDashboard.class));
-                    return true;
-                }
-            case R.id.view_all_pledge:
-                startActivity(new Intent(this,PledgeSummary.class));
-                return true;
-            case R.id.calculate_consumption:
-                startActivity(new Intent(this,ConsumptionQuiz1.class));
-                return true;
-            case R.id.about_us:
-                startActivity(new Intent(this,AboutActivity.class));
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

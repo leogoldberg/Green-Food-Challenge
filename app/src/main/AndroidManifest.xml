@@ -3,7 +3,6 @@
     package="team6.cmpt276.greenfoodchallenge">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -83,10 +82,12 @@
         <activity android:name=".UserProfile" />
         <activity android:name=".activities.UserProfile" />
         <activity android:name=".activities.EditProfile" />
-        <activity android:name=".activities.UserDashboard" />
         <activity android:name=".activities.SharingActivity" />
+        <activity android:name=".activities.ProfileTab" />
         <activity android:name=".activities.AddMeal" />
-        <activity android:name=".activities.MealFeed"></activity>
+        <activity android:name=".activities.MealFeed" />
+
+
     </application>
 
 </manifest>

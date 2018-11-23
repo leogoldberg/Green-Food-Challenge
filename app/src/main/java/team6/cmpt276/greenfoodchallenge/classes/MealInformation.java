@@ -11,5 +11,6 @@ public class MealInformation {
     public String userID;
     public String city;
 
+
 }
 

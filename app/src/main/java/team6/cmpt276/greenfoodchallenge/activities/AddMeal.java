@@ -2,21 +2,17 @@ package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -40,9 +36,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import android.location.Geocoder;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -169,21 +162,21 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
                     Toast.makeText(AddMeal.this, "Uploaded", Toast.LENGTH_SHORT).show();
                 }
             })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(AddMeal.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            })
-            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                            .getTotalByteCount());
-                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                }
-            });
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(AddMeal.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
         }
     }
 
@@ -228,8 +221,8 @@ public class AddMeal extends AppCompatActivity implements PlaceSelectionListener
         database.child("meals").child(key).setValue(meal);
 
         //Start a new intent
-        /*Intent intent = new Intent(AddMeal.this, UserProfile.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(AddMeal.this, ProfileTab.class);
+        startActivity(intent);
     }
 
     public void clickAddImage(View view) {

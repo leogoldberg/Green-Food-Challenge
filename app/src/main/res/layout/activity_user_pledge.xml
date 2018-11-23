@@ -7,32 +7,29 @@
     android:orientation="vertical"
     tools:context=".activities.UserDashboard">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/currChart"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="35dp"
-            android:layout_alignParentLeft="true">
-        </com.github.mikephil.charting.charts.PieChart>
+            android:layout_marginTop="0dp"></com.github.mikephil.charting.charts.PieChart>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/suggChart"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginRight="35dp"
-            android:layout_alignParentRight="true">
-        </com.github.mikephil.charting.charts.PieChart>
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp"></com.github.mikephil.charting.charts.PieChart>
     </RelativeLayout>
 
     <RelativeLayout
@@ -43,22 +40,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="70dp"
             android:text="Current Diet"
-            android:textSize="16dp"
+            android:textSize="12dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="60dp"
+            android:layout_marginRight="75dp"
             android:text="Suggested Diet"
-            android:textSize="16dp"
+            android:textSize="12dp"
             />
 
     </RelativeLayout>
@@ -72,36 +69,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
             android:gravity="center"
             android:text="Your Pledge"
-            android:textSize="24dp"
-            android:textStyle="bold"
             android:textColor="@color/headerText"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="Save Amount"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/saveText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
-            android:gravity="center"
-            android:background="@drawable/border"
-            android:text="co2e"
-            android:padding="10dp"
-            android:textColor="@color/headerText"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            />
+            android:textSize="23dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -128,7 +103,7 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
-            android:text="Municipality"
+            android:text="Save Amount"
             android:textSize="16dp"
 
             />
@@ -152,7 +127,7 @@
             android:textColor="@color/headerText"
             android:padding="10dp"
             android:text="None"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textStyle="bold"
             android:layout_toLeftOf="@+id/centerPoint2"/>
 
@@ -164,52 +139,55 @@
             android:layout_centerHorizontal="true" />
 
         <TextView
-            android:id="@+id/cityText"
+            android:id="@+id/saveText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="20dp"
+            android:layout_toRightOf="@+id/centerPoint2"
+            android:background="@drawable/border"
             android:gravity="center"
             android:padding="10dp"
-            android:text="None"
-            android:textSize="18dp"
-            android:textStyle="bold"
+            android:text="CO2e"
             android:textColor="@color/headerText"
-            android:layout_toRightOf="@+id/centerPoint2"/>
+            android:textSize="15dp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/shareButton"
-            android:text="Share"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="13dp"
+            android:layout_toLeftOf="@id/deletePledge"
             android:backgroundTint="@color/headerText"
-            android:textColor="@android:color/white"
-            android:layout_toLeftOf="@id/deletePledge" />
+            android:padding="10dp"
+            android:text="Share"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/deletePledge"
-            android:text="Delete"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_centerInParent="true"
             android:backgroundTint="@color/headerText"
-            android:textColor="@android:color/white"
-            />
+            android:padding="10dp"
+            android:text="Delete"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/changeButton"
