@@ -39,10 +39,10 @@ public class MealFeed extends AppCompatActivity {
     private RecyclerView recyclerView;
     List<MealInformation> data;
     List<MealInformation> dataBackup;
-    String filterCity;
-    String filterProtein;
+    String filterCity ="All Cities";
+    String filterProtein = "All Proteins";
 
-    ArrayList<String> mealLocations;
+    ArrayList<String> mealLocations = new ArrayList<>();
 
     private FeedAdapter mAdapter;
 
@@ -56,6 +56,7 @@ public class MealFeed extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mealLocations.add("All Cities");
         setContentView(R.layout.activity_meal_feed);
         finishedLoading = false;
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -75,7 +76,7 @@ public class MealFeed extends AppCompatActivity {
                     if (dataBackup != null) { //leo:added this because was getting null error
                         for (int i = 0; i < dataBackup.size(); i++) {
                             MealInformation item = dataBackup.get(i);
-                            if ((item.protein.equals(filterProtein) || filterProtein.equals("All")) && item.city.equals(filterCity)) {
+                            if ((item.protein.equals(filterProtein) || filterProtein.equals("All Proteins")) &&( item.city.equals(filterCity)||filterCity.equals("All Cities"))) {
                                 //System.out.println("adding an item with " + item.protein);
                                 data.add(item);
                             }
@@ -145,16 +146,18 @@ public class MealFeed extends AppCompatActivity {
     }
 
     public List<MealInformation> getData(){
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("We're done loading the initial "+dataSnapshot.getChildrenCount()+" items");
                 mAdapter = new FeedAdapter(MealFeed.this, data);
                 recyclerView.setAdapter(mAdapter);
                 finishedLoading=true;
 
+
                 ArrayAdapter<String> adapter = null;
-                locationSpinner.setAdapter(new ArrayAdapter<String>(MealFeed.this,
-                        android.R.layout.simple_spinner_item, mealLocations));
+                adapter = new ArrayAdapter<String>(MealFeed.this,
+                        android.R.layout.simple_spinner_item, mealLocations);
+                locationSpinner.setAdapter(adapter);
 
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -164,11 +167,13 @@ public class MealFeed extends AppCompatActivity {
                         // An item was selected. You can retrieve the selected item using
                         if(finishedLoading==true) {
                             data.clear();
+
                             filterCity = (String) parent.getItemAtPosition(pos);
                             if (dataBackup != null) {
                                 for (int i = 0; i < dataBackup.size(); i++) {
                                     MealInformation item = dataBackup.get(i);
-                                    if (item.city.equals(filterCity) && (item.protein.equals(filterProtein) || filterProtein.equals("All"))) {
+                                    if(item==null) continue;
+                                    if (( item.city.equals(filterCity)||filterCity.equals("All Cities")) && (item.protein.equals(filterProtein) || filterProtein.equals("All Proteins"))) {
                                         //System.out.println("adding an item from " + item.city);
                                         data.add(item);
                                     }/*else {
@@ -201,8 +206,13 @@ public class MealFeed extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 MealInformation obj = dataSnapshot.getValue(MealInformation.class);
                 data.add(obj);
+                System.out.println("adding obj: " + obj);
                 dataBackup = new ArrayList<>(data);
-                mealLocations.add(obj.city);
+                if(obj!=null){
+                    if(mealLocations.contains(obj.city)==false) {
+                        mealLocations.add(obj.city);
+                    }
+                }
                 //System.out.println(obj.mealName);
                 //System.out.println("DATA size:" + data.size());
             }
