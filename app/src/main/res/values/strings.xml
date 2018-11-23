@@ -106,7 +106,7 @@
         <item>New Westminister</item>
     </string-array> -->
     <string-array name="protein_names">
-        <item>All</item>
+        <item>All Proteins</item>
         <item>Chicken</item>
         <item>Beef</item>
         <item>Fish</item>
