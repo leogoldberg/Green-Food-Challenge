@@ -55,7 +55,7 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
 
         final SeekBar proteinBar = findViewById(R.id.proteinSeekerBar);
         proteinBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int seekBarValue = 250;
+            int seekBarValue = 110;
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 seekBarValue = progress;
                 proteinGramsCounter.setText(seekBarValue + "g");
@@ -66,7 +66,7 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
 
         vegBar =  findViewById(R.id.vegSeekerBar);
         vegBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int seekBarValue = 250;
+            int seekBarValue = 110;
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 seekBarValue = progress;
                 vegGramsCounter.setText(seekBarValue + "g");
