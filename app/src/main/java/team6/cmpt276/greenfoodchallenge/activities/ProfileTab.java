@@ -79,7 +79,7 @@ public class ProfileTab extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
 
 
-        nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        nameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userName = dataSnapshot.getValue(String.class);
@@ -91,7 +91,7 @@ public class ProfileTab extends AppCompatActivity {
             }
         });
 
-        cityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        cityRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String city = dataSnapshot.getValue(String.class);
@@ -103,7 +103,7 @@ public class ProfileTab extends AppCompatActivity {
             }
         });
 
-        emailRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        emailRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String email = dataSnapshot.getValue(String.class);
@@ -116,7 +116,7 @@ public class ProfileTab extends AppCompatActivity {
         });
 
         //setting profile picture
-        iconRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        iconRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String icon = dataSnapshot.getValue(String.class);
