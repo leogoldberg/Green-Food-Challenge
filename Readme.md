@@ -9,3 +9,9 @@
 ![](screenshot_9.jpg)
 ![](screenshot_10.jpg)
 ![](screenshot_11.jpg)
+
+<style>
+    .img {
+        width:200px;
+    }
+</style>
