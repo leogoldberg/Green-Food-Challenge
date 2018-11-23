@@ -17,19 +17,19 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/currChart"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="55dp"
+            android:layout_marginLeft="35dp"
             android:layout_marginTop="0dp"></com.github.mikephil.charting.charts.PieChart>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/suggChart"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="55dp"></com.github.mikephil.charting.charts.PieChart>
+            android:layout_marginRight="35dp"></com.github.mikephil.charting.charts.PieChart>
     </RelativeLayout>
 
     <RelativeLayout
@@ -43,7 +43,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="70dp"
             android:text="Current Diet"
             android:textSize="12dp"
             />
@@ -69,35 +69,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
             android:gravity="center"
             android:text="Your Pledge"
             android:textColor="@color/headerText"
             android:textSize="23dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Save Amount"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/saveText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="co2e"
-            android:textColor="@color/headerText"
-            android:textSize="20dp"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <RelativeLayout
@@ -124,7 +103,7 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
-            android:text="Municipality"
+            android:text="Save Amount"
             android:textSize="16dp"
 
             />
@@ -160,19 +139,19 @@
             android:layout_centerHorizontal="true" />
 
         <TextView
-            android:id="@+id/cityText"
+            android:id="@+id/saveText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="20dp"
+            android:layout_toRightOf="@+id/centerPoint2"
+            android:background="@drawable/border"
             android:gravity="center"
             android:padding="10dp"
-            android:text="None"
-            android:textSize="15dp"
-            android:textStyle="bold"
+            android:text="CO2e"
             android:textColor="@color/headerText"
-            android:layout_toRightOf="@+id/centerPoint2"/>
+            android:textSize="15dp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 

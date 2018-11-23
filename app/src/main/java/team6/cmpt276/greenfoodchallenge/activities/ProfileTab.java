@@ -47,6 +47,8 @@ public class ProfileTab extends AppCompatActivity {
     private TextView emailView;
     private Button edit;
     private BottomNavigationView bottomNavigationView;
+    private Button addButton;
+
 
 
     @Override
@@ -63,6 +65,7 @@ public class ProfileTab extends AppCompatActivity {
         emailView= (TextView) findViewById(R.id.email);
         profileView = (ImageView) findViewById(R.id.profilePic);
         edit = (Button) findViewById(R.id.editProfile);
+        addButton = (Button) findViewById(R.id.add_button);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -131,6 +134,16 @@ public class ProfileTab extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileTab.this, EditProfile.class);
                 startActivity(intent);
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ProfileTab.this, AddMeal.class);
+                startActivity(intent);
+
             }
         });
 

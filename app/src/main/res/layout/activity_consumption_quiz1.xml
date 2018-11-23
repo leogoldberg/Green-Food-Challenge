@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="15dp"
-        android:text="Average 110g)"
+        android:text="Average (110g)"
         android:textColor="@android:color/black"/>
     <LinearLayout
         android:layout_width="match_parent"
