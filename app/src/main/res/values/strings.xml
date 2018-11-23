@@ -97,14 +97,14 @@
         <item>Bean</item>
     </string-array>
 
-    <string-array name="location_names">
+    <!-- <string-array name="location_names">
         <item>Vancouver</item>
         <item>Burnaby</item>
         <item>Richmond</item>
         <item>Coquitlam</item>
         <item>Surrey</item>
         <item>New Westminister</item>
-    </string-array>
+    </string-array> -->
     <string-array name="protein_names">
         <item>All</item>
         <item>Chicken</item>
