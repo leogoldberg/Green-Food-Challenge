@@ -163,7 +163,7 @@ public class MeatEater extends AppCompatActivity {
                             startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
                             return true;
                         } else {
-                            startActivity(new Intent (bottomNavigationView.getContext(), UserProfile.class));
+                            startActivity(new Intent (bottomNavigationView.getContext(), ProfileTab.class));
                             return true;
                         }
                     default:

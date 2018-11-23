@@ -2,10 +2,13 @@ package team6.cmpt276.greenfoodchallenge.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,6 +46,7 @@ public class ProfileTab extends AppCompatActivity {
     private ImageView profileView;
     private TextView emailView;
     private Button edit;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -150,6 +154,49 @@ public class ProfileTab extends AppCompatActivity {
             });
 
         }
+
+        bottomNavigationView =findViewById(R.id.navbar);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    //add case feed after feed activity pushed
+                    case R.id.action_feed:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(), MealFeed.class));;
+                            return true;
+                        }
+                    case R.id.view_all_pledge:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent(bottomNavigationView.getContext(),PledgeSummary.class));
+                            return true;
+                        }
+                    case R.id.calculate_consumption:
+                        startActivity(new Intent(bottomNavigationView.getContext(),ConsumptionQuiz1.class));
+                        return true;
+                    case R.id.about:
+                        startActivity(new Intent(bottomNavigationView.getContext(),AboutActivity.class));
+                        return true;
+                    case R.id.profile:
+                        if (user.isAnonymous()){
+                            startActivity(new Intent(bottomNavigationView.getContext(),UserLogin.class));
+                            return true;
+                        } else {
+                            startActivity(new Intent (bottomNavigationView.getContext(), ProfileTab.class));
+                            return true;
+                        }
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     private void setImage(ImageView profile, String textToShow) {
