@@ -96,7 +96,7 @@
                 android:progressTint="@color/headerText"
                 android:thumbTint="@color/headerText"
                 android:max="220"
-                android:paddingTop="10dp"
+                android:paddingTop="11dp"
                 android:progress="110"  />
 
             <TextView
