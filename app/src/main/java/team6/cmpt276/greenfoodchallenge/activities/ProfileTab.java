@@ -169,6 +169,7 @@ public class ProfileTab extends AppCompatActivity {
         }
 
         bottomNavigationView =findViewById(R.id.navbar);
+        bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

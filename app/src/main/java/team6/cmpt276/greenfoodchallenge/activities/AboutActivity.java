@@ -45,6 +45,7 @@ public class AboutActivity extends AppCompatActivity {
         });
 
         bottomNavigationView =findViewById(R.id.navbar);
+        bottomNavigationView.getMenu().findItem(R.id.about).setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

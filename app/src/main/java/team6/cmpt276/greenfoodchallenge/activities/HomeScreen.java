@@ -95,6 +95,7 @@ public class HomeScreen extends AppCompatActivity {
         }
 
         bottomNavigationView =findViewById(R.id.navbar);
+        bottomNavigationView.getMenu().findItem(R.id.action_feed).setChecked(false);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

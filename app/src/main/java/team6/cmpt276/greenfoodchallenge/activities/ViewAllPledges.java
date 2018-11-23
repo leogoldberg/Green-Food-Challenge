@@ -136,6 +136,7 @@ public class ViewAllPledges extends AppCompatActivity {
         });
 
         bottomNavigationView =findViewById(R.id.navbar);
+        bottomNavigationView.getMenu().findItem(R.id.view_all_pledge).setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
