@@ -91,6 +91,7 @@ public class ConsumptionQuiz1 extends AppCompatActivity {
         });
 
         bottomNavigationView =findViewById(R.id.navbar);
+        bottomNavigationView.getMenu().findItem(R.id.calculate_consumption).setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
