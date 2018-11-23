@@ -2,7 +2,7 @@
 <img src="screenshot_1.jpg" alt="drawing" width="200"/>
 <hr />
 <h3>Quiz</h3>
-<img src="screenshot_2.jpg" alt="drawing" width="200"/>
+<img src="screenshot_2.jpg" alt="drawing" width="200" style='margin-right:20px;'/>
 <img src="screenshot_3.jpg" alt="drawing" width="200"/>
 <img src="screenshot_4.jpg" alt="drawing" width="200"/>
 <img src="screenshot_5.jpg" alt="drawing" width="200"/>
