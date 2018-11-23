@@ -201,8 +201,11 @@ public class MealFeed extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 MealInformation obj = dataSnapshot.getValue(MealInformation.class);
                 data.add(obj);
+                System.out.println("adding obj: " + obj);
                 dataBackup = new ArrayList<>(data);
-                mealLocations.add(obj.city);
+                if(obj!=null){
+                    mealLocations.add(obj.city);
+                }
                 //System.out.println(obj.mealName);
                 //System.out.println("DATA size:" + data.size());
             }
