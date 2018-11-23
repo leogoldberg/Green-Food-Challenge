@@ -60,6 +60,7 @@ public class UserMeal extends Fragment {
         data = getData();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
         return view;
 
     }

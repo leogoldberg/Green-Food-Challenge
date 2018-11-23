@@ -47,6 +47,8 @@ public class ProfileTab extends AppCompatActivity {
     private TextView emailView;
     private Button edit;
     private BottomNavigationView bottomNavigationView;
+    private Button addButton;
+
 
 
     @Override
@@ -63,6 +65,7 @@ public class ProfileTab extends AppCompatActivity {
         emailView= (TextView) findViewById(R.id.email);
         profileView = (ImageView) findViewById(R.id.profilePic);
         edit = (Button) findViewById(R.id.editProfile);
+        addButton = (Button) findViewById(R.id.add_button);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -76,7 +79,7 @@ public class ProfileTab extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
 
 
-        nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        nameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userName = dataSnapshot.getValue(String.class);
@@ -88,7 +91,7 @@ public class ProfileTab extends AppCompatActivity {
             }
         });
 
-        cityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        cityRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String city = dataSnapshot.getValue(String.class);
@@ -100,7 +103,7 @@ public class ProfileTab extends AppCompatActivity {
             }
         });
 
-        emailRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        emailRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String email = dataSnapshot.getValue(String.class);
@@ -113,7 +116,7 @@ public class ProfileTab extends AppCompatActivity {
         });
 
         //setting profile picture
-        iconRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        iconRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String icon = dataSnapshot.getValue(String.class);
@@ -131,6 +134,16 @@ public class ProfileTab extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileTab.this, EditProfile.class);
                 startActivity(intent);
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ProfileTab.this, AddMeal.class);
+                startActivity(intent);
+
             }
         });
 
